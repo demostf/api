@@ -1,5 +1,6 @@
 <?php namespace Providers;
 
+use Doctrine\DBAL\Connection;
 use RandomLib\Generator;
 
 class UserProvider extends BaseProvider {
@@ -8,7 +9,7 @@ class UserProvider extends BaseProvider {
 	 */
 	private $generator;
 
-	public function __construct(\PDO $db, Generator $generator) {
+	public function __construct(Connection $db, Generator $generator) {
 		parent::__construct($db);
 		$this->generator = $generator;
 	}
@@ -29,17 +30,14 @@ class UserProvider extends BaseProvider {
 	}
 
 	public function get($steamid) {
-		$user = $this->db->user()->where('steamid', $steamid)->fetch();
-		if (count($user) < 1) {
-			return null;
-		}
-		return [
-			'id' => $user['id'],
-			'steamid' => $user['steamid'],
-			'name' => $user['name'],
-			'avatar' => $user['avatar']
-		];
+		$query = $this->getQueryBuilder();
+		$query->select(['id', 'steamid', 'name', 'avatar'])
+			->from('user')
+			->where($query->expr()->eq('steamid', $query->createNamedParameter($steamid)));
+
+		return $query->execute()->fetch();
 	}
+
 	public function search($query) {
 		$sql = 'SELECT user_id, players.name, count(demo_id) AS count, steamid,
 		 1-(players.name <-> ?) AS sim FROM players
@@ -77,5 +75,14 @@ class UserProvider extends BaseProvider {
 		$players = array_values($result);
 
 		return $players;
+	}
+
+	public function byKey($key) {
+		$query = $this->getQueryBuilder();
+		$query->select(['id', 'steamid', 'name', 'avatar'])
+			->from('user')
+			->where($query->expr()->eq('token', $query->createNamedParameter($key)));
+
+		return $query->execute()->fetch();
 	}
 }

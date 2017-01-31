@@ -1,6 +1,23 @@
 <?php namespace Providers;
 
+use Demo\Header;
+use Demo\IDemoStore;
+use Demo\StoredDemo;
+use Doctrine\DBAL\Connection;
+
 class DemoProvider extends BaseProvider {
+	const VERSION = 4;
+
+	/**
+	 * @var IDemoStore
+	 */
+	private $demoStore;
+
+	public function __construct(Connection $connection, IDemoStore $demoStore) {
+		parent::__construct($connection);
+		$this->demoStore = $demoStore;
+	}
+
 	public function get($id) {
 		$demo = $this->db->demo()->where('id', $id);
 
@@ -67,23 +84,23 @@ class DemoProvider extends BaseProvider {
 		}
 
 		$offset = ($page - 1) * 50;
-		$params = [];
-		$sql = 'SELECT demos.* FROM demos LEFT OUTER JOIN upload_blacklist ON demos.uploader = uploader_id
-		WHERE upload_blacklist.id IS null';
+
+		$query = $this->getQueryBuilder();
+		$query->select('demos.*')
+			->from('demos', 'd')
+			->leftJoin('d', 'upload_blacklist', 'b', $query->expr()->eq('uploader_id', 'uploader'))
+			->where($query->expr()->isNull('b.id'));
 		if (isset($where['map'])) {
-			$sql .= ' AND demos.map = ?';
-			$params[] = $where['map'];
+			$query->where($query->expr()->eq('map', $query->createNamedParameter($where['map'])));
 		}
 		if (isset($where['playerCount'])) {
-			$placeholder = implode(', ', array_fill(0, count($where['playerCount']), '?'));
-			$sql .= ' AND "playerCount" IN (' . $placeholder . ')';
-			foreach ($where['playerCount'] as $playerCount) {
-				$params[] = $playerCount;
-			}
+			$query->where($query->expr()->in('playerCount', $query->createNamedParameter($where['playerCount'], Connection::PARAM_INT_ARRAY)));
 		}
-		$sql .= ' ORDER BY demos.id DESC LIMIT 50 OFFSET ' . $offset;
-		$result = $this->query($sql, $params);
-		$demos = $result->fetchAll();
+		$query->orderBy('demos.tf', 'DESC')
+			->setMaxResults(50)
+			->setFirstResult($offset);
+
+		$demos = $query->execute()->fetchAll();
 		return $this->formatList($demos);
 	}
 
@@ -162,4 +179,43 @@ class DemoProvider extends BaseProvider {
 			'uploaders' => $result->fetchColumn()
 		];
 	}
+
+	public function demoIdByHash($hash) {
+		$query = $this->getQueryBuilder();
+		$query->select('hash')
+			->from('demos')
+			->where($query->expr()->eq('hash', $query->createNamedParameter($hash)));
+
+		return $query->execute()->fetchColumn();
+	}
+
+	public function storeDemo($handle, $name) {
+		$this->demoStore->store($handle, $name);
+	}
+
+	public function save($name, Header $header, StoredDemo $storedDemo, $red, $blu, $uploaderId, $hash) {
+		$query = $this->getQueryBuilder();
+		$query->insert('demos')
+			->values([
+				'name' => $name,
+				'url' => $storedDemo->getUrl(),
+				'map' => $header->getMap(),
+				'red' => $red,
+				'blu' => $blu,
+				'uploader' => $uploaderId,
+				'duration' => floor($header->getDuration()),
+				'backend' => $storedDemo->getBackend(),
+				'path' => $storedDemo->getPath(),
+				'server' => $header->getServer(),
+				'nick' => $header->getNick(),
+				'hash' => $hash,
+				'version' => 0
+
+			]);
+
+		$query->execute();
+		return $this->connection->lastInsertId('demos');
+	}
+
+//	public function analyse()
 }

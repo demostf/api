@@ -1,6 +1,5 @@
 <?php namespace Controllers;
 
-use flight\net\Route;
 use Providers\DemoProvider;
 use Providers\MatchProvider;
 

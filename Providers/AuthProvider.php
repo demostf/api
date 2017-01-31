@@ -1,5 +1,6 @@
 <?php namespace Providers;
 
+use Doctrine\DBAL\Connection;
 use RandomLib\Generator;
 
 class AuthProvider extends BaseProvider {
@@ -8,7 +9,7 @@ class AuthProvider extends BaseProvider {
 	 */
 	private $generator;
 
-	public function __construct(\PDO $db, Generator $generator) {
+	public function __construct(Connection $db, Generator $generator) {
 		parent::__construct($db);
 		$this->generator = $generator;
 	}
