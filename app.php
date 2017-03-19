@@ -1,18 +1,14 @@
 <?php
 
-$autoloader = require 'vendor/autoload.php';
+$autoloader = require __DIR__ . '/vendor/autoload.php';
 $autoloader->setPsr4('Providers\\', __DIR__ . '/Providers');
 $autoloader->setPsr4('Demo\\', __DIR__ . '/Demo');
 $autoloader->setPsr4('Controllers\\', __DIR__ . '/Controllers');
-
-use WindowsAzure\Common\ServicesBuilder;
 
 if (!getenv('DB_TYPE')) {
 	Dotenv::load(__DIR__);
 }
 
-$azureConnectionString = 'DefaultEndpointsProtocol=https;AccountName=' . getenv('AZURE_ACCOUNT') . ';AccountKey=' . getenv('AZURE_KEY');
-$blobRestProxy = ServicesBuilder::getInstance()->createBlobService($azureConnectionString);
 $connectionParams = array(
 	'dbname' => getenv('DB_DATABASE'),
 	'user' => getenv('DB_USERNAME'),
@@ -25,7 +21,7 @@ if ($connectionParams['driver'] === 'pgsql') {
 }
 $db = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
 
-$demoProvider = new \Providers\DemoProvider($db, new \Demo\AzureStore($blobRestProxy));
+$demoProvider = new \Providers\DemoProvider($db);
 
 $factory = new \RandomLib\Factory;
 $generator = $factory->getMediumStrengthGenerator();
@@ -34,7 +30,6 @@ $userProvider = new \Providers\UserProvider($db, $generator);
 $demoController = new \Controllers\DemoController($demoProvider);
 $authController = new \Controllers\AuthController($userProvider, $authProvider);
 $userController = new \Controllers\UserController($userProvider);
-$uploadController = new \Controllers\UploadController($demoProvider, $userProvider, new \Demo\Parser());
 
 Flight::route('/*', function () {
 	header('Access-Control-Allow-Origin: *');

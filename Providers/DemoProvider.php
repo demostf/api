@@ -8,14 +8,9 @@ use Doctrine\DBAL\Connection;
 class DemoProvider extends BaseProvider {
 	const VERSION = 4;
 
-	/**
-	 * @var IDemoStore
-	 */
-	private $demoStore;
 
-	public function __construct(Connection $connection, IDemoStore $demoStore) {
+	public function __construct(Connection $connection) {
 		parent::__construct($connection);
-		$this->demoStore = $demoStore;
 	}
 
 	public function get($id) {
@@ -86,7 +81,7 @@ class DemoProvider extends BaseProvider {
 		$offset = ($page - 1) * 50;
 
 		$query = $this->getQueryBuilder();
-		$query->select('demos.*')
+		$query->select('d.*')
 			->from('demos', 'd')
 			->leftJoin('d', 'upload_blacklist', 'b', $query->expr()->eq('uploader_id', 'uploader'))
 			->where($query->expr()->isNull('b.id'));
@@ -96,7 +91,7 @@ class DemoProvider extends BaseProvider {
 		if (isset($where['playerCount'])) {
 			$query->where($query->expr()->in('playerCount', $query->createNamedParameter($where['playerCount'], Connection::PARAM_INT_ARRAY)));
 		}
-		$query->orderBy('demos.tf', 'DESC')
+		$query->orderBy('d.id', 'DESC')
 			->setMaxResults(50)
 			->setFirstResult($offset);
 
@@ -188,34 +183,4 @@ class DemoProvider extends BaseProvider {
 
 		return $query->execute()->fetchColumn();
 	}
-
-	public function storeDemo($handle, $name) {
-		$this->demoStore->store($handle, $name);
-	}
-
-	public function save($name, Header $header, StoredDemo $storedDemo, $red, $blu, $uploaderId, $hash) {
-		$query = $this->getQueryBuilder();
-		$query->insert('demos')
-			->values([
-				'name' => $name,
-				'url' => $storedDemo->getUrl(),
-				'map' => $header->getMap(),
-				'red' => $red,
-				'blu' => $blu,
-				'uploader' => $uploaderId,
-				'duration' => floor($header->getDuration()),
-				'backend' => $storedDemo->getBackend(),
-				'path' => $storedDemo->getPath(),
-				'server' => $header->getServer(),
-				'nick' => $header->getNick(),
-				'hash' => $hash,
-				'version' => 0
-
-			]);
-
-		$query->execute();
-		return $this->connection->lastInsertId('demos');
-	}
-
-//	public function analyse()
 }
