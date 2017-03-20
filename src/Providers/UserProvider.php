@@ -1,4 +1,4 @@
-<?php namespace Providers;
+<?php namespace Demostf\API\Providers;
 
 use Doctrine\DBAL\Connection;
 use RandomLib\Generator;
@@ -31,8 +31,8 @@ class UserProvider extends BaseProvider {
 
 	public function get($steamid) {
 		$query = $this->getQueryBuilder();
-		$query->select(['id', 'steamid', 'name', 'avatar'])
-			->from('user')
+		$query->select(['id', 'steamid', 'name', 'avatar', 'token'])
+			->from('users')
 			->where($query->expr()->eq('steamid', $query->createNamedParameter($steamid)));
 
 		return $query->execute()->fetch();
@@ -80,7 +80,7 @@ class UserProvider extends BaseProvider {
 	public function byKey($key) {
 		$query = $this->getQueryBuilder();
 		$query->select(['id', 'steamid', 'name', 'avatar'])
-			->from('user')
+			->from('users')
 			->where($query->expr()->eq('token', $query->createNamedParameter($key)));
 
 		return $query->execute()->fetch();

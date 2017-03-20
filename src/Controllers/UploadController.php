@@ -1,8 +1,9 @@
-<?php namespace Controllers;
+<?php namespace Demostf\API\Controllers;
 
-use Demo\Parser;
-use Providers\DemoProvider;
-use Providers\UserProvider;
+use Demostf\API\Demo\DemoStore;
+use Demostf\API\Demo\Parser;
+use Demostf\API\Providers\DemoProvider;
+use Demostf\API\Providers\UserProvider;
 
 class UploadController extends BaseController {
 
@@ -21,10 +22,14 @@ class UploadController extends BaseController {
 	 */
 	private $parser;
 
-	public function __construct(DemoProvider $demoProvider, UserProvider $userProvider, Parser $parser) {
+	/** @var DemoStore */
+	private $store;
+
+	public function __construct(DemoProvider $demoProvider, UserProvider $userProvider, Parser $parser, DemoStore $store) {
 		$this->demoProvider = $demoProvider;
 		$this->userProvider = $userProvider;
 		$this->parser = $parser;
+		$this->store = $store;
 	}
 
 	public function upload() {
@@ -52,8 +57,9 @@ class UploadController extends BaseController {
 		if ($size > 100 * 1024 * 1024) {
 			return 'Demos cant be more than 100MB in size';
 		}
+		$tmpPath = $demo['tmp_name'];
 		try {
-			$info = $this->parser->parseFile($demo['tmp_name']);
+			$info = $this->parser->parseHeader($tmpPath);
 		} catch (\Exception $e) {
 			return 'Not a valid demo';
 		}
@@ -66,8 +72,7 @@ class UploadController extends BaseController {
 			return 'Demos cant be longer than one hour';
 		}
 
-		$tmpPath = $demo->getPathname();
-		$hash = hash_file('md5', $demo['tmp_name']);
+		$hash = hash_file('md5', $tmpPath);
 
 		$existingDemo = $this->demoProvider->demoIdByHash($hash);
 		if ($existingDemo) {
@@ -79,7 +84,6 @@ class UploadController extends BaseController {
 			}
 		}
 
-		$handle = fopen($tmpPath, 'rb');
-		$storedDemo = $this->demoProvider->storeDemo($handle, $name);
+		$url = $this->store->store($tmpPath, $hash . '_' . $name);
 	}
 }

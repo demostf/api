@@ -1,8 +1,8 @@
-<?php namespace Providers;
+<?php namespace Demostf\API\Providers;
 
-use Demo\Header;
-use Demo\IDemoStore;
-use Demo\StoredDemo;
+use Demostf\API\Demo\Header;
+use Demostf\API\Demo\IDemoStore;
+use Demostf\API\Demo\StoredDemo;
 use Doctrine\DBAL\Connection;
 
 class DemoProvider extends BaseProvider {

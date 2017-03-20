@@ -2,7 +2,7 @@ FROM yavin/alpine-php-fpm:7.0
 
 RUN apk add --no-cache php7-pdo_pgsql
 
-COPY . /app/
+COPY src /app/
 
 RUN wget https://getcomposer.org/composer.phar \
     && php composer.phar -d=/app install --no-interaction \

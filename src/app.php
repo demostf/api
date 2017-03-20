@@ -1,35 +1,33 @@
-<?php
+<?php namespace Demostf\API;
 
-$autoloader = require __DIR__ . '/vendor/autoload.php';
-$autoloader->setPsr4('Providers\\', __DIR__ . '/Providers');
-$autoloader->setPsr4('Demo\\', __DIR__ . '/Demo');
-$autoloader->setPsr4('Controllers\\', __DIR__ . '/Controllers');
+use Flight;
 
-if (!getenv('DB_TYPE')) {
-	Dotenv::load(__DIR__);
-}
+require_once __DIR__ . '/init.php';
+
 
 $connectionParams = array(
 	'dbname' => getenv('DB_DATABASE'),
 	'user' => getenv('DB_USERNAME'),
 	'password' => getenv('DB_PASSWORD'),
 	'host' => getenv('DB_HOST'),
+	'port' => getenv('DB_PORT'),
 	'driver' => getenv('DB_TYPE'),
 );
 if ($connectionParams['driver'] === 'pgsql') {
 	$connectionParams['driver'] = 'pdo_pgsql';
 }
 $db = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
+$host = getenv('BASE_HOST');
 
-$demoProvider = new \Providers\DemoProvider($db);
+$demoProvider = new Providers\DemoProvider($db);
 
 $factory = new \RandomLib\Factory;
 $generator = $factory->getMediumStrengthGenerator();
-$authProvider = new \Providers\AuthProvider($db, $generator);
-$userProvider = new \Providers\UserProvider($db, $generator);
-$demoController = new \Controllers\DemoController($demoProvider);
-$authController = new \Controllers\AuthController($userProvider, $authProvider);
-$userController = new \Controllers\UserController($userProvider);
+$authProvider = new Providers\AuthProvider($db, $generator);
+$userProvider = new Providers\UserProvider($db, $generator);
+$demoController = new Controllers\DemoController($demoProvider);
+$authController = new Controllers\AuthController($userProvider, $authProvider, $host);
+$userController = new Controllers\UserController($userProvider);
 
 Flight::route('/*', function () {
 	header('Access-Control-Allow-Origin: *');

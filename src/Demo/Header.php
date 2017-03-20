@@ -1,4 +1,4 @@
-<?php namespace Demo;
+<?php namespace Demostf\API\Demo;
 
 /**
  * HL2 demo metadata

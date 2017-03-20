@@ -1,4 +1,4 @@
-<?php namespace Controllers;
+<?php namespace Demostf\API\Controllers;
 
 class BaseController {
 	protected function query($name, $default) {

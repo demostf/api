@@ -1,8 +1,8 @@
-<?php namespace Controllers;
+<?php namespace Demostf\API\Controllers;
 
 use Ehesp\SteamLogin\SteamLogin;
-use Providers\AuthProvider;
-use Providers\UserProvider;
+use Demostf\API\Providers\AuthProvider;
+use Demostf\API\Providers\UserProvider;
 
 class AuthController extends BaseController {
 	/**
@@ -15,15 +15,20 @@ class AuthController extends BaseController {
 	 */
 	private $authProvider;
 
+	/** @var string */
+	private $host;
+
 	/**
 	 * AuthController constructor.
 	 *
 	 * @param UserProvider $userProvider
 	 * @param AuthProvider $authProvider
+	 * @param string $host
 	 */
-	public function __construct(UserProvider $userProvider, AuthProvider $authProvider) {
+	public function __construct(UserProvider $userProvider, AuthProvider $authProvider, string $host) {
 		$this->userProvider = $userProvider;
 		$this->authProvider = $authProvider;
+		$this->host = $host;
 	}
 
 	public function token() {
@@ -41,7 +46,7 @@ class AuthController extends BaseController {
 	}
 
 	public function login($token) {
-		$_SESSION['return'] = $this->query('return', 'http://demos.tf');
+		$_SESSION['return'] = $this->query('return', 'https://' . $this->host);
 		$steam = new SteamLogin();
 		$url = $steam->url($_ENV['APP_ROOT'] . '/auth/handle/' . urlencode($token));
 		\Flight::redirect(str_replace('&amp;', '&', $url)); // headers make no sense

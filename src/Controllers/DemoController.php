@@ -1,7 +1,7 @@
-<?php namespace Controllers;
+<?php namespace Demostf\API\Controllers;
 
-use Providers\DemoProvider;
-use Providers\MatchProvider;
+use Demostf\API\Providers\DemoProvider;
+use Demostf\API\Providers\MatchProvider;
 
 class DemoController extends BaseController {
 

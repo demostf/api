@@ -1,8 +1,8 @@
-<?php namespace Controllers;
+<?php namespace Demostf\API\Controllers;
 
 use Ehesp\SteamLogin\SteamLogin;
-use Providers\AuthProvider;
-use Providers\UserProvider;
+use Demostf\API\Providers\AuthProvider;
+use Demostf\API\Providers\UserProvider;
 
 class UserController extends BaseController {
 	/**

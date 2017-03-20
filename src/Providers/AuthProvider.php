@@ -1,4 +1,4 @@
-<?php namespace Providers;
+<?php namespace Demostf\API\Providers;
 
 use Doctrine\DBAL\Connection;
 use RandomLib\Generator;

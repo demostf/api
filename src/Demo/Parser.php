@@ -1,4 +1,4 @@
-<?php namespace Demo;
+<?php namespace Demostf\API\Demo;
 
 use GuzzleHttp\Client;
 
@@ -40,7 +40,7 @@ class Parser {
 	 * @return Header
 	 * @throws \Exception
 	 */
-	public function parseFile($path) {
+	public function parseHeader($path) {
 		if (!is_readable($path)) {
 			throw new \Exception('Unable to open demo: ' . $path);
 		}
