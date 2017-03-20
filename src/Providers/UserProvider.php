@@ -15,18 +15,19 @@ class UserProvider extends BaseProvider {
 	}
 
 	public function store(\SteamId $steamId) {
-		$sql = 'INSERT INTO users(steamid, name, avatar, token)
-		SELECT ?, ?, ?, ? WHERE NOT EXISTS(SELECT id FROM users WHERE steamid = ?)';
-		$this->query($sql, [
-			$steamId->getSteamId64(),
-			$steamId->getNickname(),
-			$steamId->getMediumAvatarUrl(),
-			$this->generator->generateString(64),
-			$steamId->getSteamId64()
-		]);
+		$token = $this->generator->generateString(64, Generator::EASY_TO_READ);
 
-		$user = $this->db->user()->where('steamid', $steamId->getSteamId64());
-		return $user->fetch()->token;
+		$query = $this->getQueryBuilder();
+		$query->insert('users')
+			->values([
+				'steamid' => $query->createNamedParameter($steamId->getSteamId64()),
+				'name' => $query->createNamedParameter($steamId->getNickname()),
+				'avatar' => $query->createNamedParameter($steamId->getMediumAvatarUrl()),
+				'token' => $query->createNamedParameter($token)
+			])->add('orderBy', 'ON CONFLICT DO NOTHING') // hack to append arbitrary string to sql
+			->execute();
+
+		return $token;
 	}
 
 	public function get($steamid) {

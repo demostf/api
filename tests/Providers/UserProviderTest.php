@@ -36,11 +36,9 @@ class UserProviderTest extends TestCase {
 	}
 
 	public function testByKey() {
-		$this->provider->store($this->steamId);
+		$token = $this->provider->store($this->steamId);
 
-		$user = $this->provider->get('76561198024494988');
-
-		$byKey = $this->provider->byKey($user['token']);
+		$byKey = $this->provider->byKey($token);
 		$this->assertEquals('76561198024494988', $byKey['steamid']);
 	}
 
