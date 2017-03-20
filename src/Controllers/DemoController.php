@@ -70,12 +70,4 @@ class DemoController extends BaseController {
 	public function chat($demoId) {
 		\Flight::json($this->demoProvider->getChat($demoId));
 	}
-
-	public function listMaps() {
-		\Flight::json($this->demoProvider->listMaps());
-	}
-
-	public function stats() {
-		\Flight::json($this->demoProvider->getStats());
-	}
 }

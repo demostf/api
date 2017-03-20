@@ -25,9 +25,11 @@ $factory = new \RandomLib\Factory;
 $generator = $factory->getMediumStrengthGenerator();
 $authProvider = new Providers\AuthProvider($db, $generator);
 $userProvider = new Providers\UserProvider($db, $generator);
+$infoProvider = new Providers\InfoProvider($db);
 $demoController = new Controllers\DemoController($demoProvider);
 $authController = new Controllers\AuthController($userProvider, $authProvider, $host);
 $userController = new Controllers\UserController($userProvider);
+$infoController = new Controllers\InfoController($infoProvider);
 
 Flight::route('/*', function () {
 	header('Access-Control-Allow-Origin: *');
@@ -43,8 +45,8 @@ Flight::route('/', function () {
 	echo 'hello world!';
 });
 
-Flight::route('/maps', [$demoController, 'listMaps']);
-Flight::route('/stats', [$demoController, 'stats']);
+Flight::route('/maps', [$infoController, 'listMaps']);
+Flight::route('/stats', [$infoController, 'stats']);
 
 Flight::route('/demos', [$demoController, 'listDemos']);
 Flight::route('/demos/@id', [$demoController, 'get']);
