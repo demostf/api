@@ -5,11 +5,6 @@ use Doctrine\DBAL\Connection;
 class DemoProvider extends BaseProvider {
 	const VERSION = 4;
 
-
-	public function __construct(Connection $connection) {
-		parent::__construct($connection);
-	}
-
 	public function get($id) {
 		$demo = $this->db->demo()->where('id', $id);
 
@@ -40,13 +35,13 @@ class DemoProvider extends BaseProvider {
 		return $formattedDemo;
 	}
 
-	public function listUploads($steamid, $page, $where = []) {
+	public function listUploads(string $steamid, int $page, array $where = []) {
 		$user = $this->db->user()->where('steamid', $steamid);
 		$where['uploader'] = $user->fetch()->id;
 		return $this->listDemos($page, $where);
 	}
 
-	public function listProfile($page, $where = []) {
+	public function listProfile(int $page, array $where = []) {
 		$users = $this->db->user()->where('steamid', $where['players']);
 		unset($where['players']);
 		$userIds = [];
@@ -70,7 +65,7 @@ class DemoProvider extends BaseProvider {
 		return $this->formatList($demos);
 	}
 
-	public function listDemos($page, $where = []) {
+	public function listDemos(int $page, $where = []) {
 		if (isset($where['players']) and is_array($where['players']) and count($where['players']) > 0) {
 			return $this->listProfile($page, $where);
 		}
@@ -94,19 +89,6 @@ class DemoProvider extends BaseProvider {
 
 		$demos = $query->execute()->fetchAll();
 		return $this->formatList($demos);
-	}
-
-	public function getChat($demoId) {
-		$chat = $this->db->chat()->where('demo_id', $demoId);
-		$result = [];
-		foreach ($chat as $message) {
-			$result[] = [
-				'message' => $message['text'],
-				'user' => $message['from'],
-				'time' => $message['time']
-			];
-		}
-		return $result;
 	}
 
 	protected function formatList($demos) {

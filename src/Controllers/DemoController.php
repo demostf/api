@@ -1,17 +1,18 @@
 <?php namespace Demostf\API\Controllers;
 
+use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoProvider;
-use Demostf\API\Providers\MatchProvider;
 
 class DemoController extends BaseController {
-
-	/**
-	 * @var \Providers\DemoProvider
-	 */
+	/** @var DemoProvider */
 	private $demoProvider;
 
-	public function __construct(DemoProvider $demoProvider) {
+	/** @var ChatProvider */
+	private $chatProvider;
+
+	public function __construct(DemoProvider $demoProvider, ChatProvider $chatProvider) {
 		$this->demoProvider = $demoProvider;
+		$this->chatProvider = $chatProvider;
 	}
 
 	/**
@@ -68,6 +69,6 @@ class DemoController extends BaseController {
 	}
 
 	public function chat($demoId) {
-		\Flight::json($this->demoProvider->getChat($demoId));
+		\Flight::json($this->chatProvider->getChat($demoId));
 	}
 }
