@@ -1,4 +1,5 @@
-<?php namespace Demostf\API\Test\Providers;
+<?php declare(strict_types = 1);
+namespace Demostf\API\Test\Providers;
 
 use Demostf\API\Providers\UserProvider;
 use Demostf\API\Test\TestCase;
@@ -13,7 +14,13 @@ class UserProviderTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->steamId = new \SteamId('76561198024494988');
+		$this->steamId = new \SteamId('76561198024494988', false);
+		$closure = \Closure::bind(function($steamId) {
+			$steamId->nickname = 'Icewind';
+			$steamId->imageUrl = 'foo';
+		}, null, $this->steamId);
+		$closure($this->steamId);
+
 		$this->provider = new UserProvider($this->getDatabaseConnection(), $this->getRandomGenerator());
 	}
 

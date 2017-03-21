@@ -1,4 +1,6 @@
-<?php namespace Demostf\API;
+<?php declare(strict_types = 1);
+namespace Demostf\API;
+
 
 use Flight;
 

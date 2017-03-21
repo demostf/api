@@ -1,4 +1,5 @@
-<?php namespace Demostf\API;
+<?php declare(strict_types = 1);
+namespace Demostf\API;
 
 require_once __DIR__ . '/init.php';
 

@@ -1,4 +1,5 @@
-<?php namespace Demostf\API\Test\Providers;
+<?php declare(strict_types = 1);
+namespace Demostf\API\Test\Providers;
 
 use Demostf\API\Demo\ChatMessage;
 use Demostf\API\Providers\ChatProvider;
