@@ -1,4 +1,5 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
+
 namespace Demostf\API\Test\Providers;
 
 use Demostf\API\Providers\UserProvider;
@@ -14,18 +15,12 @@ class UserProviderTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->steamId = new \SteamId('76561198024494988', false);
-		$closure = \Closure::bind(function($steamId) {
-			$steamId->nickname = 'Icewind';
-			$steamId->imageUrl = 'foo';
-		}, null, $this->steamId);
-		$closure($this->steamId);
-
+		$this->steamId = $this->getSteamId('76561198024494988', 'Icewind');
 		$this->provider = new UserProvider($this->getDatabaseConnection(), $this->getRandomGenerator());
 	}
 
 	public function testGetNonExisting() {
-		$this->assertFalse($this->provider->get('76561198024494988'));
+		$this->assertNull($this->provider->get('76561198024494988'));
 	}
 
 	public function testStoreRetrieve() {
@@ -33,20 +28,29 @@ class UserProviderTest extends TestCase {
 
 		$user = $this->provider->get('76561198024494988');
 
-		$this->assertEquals($this->steamId->getNickname(), $user['name']);
-		$this->assertEquals($this->steamId->getSteamId64(), '76561198024494988');
+		$this->assertEquals($this->steamId->getNickname(), $user->getName());
+		$this->assertEquals($this->steamId->getSteamId64(), $user->getSteamId());
+	}
+
+	public function returnTokenExisting() {
+		$token1 = $this->provider->store($this->steamId);
+		$token2 = $this->provider->store($this->steamId);
+
+		$this->assertEquals($token1, $token2);
 	}
 
 	public function testDoubleInsert() {
 		$this->provider->store($this->steamId);
 		$this->provider->store($this->steamId);
+
+		$this->assertTrue(true);
 	}
 
 	public function testByKey() {
 		$token = $this->provider->store($this->steamId);
 
 		$byKey = $this->provider->byKey($token);
-		$this->assertEquals('76561198024494988', $byKey['steamid']);
+		$this->assertEquals('76561198024494988', $byKey->getSteamId());
 	}
 
 	public function testSearch() {

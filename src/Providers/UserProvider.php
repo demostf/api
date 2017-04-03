@@ -1,5 +1,9 @@
-<?php namespace Demostf\API\Providers;
+<?php declare(strict_types=1);
 
+namespace Demostf\API\Providers;
+
+use Demostf\API\Data\User;
+use Demostf\API\Exception\NotFoundException;
 use Doctrine\DBAL\Connection;
 use RandomLib\Generator;
 
@@ -14,7 +18,7 @@ class UserProvider extends BaseProvider {
 		$this->generator = $generator;
 	}
 
-	public function store(\SteamId $steamId) {
+	public function store(\SteamId $steamId): string {
 		$token = $this->generator->generateString(64, Generator::EASY_TO_READ);
 
 		$query = $this->getQueryBuilder();
@@ -24,22 +28,24 @@ class UserProvider extends BaseProvider {
 				'name' => $query->createNamedParameter($steamId->getNickname()),
 				'avatar' => $query->createNamedParameter($steamId->getMediumAvatarUrl()),
 				'token' => $query->createNamedParameter($token)
-			])->add('orderBy', 'ON CONFLICT DO NOTHING') // hack to append arbitrary string to sql
+			])->add('orderBy', 'ON CONFLICT DO NOTHING')// hack to append arbitrary string to sql
 			->execute();
 
-		return $token;
+		$user = $this->get($steamId->getSteamId64());
+		return $user ? $user->getToken() : $token;
 	}
 
-	public function get($steamid) {
+	public function get(string $steamid): ?User {
 		$query = $this->getQueryBuilder();
 		$query->select(['id', 'steamid', 'name', 'avatar', 'token'])
 			->from('users')
 			->where($query->expr()->eq('steamid', $query->createNamedParameter($steamid)));
 
-		return $query->execute()->fetch();
+		$row = $query->execute()->fetch();
+		return $row ? User::fromRow($row) : null;
 	}
 
-	public function search($query) {
+	public function search($query): array {
 		$sql = 'SELECT user_id, players.name, count(demo_id) AS count, steamid,
 		 1-(players.name <-> ?) AS sim FROM players
 		 INNER JOIN users ON users.id = players.user_id
@@ -73,17 +79,18 @@ class UserProvider extends BaseProvider {
 			}
 		}
 
-		$players = array_values($result);
-
-		return $players;
+		return array_map(function (array $row) {
+			return User::fromRow($row);
+		}, array_values($result));
 	}
 
-	public function byKey($key) {
+	public function byKey($key): ?User {
 		$query = $this->getQueryBuilder();
-		$query->select(['id', 'steamid', 'name', 'avatar'])
+		$query->select(['id', 'steamid', 'name', 'avatar', 'token'])
 			->from('users')
 			->where($query->expr()->eq('token', $query->createNamedParameter($key)));
 
-		return $query->execute()->fetch();
+		$row = $query->execute()->fetch();
+		return $row ? User::fromRow($row) : null;
 	}
 }

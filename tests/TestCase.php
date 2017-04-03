@@ -52,4 +52,15 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase {
 		$factory = new \RandomLib\Factory;
 		return $factory->getMediumStrengthGenerator();
 	}
+
+	protected function getSteamId($steamId, $name) {
+		$steamId = new \SteamId($steamId, false);
+		$closure = \Closure::bind(function ($steamId) use ($name) {
+			$steamId->nickname = $name;
+			$steamId->imageUrl = 'foo';
+		}, null, $steamId);
+		$closure($steamId);
+		return $steamId;
+	}
+
 }
