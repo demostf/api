@@ -31,9 +31,14 @@ class DemoListProvider extends BaseProvider {
 		$demos = $this->db->demo()->where('id', $demoIds)
 			->where($where)
 			->orderBy('id', 'DESC');
-		return $this->formatList($demos);
+		return $this->formatList($demos->fetchAll());
 	}
 
+	/**
+	 * @param int $page
+	 * @param array $where
+	 * @return Demo[]
+	 */
 	public function listDemos(int $page, array $where = []) {
 		if (isset($where['players']) and is_array($where['players']) and count($where['players']) > 0) {
 			return $this->listProfile($page, $where);
@@ -50,18 +55,21 @@ class DemoListProvider extends BaseProvider {
 			$query->where($query->expr()->eq('map', $query->createNamedParameter($where['map'])));
 		}
 		if (isset($where['playerCount'])) {
-			$query->where($query->expr()->in('playerCount', $query->createNamedParameter($where['playerCount'], Connection::PARAM_INT_ARRAY)));
+			$query->where($query->expr()->in('"playerCount"', $query->createNamedParameter($where['playerCount'], Connection::PARAM_INT_ARRAY)));
+		}
+		if (isset($where['uploader'])) {
+			$query->where($query->expr()->in('uploader', $query->createNamedParameter($where['uploader'], \PDO::PARAM_INT)));
 		}
 		$query->orderBy('d.id', 'DESC')
 			->setMaxResults(50)
 			->setFirstResult($offset);
 
-		$demos = $query->execute()->fetchAll();
+		$demos = $query->execute()->fetchAll(\PDO::FETCH_ASSOC);
 		return $this->formatList($demos);
 	}
 
 	protected function formatList(array $rows) {
-		return array_map(function (array $row) {
+		return array_map(function ($row) {
 			return Demo::fromRow($row);
 		}, $rows);
 	}

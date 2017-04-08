@@ -11,13 +11,9 @@ class InfoProvider extends BaseProvider {
 		$demoCount = $this->db->demo()->count();
 		$playerCount = $this->db->user()->count();
 
-		$sql = 'SELECT count(user_id) FROM players GROUP BY user_id';
-		$result = $this->query($sql);
-
 		return [
 			'demos' => $demoCount,
-			'players' => $playerCount,
-			'uploaders' => $result->fetchColumn()
+			'players' => $playerCount
 		];
 	}
 }

@@ -1,4 +1,5 @@
 <?php declare(strict_types = 1);
+
 namespace Demostf\API\Test\Providers;
 
 use Demostf\API\Demo\ChatMessage;
