@@ -3,7 +3,6 @@
 namespace Demostf\API\Providers;
 
 use Demostf\API\Data\User;
-use Demostf\API\Exception\NotFoundException;
 use Doctrine\DBAL\Connection;
 use RandomLib\Generator;
 

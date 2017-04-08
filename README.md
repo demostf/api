@@ -27,6 +27,7 @@ A seperate PostgreSQL database is required to run the image, the database detail
 - DB_USERNAME=$database_user
 - DB_PASSWORD=$database_password
 - BASE_HOST=$host
+- PARSER_URL=$parser_host // the full url for the demo parser's upload endpoint
 
 ## Installing
 

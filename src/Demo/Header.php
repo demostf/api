@@ -1,4 +1,6 @@
-<?php namespace Demostf\API\Demo;
+<?php declare(strict_types=1);
+
+namespace Demostf\API\Demo;
 
 /**
  * HL2 demo metadata
@@ -76,80 +78,47 @@ class Header {
 		$this->sigon = $info['sigon'];
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getDuration() {
+	public function getDuration(): float {
 		return $this->duration;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getFrames() {
+	public function getFrames(): int {
 		return $this->frames;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getGame() {
+	public function getGame(): string {
 		return $this->game;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getMap() {
+	public function getMap(): string {
 		return $this->map;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getNick() {
+	public function getNick(): string {
 		return $this->nick;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getProtocol() {
+	public function getProtocol(): int {
 		return $this->protocol;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getServer() {
+	public function getServer(): string {
 		return $this->server;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getSigon() {
+	public function getSigon(): int {
 		return $this->sigon;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getTicks() {
+	public function getTicks(): int {
 		return $this->ticks;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getType() {
+	public function getType(): string {
 		return $this->type;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getVersion() {
+	public function getVersion(): int {
 		return $this->version;
 	}
 

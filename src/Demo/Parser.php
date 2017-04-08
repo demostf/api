@@ -1,67 +1,31 @@
-<?php namespace Demostf\API\Demo;
+<?php declare(strict_types=1);
+
+namespace Demostf\API\Demo;
 
 use GuzzleHttp\Client;
 
+/**
+ * Higher level parser
+ *
+ * Processes the raw demo.js output to something more suitable for our purpose
+ */
 class Parser {
-	const ANALYSER_BASEURL = 'http://demoserver.azurewebsites.net';
+	/** @var RawParser */
+	private $rawParser;
 
-	/**
-	 * @param string $head string containing the demo header binary data
-	 * @return Header
-	 * @throws \Exception
-	 */
-	public function parseString($head) {
-		set_error_handler(array($this, 'errorHandler'));
-		$info = unpack("A8type/Iversion/Iprotocol/A260server/A260nick/A260map/A260game/fduration/Iticks/Iframes/Isigon",
-			$head);
-		restore_error_handler();
-		if ($info['type'] !== 'HL2DEMO') {
-			throw new \Exception('Not an HL2 demo');
+	public function __construct(RawParser $rawParser) {
+		$this->rawParser = $rawParser;
+	}
+
+	public function analyse(string $path): array {
+		$data = $this->rawParser->parse($path);
+		if (!is_array($data)) {
+			throw new \InvalidArgumentException('Error parsing demo');
 		}
-		return new Header($info);
-	}
-
-	/**
-	 * Parse demo info from a stream
-	 *
-	 * @param resource $stream
-	 * @return Header
-	 * @throws \Exception
-	 */
-	public function parseStream($stream) {
-		$head = fread($stream, 2048);
-		return $this->parseString($head);
-	}
-
-	/**
-	 * Parse demo info from a local file
-	 *
-	 * @param string $path
-	 * @return Header
-	 * @throws \Exception
-	 */
-	public function parseHeader($path) {
-		if (!is_readable($path)) {
-			throw new \Exception('Unable to open demo: ' . $path);
-		}
-		$fh = fopen($path, 'rb');
-		return $this->parseStream($fh);
-	}
-
-	public function analyse(StoredDemo $storedDemo) {
-		$endPoint = self::ANALYSER_BASEURL . '/url';
-		$client = new Client();
-		$response = $client->post($endPoint, [
-			'body' => $storedDemo->getUrl()
-		]);
-		$data = $response->getBody();
 		return $this->handleData($data);
 	}
 
-	private function handleData($data) {
-		if (!is_array($data)) {
-			throw new \Exception('Error parsing demo');
-		}
+	private function handleData(array $data) {
 		$intervalPerTick = $data['intervalPerTick'];
 		$red = 0;
 		$blue = 0;
@@ -94,7 +58,7 @@ class Parser {
 					$class = $classId;
 				}
 			}
-			if ($class and $player['steamId']) {//skip spectators
+			if ($class && $player['steamId']) {//skip spectators
 				$players[] = [
 					'name' => $player['name'],
 					'demo_user_id' => $player['userId'],
@@ -116,7 +80,7 @@ class Parser {
 		];
 	}
 
-	private function getClassName($classId) {
+	private function getClassName(int $classId): string {
 		$classes = [
 			1 => 'scout',
 			2 => 'sniper',
@@ -128,6 +92,6 @@ class Parser {
 			8 => 'spy',
 			9 => 'engineer'
 		];
-		return isset($classes[$classId]) ? $classes[$classId] : 'Unknown';
+		return $classes[$classId] ?? 'Unknown';
 	}
 }
