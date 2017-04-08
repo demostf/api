@@ -1,0 +1,37 @@
+dist: trusty
+sudo: false
+language: php
+php:
+  - '7.1'
+
+addons:
+  postgresql: "9.6"
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+env:
+  global:
+    - DB_TYPE=pgsql
+    - DB_HOST=localhost
+    - DB_USERNAME=postgres
+    - DB_PASSWORD=
+    - DB_DATABASE=travis_ci_test
+    - BASE_HOST=example.com
+
+install:
+  - composer install --no-interaction
+
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  - wget https://raw.githubusercontent.com/demostf/db/master/schema.sql
+  - psql -U postgres -d travis_ci_test -f schema.sql
+  - echo "error_reporting = E_ALL & ~E_DEPRECATED" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini #random-lib complains about mcrypt
+
+script:
+  - cd tests
+  - phpunit --coverage-clover coverage.xml --configuration phpunit.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)

@@ -6,6 +6,10 @@
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">../src</directory>
+			<exclude>
+				<directory suffix=".php">../app.php	</directory>
+				<directory suffix=".php">../upload.php</directory>
+			</exclude>
 		</whitelist>
 	</filter>
 </phpunit>
