@@ -5,11 +5,11 @@
 	</testsuite>
 	<filter>
 		<whitelist processUncoveredFilesFromWhitelist="true">
-			<directory suffix=".php">../src</directory>
-			<exclude>
-				<directory suffix=".php">../app.php	</directory>
-				<directory suffix=".php">../upload.php</directory>
-			</exclude>
+			<directory suffix=".php">../src/Providers</directory>
+			<directory suffix=".php">../src/Demo</directory>
+			<directory suffix=".php">../src/Data</directory>
+			<directory suffix=".php">../src/Exception</directory>
+			<directory suffix=".php">../src/Controllers</directory>
 		</whitelist>
 	</filter>
 </phpunit>
