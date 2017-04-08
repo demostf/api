@@ -8,7 +8,7 @@ This repo is still somewhat wip and might not be in the state yet where it can d
 
 ## Database
 
-The api requires a PostgreSQL database to function, the database schema required can be found in `demos_schema.sql`.
+The api requires a PostgreSQL database to function, the database schema required can be found in [demostf/db](https://github.com/demostf/api)/`demos_schema.sql`.
 
 Note that the `pg_trgrm` extension in required.
 
@@ -23,6 +23,7 @@ A seperate PostgreSQL database is required to run the image, the database detail
 - DB_DATABASE=$database_name
 - DB_USERNAME=$database_user
 - DB_PASSWORD=$database_password
+- BASE_HOST=$host
 
 ## Installing
 
