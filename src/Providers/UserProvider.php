@@ -92,4 +92,15 @@ class UserProvider extends BaseProvider {
 		$row = $query->execute()->fetch();
 		return $row ? User::fromRow($row) : null;
 	}
+
+	public function getUserId(string $steamId) {
+		$existing = $this->get($steamId);
+		if ($existing) {
+			return $existing->getId();
+		}
+
+		$this->store(new \SteamId($steamId));
+
+		return $this->get($steamId)->getId();
+	}
 }

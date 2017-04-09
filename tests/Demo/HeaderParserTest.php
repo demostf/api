@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Demostf\API\Test\Providers;
+namespace Demostf\API\Test\Demo;
 
 use Demostf\API\Demo\Header;
 use Demostf\API\Demo\HeaderParser;
@@ -10,19 +10,19 @@ class HeaderParserTest extends TestCase {
 	public function testParseFile() {
 		$parser = new HeaderParser();
 
-		$expected = new Header([
-			'type' => 'HL2DEMO',
-			'version' => 3,
-			'protocol' => 24,
-			'server' => 'UGC Highlander Match',
-			'nick' => 'SourceTV Demo',
-			'map' => 'koth_product_rc8',
-			'game' => 'tf',
-			'duration' => 778.4849853515625,
-			'ticks' => 51899,
-			'frames' => 25703,
-			'sigon' => 818263
-		]);
+		$expected = new Header(
+			'HL2DEMO',
+			3,
+			24,
+			'UGC Highlander Match',
+			'SourceTV Demo',
+			'koth_product_rc8',
+			'tf',
+			778.4849853515625,
+			51899,
+			25703,
+			818263
+		);
 		$parsed = $parser->parseHeader(__DIR__ . '/../data/product.dem');
 
 		$this->assertEquals($expected->getServer(), $parsed->getServer());

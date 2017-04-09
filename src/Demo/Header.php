@@ -61,21 +61,30 @@ class Header {
 	 */
 	protected $sigon;
 
-	/**
-	 * @param array $info
-	 */
-	public function __construct($info) {
-		$this->type = $info['type'];
-		$this->version = $info['version'];
-		$this->protocol = $info['protocol'];
-		$this->server = $info['server'];
-		$this->nick = $info['nick'];
-		$this->map = $info['map'];
-		$this->game = $info['game'];
-		$this->duration = $info['duration'];
-		$this->ticks = $info['ticks'];
-		$this->frames = $info['frames'];
-		$this->sigon = $info['sigon'];
+	public function __construct(
+		string $type,
+		int $version,
+		int $protocol,
+		string $server,
+		string $nick,
+		string $map,
+		string $game,
+		float $duration,
+		int $ticks,
+		int $frames,
+		int $sigon
+	) {
+		$this->type = $type;
+		$this->version = $version;
+		$this->protocol = $protocol;
+		$this->server = $server;
+		$this->nick = $nick;
+		$this->map = $map;
+		$this->game = $game;
+		$this->duration = $duration;
+		$this->ticks = $ticks;
+		$this->frames = $frames;
+		$this->sigon = $sigon;
 	}
 
 	public function getDuration(): float {
@@ -122,4 +131,19 @@ class Header {
 		return $this->version;
 	}
 
+	public static function fromArray(array $info) {
+		return new Header(
+			$info['type'],
+			$info['version'],
+			$info['protocol'],
+			$info['server'],
+			$info['nick'],
+			$info['map'],
+			$info['game'],
+			$info['duration'],
+			$info['ticks'],
+			$info['frames'],
+			$info['sigon']
+		);
+	}
 }

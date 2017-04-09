@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Demostf\API\Test\Data;
+namespace Demostf\API\Test\Demo;
 
 use Demostf\API\Demo\DemoStore;
 use Demostf\API\Test\TestCase;
@@ -16,17 +16,16 @@ class DemoStoreTest extends TestCase {
 		$file = tempnam(sys_get_temp_dir(), 'dummy_');
 		file_put_contents($file, 'foobar');
 
-		$url = $demoStore->store($file, 'foodemo.dem');
+		$storedDemo = $demoStore->store($file, 'foodemo.dem');
 
-		$this->assertStringEndsWith('/foodemo.dem', $url);
-		$this->assertStringStartsWith('https://static.example.com/', $url);
+		$this->assertStringEndsWith('/foodemo.dem', $storedDemo->getUrl());
+		$this->assertStringStartsWith('https://static.example.com/', $storedDemo->getUrl());
+		$this->assertEquals('static', $storedDemo->getBackend());
 
-		$subPath = str_replace('https://static.example.com/', '', $url);
-
-		$this->assertStringEqualsFile($targetDir . '/' . $subPath, 'foobar');
-		unlink($targetDir . '/' . $subPath);
-		rmdir(dirname($targetDir . '/' . $subPath));
-		rmdir(dirname($targetDir . '/' . $subPath, 2));
+		$this->assertStringEqualsFile($storedDemo->getPath(), 'foobar');
+		unlink($storedDemo->getPath());
+		rmdir(dirname($storedDemo->getPath()));
+		rmdir(dirname($storedDemo->getPath(), 2));
 		rmdir($targetDir);
 	}
 }

@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 
 namespace Demostf\API\Providers;
 
@@ -65,7 +65,7 @@ class DemoProvider extends BaseProvider {
 				'red' => $query->createNamedParameter($demo->getRed()),
 				'blu' => $query->createNamedParameter($demo->getBlue()),
 				'uploader' => $query->createNamedParameter($demo->getUploader(), \PDO::PARAM_INT),
-				'duration' => $query->createNamedParameter($demo->getDuration(), \PDO::PARAM_INT),
+				'duration' => $query->createNamedParameter((int)$demo->getDuration(), \PDO::PARAM_INT),
 				'created_at' => $query->createNamedParameter($demo->getTime()->format(\DATE_ATOM)),
 				'updated_at' => 'now()',
 				'backend' => $query->createNamedParameter($backend),

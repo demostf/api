@@ -12,7 +12,7 @@ class Demo implements \JsonSerializable {
 	private $name;
 	/** @var string */
 	private $server;
-	/** @var int */
+	/** @var float */
 	private $duration;
 	/** @var string */
 	private $nick;
@@ -44,7 +44,7 @@ class Demo implements \JsonSerializable {
 		string $url,
 		string $name,
 		string $server,
-		int $duration,
+		float $duration,
 		string $nick,
 		string $map,
 		\DateTime $time,
@@ -89,7 +89,7 @@ class Demo implements \JsonSerializable {
 		return $this->server;
 	}
 
-	public function getDuration(): int {
+	public function getDuration(): float {
 		return $this->duration;
 	}
 
@@ -157,6 +157,9 @@ class Demo implements \JsonSerializable {
 		);
 	}
 
+	/**
+	 * @return DemoPlayer[]
+	 */
 	public function getPlayers(): array {
 		return $this->players;
 	}

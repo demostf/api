@@ -58,4 +58,21 @@ class UserProviderTest extends TestCase {
 
 		$this->assertCount(0, $result);
 	}
+
+	public function testGetIdExisting() {
+		$this->provider->store($this->steamId);
+
+		$user = $this->provider->get($this->steamId->getSteamId64());
+
+		$this->assertEquals($user->getId(), $this->provider->getUserId($this->steamId->getSteamId64()));
+	}
+
+	public function testGetIdNew() {
+		$id = $this->provider->getUserId($this->steamId->getSteamId64());
+
+		$user = $this->provider->get($this->steamId->getSteamId64());
+
+
+		$this->assertEquals($user->getId(), $id);
+	}
 }

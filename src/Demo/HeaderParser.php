@@ -14,7 +14,7 @@ class HeaderParser {
 		if (!isset($info['type']) || $info['type'] !== 'HL2DEMO') {
 			throw new \InvalidArgumentException('Not an HL2 demo');
 		}
-		return new Header($info);
+		return Header::fromArray($info);
 	}
 
 	/**
