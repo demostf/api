@@ -12,15 +12,23 @@ class DemoStore {
 	}
 
 	public function store(string $sourcePath, string $name): string {
-		rename($sourcePath, $this->generatePath($name));
+		$target = $this->generatePath($name);
+		if (!is_dir(dirname($target))) {
+			mkdir(dirname($target), 0777, true);
+		}
+		rename($sourcePath, $target);
 		return $this->getUrl($name);
 	}
 
 	private function generatePath(string $name): string {
-		return $this->root . '/' . substr($name, 0, 2) . '/' . substr($name, 2, 4) . '/' . $name;
+		return $this->root . $this->getPrefix($name) . $name;
+	}
+
+	private function getPrefix(string $name) {
+		return '/' . substr($name, 0, 2) . '/' . substr($name, 2, 2) . '/';
 	}
 
 	private function getUrl(string $name): string {
-		return 'https://' . $this->webroot . '/' . substr($name, 0, 2) . '/' . substr($name, 2, 4) . '/' . $name;
+		return 'https://' . $this->webroot . $this->getPrefix($name) . $name;
 	}
 }

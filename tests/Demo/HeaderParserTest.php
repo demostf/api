@@ -55,4 +55,12 @@ class HeaderParserTest extends TestCase {
 		$parser = new HeaderParser();
 		$parser->parseHeader(__FILE__);
 	}
+
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testNonExisting() {
+		$parser = new HeaderParser();
+		$parser->parseHeader('/non/existing');
+	}
 }

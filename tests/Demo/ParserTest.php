@@ -7,7 +7,7 @@ use Demostf\API\Demo\RawParser;
 use Demostf\API\Test\TestCase;
 
 class ParserTest extends TestCase {
-	/** @var RawParser */
+	/** @var RawParser|\PHPUnit_Framework_MockObject_MockObject */
 	private $rawParser;
 
 	public function setUp() {
@@ -33,5 +33,23 @@ class ParserTest extends TestCase {
 		$expected = json_decode(file_get_contents(__DIR__ . '/../data/product-analyse.json'), true);
 
 		$this->assertEquals($expected, $result);
+	}
+
+	/**
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testFailedParse() {
+		/** @var RawParser|\PHPUnit_Framework_MockObject_MockObject $rawParser */
+		$rawParser = $this->getMockBuilder(RawParser::class)
+			->disableOriginalConstructor()
+			->getMock();
+
+		$parser = new Parser($rawParser);
+
+		$rawParser->expects($this->any())
+			->method('parse')
+			->willReturn(null);
+
+		$parser->analyse('foo');
 	}
 }

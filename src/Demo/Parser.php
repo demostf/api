@@ -2,14 +2,24 @@
 
 namespace Demostf\API\Demo;
 
-use GuzzleHttp\Client;
-
 /**
  * Higher level parser
  *
  * Processes the raw demo.js output to something more suitable for our purpose
  */
 class Parser {
+	const CLASSES = [
+		1 => 'scout',
+		2 => 'sniper',
+		3 => 'soldier',
+		4 => 'demoman',
+		5 => 'medic',
+		6 => 'heavyweapons',
+		7 => 'pyro',
+		8 => 'spy',
+		9 => 'engineer'
+	];
+
 	/** @var RawParser */
 	private $rawParser;
 
@@ -81,17 +91,6 @@ class Parser {
 	}
 
 	private function getClassName(int $classId): string {
-		$classes = [
-			1 => 'scout',
-			2 => 'sniper',
-			3 => 'soldier',
-			4 => 'demoman',
-			5 => 'medic',
-			6 => 'heavyweapons',
-			7 => 'pyro',
-			8 => 'spy',
-			9 => 'engineer'
-		];
-		return $classes[$classId] ?? 'Unknown';
+		return self::CLASSES[$classId] ?? 'Unknown';
 	}
 }
