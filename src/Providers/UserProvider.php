@@ -78,9 +78,7 @@ class UserProvider extends BaseProvider {
 			}
 		}
 
-		return array_map(function (array $row) {
-			return User::fromRow($row);
-		}, array_values($result));
+		return array_values($result);
 	}
 
 	public function byKey($key): ?User {

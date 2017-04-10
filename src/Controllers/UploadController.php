@@ -1,6 +1,7 @@
 <?php namespace Demostf\API\Controllers;
 
 use Demostf\API\Providers\UploadProvider;
+use flight\Engine;
 
 class UploadController extends BaseController {
 	private $uploadProvider;
@@ -17,6 +18,6 @@ class UploadController extends BaseController {
 		$demo = $this->file('demo');
 		$demoFile = $demo['tmp_name'];
 
-		return $this->uploadProvider->upload($key, $red, $blu, $name, $demoFile);
+		echo $this->uploadProvider->upload($key, $red, $blu, $name, $demoFile);
 	}
 }

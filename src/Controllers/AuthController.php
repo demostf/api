@@ -3,6 +3,7 @@
 use Ehesp\SteamLogin\SteamLogin;
 use Demostf\API\Providers\AuthProvider;
 use Demostf\API\Providers\UserProvider;
+use flight\Engine;
 
 class AuthController extends BaseController {
 	/**
@@ -18,17 +19,13 @@ class AuthController extends BaseController {
 	/** @var string */
 	private $host;
 
-	/**
-	 * AuthController constructor.
-	 *
-	 * @param UserProvider $userProvider
-	 * @param AuthProvider $authProvider
-	 * @param string $host
-	 */
-	public function __construct(UserProvider $userProvider, AuthProvider $authProvider, string $host) {
+	private $apiRoot;
+
+	public function __construct(UserProvider $userProvider, AuthProvider $authProvider, string $host, string $apiRoot) {
 		$this->userProvider = $userProvider;
 		$this->authProvider = $authProvider;
 		$this->host = $host;
+		$this->apiRoot = $apiRoot;
 	}
 
 	public function token() {
@@ -48,7 +45,7 @@ class AuthController extends BaseController {
 	public function login($token) {
 		$_SESSION['return'] = $this->query('return', 'https://' . $this->host);
 		$steam = new SteamLogin();
-		$url = $steam->url($_ENV['APP_ROOT'] . '/auth/handle/' . urlencode($token));
+		$url = $steam->url($this->apiRoot . '/auth/handle/' . urlencode($token));
 		\Flight::redirect(str_replace('&amp;', '&', $url)); // headers make no sense
 	}
 
@@ -63,7 +60,7 @@ class AuthController extends BaseController {
 	}
 
 	public function handle($token) {
-		$return = isset($_SESSION['return']) ? $_SESSION['return'] : 'http://demos.tf';
+		$return = isset($_SESSION['return']) ? $_SESSION['return'] : 'https://' . $this->host;
 		unset($_SESSION['return']);
 		$steam = new SteamLogin();
 		$steamId = $steam->validate();

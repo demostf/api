@@ -3,6 +3,7 @@
 use Ehesp\SteamLogin\SteamLogin;
 use Demostf\API\Providers\AuthProvider;
 use Demostf\API\Providers\UserProvider;
+use flight\Engine;
 
 class UserController extends BaseController {
 	/**
@@ -10,11 +11,6 @@ class UserController extends BaseController {
 	 */
 	private $userProvider;
 
-	/**
-	 * UserController constructor.
-	 *
-	 * @param UserProvider $userProvider
-	 */
 	public function __construct(UserProvider $userProvider) {
 		$this->userProvider = $userProvider;
 	}

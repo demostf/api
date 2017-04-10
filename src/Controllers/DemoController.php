@@ -1,7 +1,9 @@
 <?php namespace Demostf\API\Controllers;
 
 use Demostf\API\Providers\ChatProvider;
+use Demostf\API\Providers\DemoListProvider;
 use Demostf\API\Providers\DemoProvider;
+use flight\Engine;
 
 class DemoController extends BaseController {
 	/** @var DemoProvider */
@@ -10,9 +12,12 @@ class DemoController extends BaseController {
 	/** @var ChatProvider */
 	private $chatProvider;
 
-	public function __construct(DemoProvider $demoProvider, ChatProvider $chatProvider) {
+	private $demoListProvider;
+
+	public function __construct(DemoProvider $demoProvider, ChatProvider $chatProvider, DemoListProvider $demoListProvider) {
 		$this->demoProvider = $demoProvider;
 		$this->chatProvider = $chatProvider;
+		$this->demoListProvider = $demoListProvider;
 	}
 
 	/**
@@ -53,19 +58,19 @@ class DemoController extends BaseController {
 
 	public function listDemos() {
 		$page = $this->query('page', 1);
-		\Flight::json($this->demoProvider->listDemos($page, $this->getFilter()));
+		\Flight::json($this->demoListProvider->listDemos($page, $this->getFilter()));
 	}
 
 	public function listProfile($steamid) {
 		$page = $this->query('page', 1);
 		$where = $this->getFilter();
 		$where['players'][] = $steamid;
-		\Flight::json($this->demoProvider->listProfile($page, $where));
+		\Flight::json($this->demoListProvider->listProfile($page, $where));
 	}
 
 	public function listUploads($steamid) {
 		$page = $this->query('page', 1);
-		\Flight::json($this->demoProvider->listUploads($steamid, $page, $this->getFilter()));
+		\Flight::json($this->demoListProvider->listUploads($steamid, $page, $this->getFilter()));
 	}
 
 	public function chat($demoId) {

@@ -22,6 +22,6 @@ class RawParser {
 		$response = $client->post($this->parserUrl, [
 			'body' => fopen($path, 'r')
 		]);
-		return json_decode($response->getBody(), true);
+		return json_decode($response->getBody()->getContents(), true);
 	}
 }

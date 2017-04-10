@@ -1,16 +1,12 @@
 <?php namespace Demostf\API\Controllers;
 
 use Demostf\API\Providers\InfoProvider;
+use flight\Engine;
 
 class InfoController extends BaseController {
 	/** @var InfoProvider */
 	private $infoProvider;
 
-	/**
-	 * InfoController constructor.
-	 *
-	 * @param InfoProvider $infoProvider
-	 */
 	public function __construct(InfoProvider $infoProvider) {
 		$this->infoProvider = $infoProvider;
 	}
