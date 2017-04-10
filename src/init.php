@@ -35,7 +35,7 @@ $container = new Container(
 	'https://' . $host,
 	$parserUrl,
 	$storeRoot,
-	'https://' . $storeHost,
+	$storeHost,
 	$appRoot
 );
 
