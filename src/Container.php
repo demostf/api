@@ -1,12 +1,21 @@
 <?php declare(strict_types=1);
 
-namespace Demostf\API\Providers;
+namespace Demostf\API;
 
 use Demostf\API\Demo\DemoSaver;
 use Demostf\API\Demo\DemoStore;
 use Demostf\API\Demo\HeaderParser;
 use Demostf\API\Demo\Parser;
 use Demostf\API\Demo\RawParser;
+use Demostf\API\Providers\AuthProvider;
+use Demostf\API\Providers\ChatProvider;
+use Demostf\API\Providers\DemoListProvider;
+use Demostf\API\Providers\DemoProvider;
+use Demostf\API\Providers\InfoProvider;
+use Demostf\API\Providers\KillProvider;
+use Demostf\API\Providers\PlayerProvider;
+use Demostf\API\Providers\UploadProvider;
+use Demostf\API\Providers\UserProvider;
 use Doctrine\DBAL\Connection;
 use RandomLib\Generator;
 
