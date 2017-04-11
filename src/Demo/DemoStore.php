@@ -19,6 +19,7 @@ class DemoStore {
 			mkdir(dirname($target), 0777, true);
 		}
 		rename($sourcePath, $target);
+		chmod($target, 0755);
 		return new StoredDemo($this->getUrl($name), 'static', $target);
 	}
 
