@@ -2,7 +2,6 @@
 
 namespace Demostf\API;
 
-use Demostf\API\Providers\Container;
 use Flight;
 
 /** @var Container $container */
