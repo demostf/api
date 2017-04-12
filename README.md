@@ -22,8 +22,11 @@ A seperate PostgreSQL database is required to run the image, the database detail
 - DB_DATABASE=$database_name
 - DB_USERNAME=$database_user
 - DB_PASSWORD=$database_password
-- BASE_HOST=$host
+- BASE_HOST=$host // the domain the frontend site will be running on
 - PARSER_URL=$parser_host // the full url for the demo parser's upload endpoint
+- DEMO_ROOT=/demos // the folder uploaded demos will be stored in
+- DEMO_HOST=static.$HOST // the hostname from which the uploaded demos will be served
+- APP_ROOT=api.$HOST // the domain the api will be running on
 
 ## Installing
 
