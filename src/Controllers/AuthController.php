@@ -45,7 +45,7 @@ class AuthController extends BaseController {
 	public function login($token) {
 		$_SESSION['return'] = $this->query('return', 'https://' . $this->host);
 		$steam = new SteamLogin();
-		$url = $steam->url($this->apiRoot . '/auth/handle/' . urlencode($token));
+		$url = $steam->url($this->apiRoot . '/auth/handle/' . urlencode($token), $this->apiRoot);
 		\Flight::redirect(str_replace('&amp;', '&', $url)); // headers make no sense
 	}
 
@@ -60,7 +60,7 @@ class AuthController extends BaseController {
 	}
 
 	public function handle($token) {
-		$return = isset($_SESSION['return']) ? $_SESSION['return'] : 'https://' . $this->host;
+		$return = $_SESSION['return'] ?? 'https://' . $this->host;
 		unset($_SESSION['return']);
 		$steam = new SteamLogin();
 		$steamId = $steam->validate();
