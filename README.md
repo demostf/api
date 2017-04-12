@@ -5,10 +5,6 @@
 
 Backend code for [demos.tf](https://demos.tf)
 
-## WIP
-
-This repo is still somewhat wip and might not be in the state yet where it can deployed outside of the existing demos.tf environment.
-
 ## Database
 
 The api requires a PostgreSQL database to function, the database schema required can be found in [demostf/db](https://github.com/demostf/api)/`demos_schema.sql`.
@@ -39,6 +35,10 @@ composer install
 
 ## Deploying
 
-Deploying the api requires php5.6 or later, the webserver needs to be configured to server all requests to public/index.php
+Deploying the api requires php7.1 or later, 
+the webserver needs to be configured to server all requests to `public/index.php` execept
+for request to `/upload` which needs to be handled by `public/upload.php`.
 
-The database details need to be configured with the same environment variables as are described for the docker image above. The environment variables can also be be put in a `.env` file in the root of the project.
+The database details need to be configured with the same environment variables as are described for the docker image above.
+
+More information for hosting and a pre-configured docker based setup can be found at [demostf/setup](https://github.com/demostf/setup)
