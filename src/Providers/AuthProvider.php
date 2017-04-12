@@ -33,6 +33,6 @@ class AuthProvider extends BaseProvider {
 	}
 
 	public function logout($token) {
-		apc_delete($token);
+		apcu_delete($token);
 	}
 }
