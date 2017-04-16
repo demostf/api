@@ -77,7 +77,7 @@ class Parser {
 					$player['userId'],
 					$this->convertSteamIdToCommunityId($player['steamId']),
 					$player['team'],
-					$this->getClassName($class)
+					$this->getClassName((int)$class)
 				);
 			}
 		}
