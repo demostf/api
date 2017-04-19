@@ -48,14 +48,17 @@ class UserProvider extends BaseProvider {
 		$sql = 'SELECT user_id, players.name, count(demo_id) AS count, steamid,
 		 1-(players.name <-> ?) AS sim FROM players
 		 INNER JOIN users ON users.id = players.user_id
-		 WHERE players.name % ? OR players.name ~* ?
+		 WHERE players.name % ? OR players.name ~* ? OR steamid = ?
 		 GROUP BY players.name, user_id, steamid
 		 ORDER BY count DESC
 		 LIMIT 100';
-		$result = $this->query($sql, [$query, $query, $query]);
+		$result = $this->query($sql, [$query, $query, $query, $query]);
 		$players = $result->fetchAll(\PDO::FETCH_ASSOC);
 
-		usort($players, function ($b, $a) {
+		usort($players, function ($b, $a) use ($query) {
+			if ($a['steamid'] === $query && $a['steamid'] !== $query) {
+				return -1;
+			}
 			$countWeight = 1;
 			$simWeight = 5;
 			$diff = ($a['sim'] * $simWeight + $a['count'] * $countWeight) - ($b['sim'] * $simWeight + $b['count'] * $countWeight);
