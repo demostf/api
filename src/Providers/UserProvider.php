@@ -20,6 +20,11 @@ class UserProvider extends BaseProvider {
 	public function store(\SteamId $steamId): string {
 		$token = $this->generator->generateString(64, Generator::EASY_TO_READ);
 
+		$user = $this->get($steamId->getSteamId64());
+		if ($user) {
+			return $user->getToken();
+		}
+
 		$query = $this->getQueryBuilder();
 		$query->insert('users')
 			->values([
@@ -44,15 +49,40 @@ class UserProvider extends BaseProvider {
 		return $row ? User::fromRow($row) : null;
 	}
 
+	private function searchBySteamId(string $steamId): ?array {
+		$query = $this->getQueryBuilder();
+		$query->select('u.id', 'p.name', 'count(demo_id) as count', 'steamid')
+			->from('players', 'p')
+			->innerJoin('p', 'users', 'u', $query->expr()->eq('p.user_id', 'u.id'))
+			->where($query->expr()->eq('steamid', $query->createNamedParameter($steamId)))
+			->groupBy('p.name, u.id')
+			->orderBy('count(demo_id)', 'DESC')
+			->setMaxResults(1);
+
+		$result = $query->execute()->fetch();
+		if (is_array($result)) {
+			return $result;
+		} else {
+			return null;
+		}
+	}
+
 	public function search($query): array {
+		$bySteamId = $this->searchBySteamId($query);
+		if ($bySteamId) {
+			return [
+				$bySteamId
+			];
+		}
+
 		$sql = 'SELECT user_id, players.name, count(demo_id) AS count, steamid,
 		 1-(players.name <-> ?) AS sim FROM players
 		 INNER JOIN users ON users.id = players.user_id
-		 WHERE players.name % ? OR players.name ~* ? OR steamid = ?
+		 WHERE players.name % ? OR players.name ~* ?
 		 GROUP BY players.name, user_id, steamid
 		 ORDER BY count DESC
 		 LIMIT 100';
-		$result = $this->query($sql, [$query, $query, $query, $query]);
+		$result = $this->query($sql, [$query, $query, $query]);
 		$players = $result->fetchAll(\PDO::FETCH_ASSOC);
 
 		usort($players, function ($b, $a) use ($query) {
