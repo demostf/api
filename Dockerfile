@@ -1,11 +1,11 @@
 FROM php:7.1-fpm-alpine
 
-RUN apk add --no-cache postgresql-dev wget autoconf g++ libc-dev make \
+RUN apk add --no-cache postgresql-dev wget autoconf g++ libc-dev make pcre-dev \
     && mkdir -p /app/src \
     && docker-php-ext-install pdo_pgsql \
     && pecl install apcu \
     && docker-php-ext-enable apcu \
-    && apk del autoconf g++ libc-dev make
+    && apk del autoconf g++ libc-dev make pcre-dev
 
 COPY composer.json /app
 COPY src /app/src

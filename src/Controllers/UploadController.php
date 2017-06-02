@@ -18,6 +18,13 @@ class UploadController extends BaseController {
 		$demo = $this->file('demo');
 		$demoFile = $demo['tmp_name'];
 
-		echo $this->uploadProvider->upload($key, $red, $blu, $name, $demoFile);
+		try {
+			echo $this->uploadProvider->upload($key, $red, $blu, $name, $demoFile);
+		} catch (\Exception $e) {
+			\Flight::response()
+				->status(500)
+				->write($e->getMessage())
+				->send();
+		}
 	}
 }
