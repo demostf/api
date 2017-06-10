@@ -187,7 +187,8 @@ class Demo implements \JsonSerializable {
 			'redScore' => $this->getRedScore(),
 			'blueScore' => $this->getBlueScore(),
 			'playerCount' => $this->getPlayerCount(),
-			'uploader' => $this->uploaderUser ? $this->getUploaderUser()->jsonSerialize() : $this->getUploader()
+			'uploader' => $this->uploaderUser ? $this->getUploaderUser()->jsonSerialize() : $this->getUploader(),
+			'hash' => $this->getHash()
 		];
 		if ($this->players) {
 			$data['players'] = $this->getPlayers();
