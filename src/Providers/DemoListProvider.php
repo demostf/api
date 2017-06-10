@@ -37,9 +37,10 @@ class DemoListProvider extends BaseProvider {
 	/**
 	 * @param int $page
 	 * @param array $where
+	 * @param string $order
 	 * @return Demo[]
 	 */
-	public function listDemos(int $page, array $where = []) {
+	public function listDemos(int $page, array $where = [], $order = 'DESC') {
 		if (isset($where['players']) and is_array($where['players']) and count($where['players']) > 0) {
 			return $this->listProfile($page, $where);
 		}
@@ -60,7 +61,7 @@ class DemoListProvider extends BaseProvider {
 		if (isset($where['uploader'])) {
 			$query->where($query->expr()->in('uploader', $query->createNamedParameter($where['uploader'], \PDO::PARAM_INT)));
 		}
-		$query->orderBy('d.id', 'DESC')
+		$query->orderBy('d.id', $order)
 			->setMaxResults(50)
 			->setFirstResult($offset);
 

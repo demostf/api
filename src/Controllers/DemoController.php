@@ -58,7 +58,8 @@ class DemoController extends BaseController {
 
 	public function listDemos() {
 		$page = $this->query('page', 1);
-		\Flight::json($this->demoListProvider->listDemos($page, $this->getFilter()));
+		$order = $this->query('order', 'DESC') === 'ASC' ? 'ASC' : 'DESC';
+		\Flight::json($this->demoListProvider->listDemos($page, $this->getFilter(), $order));
 	}
 
 	public function listProfile($steamid) {
