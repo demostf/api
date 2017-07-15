@@ -238,7 +238,9 @@ class UploadProviderTest extends TestCase {
 				2,
 				2,
 				1,
-				$hash
+				$hash,
+				'b',
+				'p'
 			),
 			'test', 'test'
 		);

@@ -59,7 +59,9 @@ class DemoProviderTest extends TestCase {
 			2,
 			18,
 			$uploader->getId(),
-			'hash'
+			'hash',
+			'dummy',
+			'path'
 		);
 		$demo->setUploaderUser($uploader);
 
@@ -112,7 +114,11 @@ class DemoProviderTest extends TestCase {
 			2,
 			18,
 			$uploader->getId(),
-			'hash'
+			'hash',
+			'backend',
+			'path',
+			'dummy',
+			'path'
 		);
 
 		$id = $this->provider->storeDemo($demo, 'dummy', 'path');

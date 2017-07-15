@@ -45,7 +45,9 @@ class DemoListProviderTest extends TestCase {
 			2,
 			$playerCount,
 			$uploaderId,
-			'hash'
+			'hash',
+			'backend',
+			'path'
 		);
 	}
 

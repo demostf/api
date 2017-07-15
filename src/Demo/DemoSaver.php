@@ -52,7 +52,9 @@ class DemoSaver {
 			$demo->getBlueScore(),
 			count($demo->getPlayers()),
 			$upload->getUploaderId(),
-			$upload->getHash()
+			$upload->getHash(),
+			$storedDemo->getBackend(),
+			$storedDemo->getPath()
 		), $storedDemo->getBackend(), $storedDemo->getPath());
 
 		foreach ($demo->getPlayers() as $player) {

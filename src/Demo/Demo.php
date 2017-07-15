@@ -38,6 +38,10 @@ class Demo implements \JsonSerializable {
 	private $players;
 	/** @var string */
 	private $hash;
+	/** @var string */
+	private $backend;
+	/** @var string */
+	private $path;
 
 	public function __construct(
 		int $id,
@@ -54,7 +58,9 @@ class Demo implements \JsonSerializable {
 		int $blueScore,
 		int $playerCount,
 		int $uploader,
-		string $hash
+		string $hash,
+		string $backend,
+		string $path
 	) {
 		$this->id = $id;
 		$this->url = $url;
@@ -71,6 +77,8 @@ class Demo implements \JsonSerializable {
 		$this->playerCount = $playerCount;
 		$this->uploader = $uploader;
 		$this->hash = $hash;
+		$this->backend = $backend;
+		$this->path = $path;
 	}
 
 	public function getId(): int {
@@ -153,7 +161,9 @@ class Demo implements \JsonSerializable {
 			(int)$row['scoreBlue'],
 			(int)$row['playerCount'],
 			(int)$row['uploader'],
-			$row['hash']
+			$row['hash'],
+			$row['backend'],
+			$row['path']
 		);
 	}
 
@@ -172,6 +182,14 @@ class Demo implements \JsonSerializable {
 		return $this->hash;
 	}
 
+	public function getBackend(): string {
+		return $this->backend;
+	}
+
+	public function getPath(): string {
+		return $this->path;
+	}
+
 	public function jsonSerialize() {
 		$data = [
 			'id' => $this->getId(),
@@ -188,7 +206,9 @@ class Demo implements \JsonSerializable {
 			'blueScore' => $this->getBlueScore(),
 			'playerCount' => $this->getPlayerCount(),
 			'uploader' => $this->uploaderUser ? $this->getUploaderUser()->jsonSerialize() : $this->getUploader(),
-			'hash' => $this->getHash()
+			'hash' => $this->getHash(),
+			'backend' => $this->getBackend(),
+			'path' => $this->getPath()
 		];
 		if ($this->players) {
 			$data['players'] = $this->getPlayers();
