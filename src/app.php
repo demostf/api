@@ -42,9 +42,9 @@ Flight::route('/stats', [$infoController, 'stats']);
 Flight::route('/demos', [$demoController, 'listDemos']);
 Flight::route('/demos/@id', [$demoController, 'get']);
 Flight::route('/demos/@id/chat', [$demoController, 'chat']);
+Flight::route('/demos/@id/url', [$demoController, 'setDemoUrl']);
 Flight::route('/profiles/@steamid', [$demoController, 'listProfile']);
 Flight::route('/uploads/@steamid', [$demoController, 'listUploads']);
-Flight::route('/demos/@id/url', [$demoController, 'setDemoUrl']);
 
 Flight::route('/users/search', [$userController, 'search']);
 Flight::route('/users/@steamid', [$userController, 'get']);

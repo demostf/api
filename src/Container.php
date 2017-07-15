@@ -123,4 +123,8 @@ class Container {
 	public function getEditKey(): string {
 		return $this->editKey;
 	}
+
+	public function getConnection(): Connection {
+		return $this->connection;
+	}
 }

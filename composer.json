@@ -15,7 +15,7 @@
         ],
         "psr-4": {
             "Demostf\\API\\": "src/",
-            "Demostf\\API\\Test\\": "tests/"
+            "Demostf\\API\\Test\\": "test/"
         }
     },
     "require-dev": {

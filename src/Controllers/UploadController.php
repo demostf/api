@@ -16,10 +16,19 @@ class UploadController extends BaseController {
 		$blu = $this->post('blu', 'BLU');
 		$name = $this->post('name', 'Unnamed');
 		$demo = $this->file('demo');
+		if (is_null($demo)) {
+			echo 'No demo uploaded';
+			return;
+		}
 		$demoFile = $demo['tmp_name'];
 
 		try {
-			echo $this->uploadProvider->upload($key, $red, $blu, $name, $demoFile);
+			$result = $this->uploadProvider->upload($key, $red, $blu, $name, $demoFile);
+			if ($result === 'Invalid key') {
+				\Flight::response()->status(401)->write($result)->send();
+			} else {
+				echo $result;
+			}
 		} catch (\Exception $e) {
 			\Flight::response()
 				->status(500)

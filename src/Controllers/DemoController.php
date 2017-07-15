@@ -82,19 +82,19 @@ class DemoController extends BaseController {
 	}
 
 	public function setDemoUrl($id) {
-		$hash = $this->query('hash', '');
-		$backend = $this->query('backend', '');
-		$path = $this->query('path', '');
-		$url = $this->query('url', '');
-		$editKey = $this->query('key', '');
-		if ($editKey !== $this->editKey) {
+		$hash = $this->post('hash', '');
+		$backend = $this->post('backend', '');
+		$path = $this->post('path', '');
+		$url = $this->post('url', '');
+		$editKey = $this->post('key', '');
+		if ($editKey !== $this->editKey || $editKey === '') {
 			throw new \InvalidArgumentException('Invalid key');
 		}
 
-		$demo = $this->demoProvider->get($id);
+		$demo = $this->demoProvider->get((int)$id);
 		$existingHash = $demo->getHash();
 		if ($existingHash === '' || $existingHash === $hash) {
-			$this->demoProvider->setDemoUrl($id, $backend, $url, $path);
+			$this->demoProvider->setDemoUrl((int)$id, $backend, $url, $path);
 		} else {
 			throw new \InvalidArgumentException('Invalid demo hash');
 		}

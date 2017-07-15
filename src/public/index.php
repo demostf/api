@@ -1,3 +1,3 @@
 <?php
 
-require '../app.php';
+require __DIR__ . '/../app.php';
