@@ -14,10 +14,13 @@ class DemoController extends BaseController {
 
 	private $demoListProvider;
 
-	public function __construct(DemoProvider $demoProvider, ChatProvider $chatProvider, DemoListProvider $demoListProvider) {
+	private $editKey;
+
+	public function __construct(DemoProvider $demoProvider, ChatProvider $chatProvider, DemoListProvider $demoListProvider, string $editKey) {
 		$this->demoProvider = $demoProvider;
 		$this->chatProvider = $chatProvider;
 		$this->demoListProvider = $demoListProvider;
+		$this->editKey = $editKey;
 	}
 
 	/**
@@ -76,5 +79,24 @@ class DemoController extends BaseController {
 
 	public function chat($demoId) {
 		\Flight::json($this->chatProvider->getChat($demoId));
+	}
+
+	public function setDemoUrl($id) {
+		$hash = $this->query('hash', '');
+		$backend = $this->query('backend', '');
+		$path = $this->query('path', '');
+		$url = $this->query('url', '');
+		$editKey = $this->query('key', '');
+		if ($editKey !== $this->editKey) {
+			throw new \InvalidArgumentException('Invalid key');
+		}
+
+		$demo = $this->demoProvider->get($id);
+		$existingHash = $demo->getHash();
+		if ($existingHash === '' || $existingHash === $hash) {
+			$this->demoProvider->setDemoUrl($id, $backend, $url, $path);
+		} else {
+			throw new \InvalidArgumentException('Invalid demo hash');
+		}
 	}
 }

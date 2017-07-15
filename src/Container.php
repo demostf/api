@@ -27,6 +27,7 @@ class Container {
 	private $storeRoot;
 	private $storeUrl;
 	private $apiRoot;
+	private $editKey;
 
 	public function __construct(
 		Connection $connection,
@@ -35,7 +36,8 @@ class Container {
 		string $parserUrl,
 		string $storeRoot,
 		string $storeUrl,
-		string $apiRoot
+		string $apiRoot,
+		string $editKey
 	) {
 		$this->connection = $connection;
 		$this->generator = $generator;
@@ -44,6 +46,7 @@ class Container {
 		$this->storeRoot = $storeRoot;
 		$this->storeUrl = $storeUrl;
 		$this->apiRoot = $apiRoot;
+		$this->editKey = $editKey;
 	}
 
 	public function getAuthProvider(): AuthProvider {
@@ -115,5 +118,9 @@ class Container {
 
 	public function getApiRoot(): string {
 		return $this->apiRoot;
+	}
+
+	public function getEditKey(): string {
+		return $this->editKey;
 	}
 }

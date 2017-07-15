@@ -156,4 +156,44 @@ class DemoProviderTest extends TestCase {
 		$kill = new Kill(0, $demoId, $attackerId, $assisterId, $victimId, $weapon);
 		return $this->killProvider->store($kill);
 	}
+
+	public function testSetDemoUrl() {
+		$uploaderSteamId = $this->getSteamId('12345', 'test');
+		$this->userProvider->store($uploaderSteamId);
+
+		$uploader = $this->userProvider->get($uploaderSteamId->getSteamId64());
+
+		$demo = new Demo(
+			0,
+			'http://example.com',
+			'name',
+			'server',
+			12,
+			'nick',
+			'map',
+			new \DateTime(),
+			'RED',
+			'BLUE',
+			1,
+			2,
+			18,
+			$uploader->getId(),
+			'hash',
+			'dummy',
+			'path'
+		);
+
+		$id = $this->provider->storeDemo($demo, 'dummy', 'path');
+		$id2 = $this->provider->storeDemo($demo, 'dummy', 'path');
+
+		$this->provider->setDemoUrl($id, 'foobackend', 'http://foo.example.com', 'bar');
+
+		$storedDemo = $this->provider->get($id);
+		$this->assertEquals('http://foo.example.com', $storedDemo->getUrl());
+		$this->assertEquals('foobackend', $storedDemo->getBackend());
+		$this->assertEquals('bar', $storedDemo->getPath());
+
+		$storedDemo2 = $this->provider->get($id2);
+		$this->assertEquals('http://example.com', $storedDemo2->getUrl());
+	}
 }

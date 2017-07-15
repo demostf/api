@@ -81,4 +81,14 @@ class DemoProvider extends BaseProvider {
 			->execute();
 		return (int)$this->connection->lastInsertId();
 	}
+
+	public function setDemoUrl(int $id, string $backend, string $url, string $path) {
+		$query = $this->getQueryBuilder();
+		$query->update('demos')
+			->set('backend', $query->createNamedParameter($backend))
+			->set('url', $query->createNamedParameter($url))
+			->set('path', $query->createNamedParameter($path))
+			->where($query->expr()->eq('id', $query->createNamedParameter($id, \PDO::PARAM_INT)))
+			->execute();
+	}
 }
