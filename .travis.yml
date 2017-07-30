@@ -22,6 +22,7 @@ env:
     - DEMO_ROOT=/tmp/demos
 
 install:
+  - pecl install ast
   - composer install --no-interaction
   - npm install
 
@@ -36,6 +37,8 @@ script:
   - phpunit --coverage-clover coverage.xml --configuration test/phpunit.xml
   - IFS=$'\n'; COMMIT_SCA_FILES=($(git diff --name-only --diff-filter=ACMRTUXB "${$TRAVIS_COMMIT_RANGE}")); unset IFS
   - vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run --allow-risky yes --stop-on-violation --using-cache=no --path-mode=intersection -- "${COMMIT_SCA_FILES[@]}"
+  - phpenv config-rm xdebug.ini
+  - vendor/bin/phan
   - node node_modules/.bin/mocha --recursive
 
 after_success:

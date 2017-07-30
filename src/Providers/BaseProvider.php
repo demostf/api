@@ -21,6 +21,15 @@ class BaseProvider {
      */
     protected $db;
 
+    /**
+     * BaseProvider constructor.
+     * @param Connection $connection
+     *
+     * The DBAL connection used will always be a PDO
+     * but phan isn't aware of this.
+     *
+     * @suppress PhanTypeMismatchArgument
+     */
     public function __construct(Connection $connection) {
         $this->connection = $connection;
         $this->db = new Database($connection->getWrappedConnection());

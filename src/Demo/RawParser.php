@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Demostf\API\Demo;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
 
 /**
  * Wrapper around demo.js parser.
@@ -32,7 +32,7 @@ class RawParser {
             } else {
                 return $result;
             }
-        } catch (GuzzleException $e) {
+        } catch (RequestException $e) {
             if (strpos($e->getMessage(), 'cURL error 52') !== false) {
                 throw new \Exception('Failed to parse demo, can\'t reach demo parser');
             }

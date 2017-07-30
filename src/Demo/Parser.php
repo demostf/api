@@ -35,11 +35,11 @@ class Parser {
 
     public function analyse(string $path): ParsedDemo {
         $data = $this->rawParser->parse($path);
-        if (!is_array($data)) {
+        if (is_array($data)) {
+            return $this->handleData($data);
+        } else {
             throw new \InvalidArgumentException('Error parsing demo');
         }
-
-        return $this->handleData($data);
     }
 
     private function handleData(array $data): ParsedDemo {
@@ -60,7 +60,8 @@ class Parser {
 
         foreach ($data['chat'] as $message) {
             if (isset($message['from'])) {
-                $chat[] = new ChatMessage($message['from'], (int) floor(($message['tick'] - $data['startTick']) * $intervalPerTick), $message['text']);
+                $chat[] = new ChatMessage($message['from'],
+                    (int)floor(($message['tick'] - $data['startTick']) * $intervalPerTick), $message['text']);
             }
         }
 
@@ -79,13 +80,14 @@ class Parser {
                     $player['userId'],
                     $this->convertSteamIdToCommunityId($player['steamId']),
                     $player['team'],
-                    $this->getClassName((int) $class)
+                    $this->getClassName((int)$class)
                 );
             }
         }
 
         $kills = array_map(function (array $death) {
-            return new ParsedKill($death['killer'] ?? 0, $death['assister'] ?? 0, $death['victim'] ?? 0, $death['weapon']);
+            return new ParsedKill($death['killer'] ?? 0, $death['assister'] ?? 0, $death['victim'] ?? 0,
+                $death['weapon']);
         }, $data['deaths']);
 
         return new ParsedDemo(
