@@ -6,21 +6,21 @@ use Demostf\API\Providers\UserProvider;
 use flight\Engine;
 
 class UserController extends BaseController {
-	/**
-	 * @var UserProvider
-	 */
-	private $userProvider;
+    /**
+     * @var UserProvider
+     */
+    private $userProvider;
 
-	public function __construct(UserProvider $userProvider) {
-		$this->userProvider = $userProvider;
-	}
+    public function __construct(UserProvider $userProvider) {
+        $this->userProvider = $userProvider;
+    }
 
-	public function get($steamid) {
-		\Flight::json($this->userProvider->get($steamid));
-	}
+    public function get($steamid) {
+        \Flight::json($this->userProvider->get($steamid));
+    }
 
-	public function search() {
-		$query = $this->query('query', '');
-		\Flight::json($this->userProvider->search($query));
-	}
+    public function search() {
+        $query = $this->query('query', '');
+        \Flight::json($this->userProvider->search($query));
+    }
 }

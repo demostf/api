@@ -5,19 +5,19 @@ use Demostf\API\Container;
 $autoloader = require __DIR__ . '/../vendor/autoload.php';
 
 if (!getenv('DB_TYPE')) {
-	Dotenv::load(__DIR__ . '/../');
+    Dotenv::load(__DIR__ . '/../');
 }
 
-$connectionParams = array(
-	'dbname' => getenv('DB_DATABASE'),
-	'user' => getenv('DB_USERNAME'),
-	'password' => getenv('DB_PASSWORD'),
-	'host' => getenv('DB_HOST'),
-	'port' => getenv('DB_PORT'),
-	'driver' => getenv('DB_TYPE'),
-);
+$connectionParams = [
+    'dbname' => getenv('DB_DATABASE'),
+    'user' => getenv('DB_USERNAME'),
+    'password' => getenv('DB_PASSWORD'),
+    'host' => getenv('DB_HOST'),
+    'port' => getenv('DB_PORT'),
+    'driver' => getenv('DB_TYPE'),
+];
 if ($connectionParams['driver'] === 'pgsql') {
-	$connectionParams['driver'] = 'pdo_pgsql';
+    $connectionParams['driver'] = 'pdo_pgsql';
 }
 $db = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
 $host = getenv('BASE_HOST') ?: '';
@@ -31,14 +31,14 @@ $factory = new \RandomLib\Factory;
 $generator = $factory->getMediumStrengthGenerator();
 
 $container = new Container(
-	$db,
-	$generator,
-	'https://' . $host,
-	$parserUrl,
-	$storeRoot,
-	$storeHost,
-	$appRoot,
-	$editKey
+    $db,
+    $generator,
+    'https://' . $host,
+    $parserUrl,
+    $storeRoot,
+    $storeHost,
+    $appRoot,
+    $editKey
 );
 
 return $container;

@@ -7,64 +7,64 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use LessQL\Database;
 
 class BaseProvider {
-	/**
-	 * @var Connection
-	 */
-	protected $connection;
+    /**
+     * @var Connection
+     */
+    protected $connection;
 
-	/**
-	 * @var \LessQL\Database
-	 */
-	protected $db;
+    /**
+     * @var \LessQL\Database
+     */
+    protected $db;
 
-	public function __construct(Connection $connection) {
-		$this->connection = $connection;
-		$this->db = new Database($connection->getWrappedConnection());
-		$this->dbConfig();
-	}
+    public function __construct(Connection $connection) {
+        $this->connection = $connection;
+        $this->db = new Database($connection->getWrappedConnection());
+        $this->dbConfig();
+    }
 
-	private function dbConfig() {
-		$platform = $this->connection->getDatabasePlatform();
-		if ($platform instanceof MySqlPlatform) {
-			$this->db->setIdentifierDelimiter("`");
-		} else {
-			$this->db->setIdentifierDelimiter('"');
-		}
+    private function dbConfig() {
+        $platform = $this->connection->getDatabasePlatform();
+        if ($platform instanceof MySqlPlatform) {
+            $this->db->setIdentifierDelimiter("`");
+        } else {
+            $this->db->setIdentifierDelimiter('"');
+        }
 
-		$this->db->setRewrite(function ($table) {
-			$rawNames = ['chat'];
-			$aliases = [
+        $this->db->setRewrite(function ($table) {
+            $rawNames = ['chat'];
+            $aliases = [
 
-			];
-			if (isset($aliases[$table])) {
-				return $aliases[$table];
-			} else if (array_search($table, $rawNames) === false) {
-				return $table . 's';
-			} else {
-				return $table;
-			}
-		});
-	}
+            ];
+            if (isset($aliases[$table])) {
+                return $aliases[$table];
+            } elseif (array_search($table, $rawNames) === false) {
+                return $table . 's';
+            } else {
+                return $table;
+            }
+        });
+    }
 
-	protected function query($sql, array $params = []) {
-		$delimiter = $this->db->getIdentifierDelimiter();
-		$platform = $this->connection->getDatabasePlatform();
-		$sql = str_replace('`', $delimiter, $sql);
+    protected function query($sql, array $params = []) {
+        $delimiter = $this->db->getIdentifierDelimiter();
+        $platform = $this->connection->getDatabasePlatform();
+        $sql = str_replace('`', $delimiter, $sql);
 
-		if ($platform instanceof PostgreSqlPlatform) {
-			$sql = str_replace('FROM_UNIXTIME(', 'to_timestamp(', $sql);
-		}
+        if ($platform instanceof PostgreSqlPlatform) {
+            $sql = str_replace('FROM_UNIXTIME(', 'to_timestamp(', $sql);
+        }
 
-		$query = $this->connection->prepare($sql);
-		$query->execute($params);
+        $query = $this->connection->prepare($sql);
+        $query->execute($params);
 
-		return $query;
-	}
+        return $query;
+    }
 
-	/**
-	 * @return QueryBuilder
-	 */
-	protected function getQueryBuilder() {
-		return new QueryBuilder($this->connection);
-	}
+    /**
+     * @return QueryBuilder
+     */
+    protected function getQueryBuilder() {
+        return new QueryBuilder($this->connection);
+    }
 }

@@ -20,3 +20,7 @@ phpunit:
 
 .PHONY: test
 tests: phpunit mocha
+
+.PHONY: lint
+lint:
+	vendor/bin/php-cs-fixer fix

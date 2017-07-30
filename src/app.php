@@ -8,32 +8,32 @@ use Flight;
 $container = require __DIR__ . '/init.php';
 
 $demoController = new Controllers\DemoController(
-	$container->getDemoProvider(),
-	$container->getChatProvider(),
-	$container->getDemoListProvider(),
-	$container->getEditKey()
+    $container->getDemoProvider(),
+    $container->getChatProvider(),
+    $container->getDemoListProvider(),
+    $container->getEditKey()
 );
 $authController = new Controllers\AuthController(
-	$container->getUserProvider(),
-	$container->getAuthProvider(),
-	$container->getBaseUrl(),
-	$container->getApiRoot()
+    $container->getUserProvider(),
+    $container->getAuthProvider(),
+    $container->getBaseUrl(),
+    $container->getApiRoot()
 );
 $userController = new Controllers\UserController($container->getUserProvider());
 $infoController = new Controllers\InfoController($container->getInfoProvider());
 
 Flight::route('/*', function () {
-	header('Access-Control-Allow-Origin: *');
-	return true;
+    header('Access-Control-Allow-Origin: *');
+    return true;
 });
 
 Flight::route('/auth/*', function () {
-	session_start();
-	return true;
+    session_start();
+    return true;
 });
 
 Flight::route('/', function () {
-	echo 'hello world!';
+    echo 'hello world!';
 });
 
 Flight::route('/maps', [$infoController, 'listMaps']);

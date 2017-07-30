@@ -11,8 +11,8 @@ $container = require __DIR__ . '/init.php';
 $uploadController = new Controllers\UploadController($container->getUploadProvider());
 
 Flight::route('/*', function () {
-	header('Access-Control-Allow-Origin: *');
-	return true;
+    header('Access-Control-Allow-Origin: *');
+    return true;
 });
 
 Flight::route('/upload', [$uploadController, 'upload']);
