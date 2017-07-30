@@ -10,11 +10,11 @@ class DemoStore {
     /** @var string */
     private $root;
     /** @var string */
-    private $webroot;
+    private $webRoot;
 
-    public function __construct(string $root, string $webroot) {
+    public function __construct(string $root, string $webRoot) {
         $this->root = $root;
-        $this->webroot = $webroot;
+        $this->webRoot = $webRoot;
     }
 
     public function store(string $sourcePath, string $name): StoredDemo {
@@ -32,11 +32,11 @@ class DemoStore {
         return $this->root . $this->getPrefix($name) . $name;
     }
 
-    private function getPrefix(string $name) {
+    private function getPrefix(string $name): string {
         return '/' . substr($name, 0, 2) . '/' . substr($name, 2, 2) . '/';
     }
 
     private function getUrl(string $name): string {
-        return 'https://' . $this->webroot . $this->getPrefix($name) . $name;
+        return 'https://' . $this->webRoot . $this->getPrefix($name) . $name;
     }
 }

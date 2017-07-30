@@ -49,13 +49,13 @@ class DemoProvider extends BaseProvider {
         return $formattedDemo;
     }
 
-    public function demoIdByHash($hash): int {
+    public function demoIdByHash(string $hash): int {
         $query = $this->getQueryBuilder();
         $query->select('id')
             ->from('demos')
             ->where($query->expr()->eq('hash', $query->createNamedParameter($hash)));
 
-        return (int) $query->execute()->fetchColumn();
+        return (int)$query->execute()->fetchColumn();
     }
 
     public function storeDemo(Demo $demo, string $backend, string $path): int {
@@ -68,7 +68,7 @@ class DemoProvider extends BaseProvider {
                 'red' => $query->createNamedParameter($demo->getRed()),
                 'blu' => $query->createNamedParameter($demo->getBlue()),
                 'uploader' => $query->createNamedParameter($demo->getUploader(), \PDO::PARAM_INT),
-                'duration' => $query->createNamedParameter((int) $demo->getDuration(), \PDO::PARAM_INT),
+                'duration' => $query->createNamedParameter((int)$demo->getDuration(), \PDO::PARAM_INT),
                 'created_at' => $query->createNamedParameter($demo->getTime()->format(\DATE_ATOM)),
                 'updated_at' => 'now()',
                 'backend' => $query->createNamedParameter($backend),
@@ -83,7 +83,7 @@ class DemoProvider extends BaseProvider {
             ])
             ->execute();
 
-        return (int) $this->connection->lastInsertId();
+        return (int)$this->connection->lastInsertId();
     }
 
     public function setDemoUrl(int $id, string $backend, string $url, string $path) {

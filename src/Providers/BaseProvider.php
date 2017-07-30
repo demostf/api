@@ -58,7 +58,7 @@ class BaseProvider {
         });
     }
 
-    protected function query($sql, array $params = []) {
+    protected function query(string $sql, array $params = []) {
         $delimiter = $this->db->getIdentifierDelimiter();
         $platform = $this->connection->getDatabasePlatform();
         $sql = str_replace('`', $delimiter, $sql);

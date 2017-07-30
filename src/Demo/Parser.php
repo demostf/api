@@ -117,7 +117,7 @@ class Parser {
      *
      * @return string The converted 64bit numeric SteamID
      */
-    public function convertSteamIdToCommunityId($steamId) {
+    public function convertSteamIdToCommunityId(string $steamId): string {
         if ($steamId === 'STEAM_ID_LAN' || $steamId === 'BOT') {
             throw new \InvalidArgumentException("Cannot convert SteamID \"$steamId\" to a community ID.");
         }

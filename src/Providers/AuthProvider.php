@@ -18,11 +18,11 @@ class AuthProvider extends BaseProvider {
         $this->generator = $generator;
     }
 
-    public function generateToken() {
+    public function generateToken(): string {
         return $this->generator->generateString(32, Generator::CHAR_ALNUM);
     }
 
-    public function setUser($token, \SteamId $steamid, $key) {
+    public function setUser(string $token, \SteamId $steamid, string $key) {
         apcu_store($token, [
             'name' => $steamid->getNickname(),
             'steamid' => $steamid->getSteamId64(),
@@ -30,7 +30,7 @@ class AuthProvider extends BaseProvider {
         ]);
     }
 
-    public function getUser($token) {
+    public function getUser(string $token) {
         $found = true;
         $result = apcu_fetch($token, $found);
 

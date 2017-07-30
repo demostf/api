@@ -118,7 +118,7 @@ class UserProvider extends BaseProvider {
         return array_values($result);
     }
 
-    public function byKey($key): ?User {
+    public function byKey(string $key): ?User {
         $query = $this->getQueryBuilder();
         $query->select(['id', 'steamid', 'name', 'avatar', 'token'])
             ->from('users')
