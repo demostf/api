@@ -1,9 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Demo;
 
 /**
- * HL2 demo metadata
+ * HL2 demo metadata.
  */
 class Header {
     /**
@@ -132,7 +134,7 @@ class Header {
     }
 
     public static function fromArray(array $info) {
-        return new Header(
+        return new self(
             $info['type'],
             $info['version'],
             $info['protocol'],

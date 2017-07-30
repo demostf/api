@@ -1,10 +1,14 @@
-<?php namespace Demostf\API\Demo;
+<?php
+
+declare(strict_types=1);
+
+namespace Demostf\API\Demo;
 
 class ChatMessage {
     /** @var string */
     private $user;
 
-    /** @var integer */
+    /** @var int */
     private $time;
 
     /** @var string */
@@ -14,7 +18,7 @@ class ChatMessage {
      * ChatMessage constructor.
      *
      * @param string $user
-     * @param int $time
+     * @param int    $time
      * @param string $message
      */
     public function __construct(string $user, int $time, string $message) {

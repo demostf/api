@@ -1,14 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Demo;
 
 use Demostf\API\Data\ParsedDemo;
 use Demostf\API\Data\ParsedKill;
 use Demostf\API\Data\ParsedPlayer;
-use Demostf\API\Data\Player;
 
 /**
- * Higher level parser
+ * Higher level parser.
  *
  * Processes the raw demo.js output to something more suitable for our purpose
  */
@@ -22,7 +23,7 @@ class Parser {
         6 => 'heavyweapons',
         7 => 'pyro',
         8 => 'spy',
-        9 => 'engineer'
+        9 => 'engineer',
     ];
 
     /** @var RawParser */
@@ -37,6 +38,7 @@ class Parser {
         if (!is_array($data)) {
             throw new \InvalidArgumentException('Error parsing demo');
         }
+
         return $this->handleData($data);
     }
 
@@ -50,15 +52,15 @@ class Parser {
         $players = [];
         foreach ($data['rounds'] as $round) {
             if ($round['winner'] === 'red') {
-                $red++;
+                ++$red;
             } else {
-                $blue++;
+                ++$blue;
             }
         }
 
         foreach ($data['chat'] as $message) {
             if (isset($message['from'])) {
-                $chat[] = new ChatMessage($message['from'], (int)floor(($message['tick'] - $data['startTick']) * $intervalPerTick), $message['text']);
+                $chat[] = new ChatMessage($message['from'], (int) floor(($message['tick'] - $data['startTick']) * $intervalPerTick), $message['text']);
             }
         }
 
@@ -77,7 +79,7 @@ class Parser {
                     $player['userId'],
                     $this->convertSteamIdToCommunityId($player['steamId']),
                     $player['team'],
-                    $this->getClassName((int)$class)
+                    $this->getClassName((int) $class)
                 );
             }
         }
@@ -100,16 +102,18 @@ class Parser {
     }
 
     /**
-     * Credit to https://github.com/koraktor/steam-condenser-php
+     * Credit to https://github.com/koraktor/steam-condenser-php.
      *
      * Converts a SteamID as reported by game servers to a 64bit numeric
      * SteamID as used by the Steam Community
      *
      * @param string $steamId The SteamID string as used on servers, like
-     *        <var>STEAM_0:0:12345</var>
-     * @return string The converted 64bit numeric SteamID
+     *                        <var>STEAM_0:0:12345</var>
+     *
      * @throws \InvalidArgumentException if the SteamID doesn't have the correct
-     *         format
+     *                                   format
+     *
+     * @return string The converted 64bit numeric SteamID
      */
     public function convertSteamIdToCommunityId($steamId) {
         if ($steamId === 'STEAM_ID_LAN' || $steamId === 'BOT') {
@@ -118,10 +122,12 @@ class Parser {
         if (preg_match('/^STEAM_[0-1]:[0-1]:[0-9]+$/', $steamId)) {
             $steamParts = explode(':', substr($steamId, 8));
             $steamId = $steamParts[0] + $steamParts[1] * 2 + 1197960265728;
+
             return '7656' . $steamId;
         } elseif (preg_match('/^\[U:[0-1]:[0-9]+\]$/', $steamId)) {
             $steamParts = explode(':', substr($steamId, 3, -1));
             $steamId = $steamParts[0] + $steamParts[1] + 1197960265727;
+
             return '7656' . $steamId;
         } else {
             throw new \InvalidArgumentException("SteamID \"$steamId\" doesn't have the correct format.");

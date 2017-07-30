@@ -1,4 +1,8 @@
-<?php namespace Demostf\API\Demo;
+<?php
+
+declare(strict_types=1);
+
+namespace Demostf\API\Demo;
 
 use Demostf\API\Data\StoredDemo;
 
@@ -20,6 +24,7 @@ class DemoStore {
         }
         rename($sourcePath, $target);
         chmod($target, 0755);
+
         return new StoredDemo($this->getUrl($name), 'static', $target);
     }
 

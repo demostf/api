@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Test\Demo;
 
@@ -44,7 +46,7 @@ class HeaderParserTest extends TestCase {
      */
     public function testNonDemoShort() {
         $parser = new HeaderParser();
-        $parser->parseString("short");
+        $parser->parseString('short');
     }
 
     /**

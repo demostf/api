@@ -23,4 +23,4 @@ tests: phpunit mocha
 
 .PHONY: lint
 lint:
-	vendor/bin/php-cs-fixer fix
+	vendor/bin/php-cs-fixer fix --allow-risky yes

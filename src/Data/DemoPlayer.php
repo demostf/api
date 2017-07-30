@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Data;
 
@@ -78,7 +80,7 @@ class DemoPlayer implements \JsonSerializable {
     }
 
     public static function fromRow($row): DemoPlayer {
-        return new DemoPlayer(
+        return new self(
             $row['id'],
             $row['user_id'],
             $row['name'],
@@ -103,7 +105,7 @@ class DemoPlayer implements \JsonSerializable {
             'avatar' => $this->getAvatar(),
             'kills' => $this->getKills(),
             'assists' => $this->getAssists(),
-            'deaths' => $this->getDeaths()
+            'deaths' => $this->getDeaths(),
         ];
     }
 }

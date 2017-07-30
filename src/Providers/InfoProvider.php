@@ -1,9 +1,14 @@
-<?php namespace Demostf\API\Providers;
+<?php
+
+declare(strict_types=1);
+
+namespace Demostf\API\Providers;
 
 class InfoProvider extends BaseProvider {
     public function listMaps() {
         $sql = 'SELECT DISTINCT(map), COUNT(map) AS count from demos GROUP BY map ORDER BY count DESC';
         $result = $this->query($sql);
+
         return $result->fetchAll(\PDO::FETCH_COLUMN);
     }
 
@@ -13,7 +18,7 @@ class InfoProvider extends BaseProvider {
 
         return [
             'demos' => $demoCount,
-            'players' => $playerCount
+            'players' => $playerCount,
         ];
     }
 }

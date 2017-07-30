@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Providers;
 
@@ -16,10 +18,10 @@ class PlayerProvider extends BaseProvider {
                 'team' => $query->createNamedParameter($player->getTeam()),
                 'class' => $query->createNamedParameter($player->getClass()),
                 'created_at' => 'now()',
-                'updated_at' => 'now()'
+                'updated_at' => 'now()',
             ]);
         $query->execute();
 
-        return (int)$this->connection->lastInsertId();
+        return (int) $this->connection->lastInsertId();
     }
 }

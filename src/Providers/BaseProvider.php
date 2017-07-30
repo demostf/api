@@ -1,4 +1,8 @@
-<?php namespace Demostf\API\Providers;
+<?php
+
+declare(strict_types=1);
+
+namespace Demostf\API\Providers;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
@@ -26,7 +30,7 @@ class BaseProvider {
     private function dbConfig() {
         $platform = $this->connection->getDatabasePlatform();
         if ($platform instanceof MySqlPlatform) {
-            $this->db->setIdentifierDelimiter("`");
+            $this->db->setIdentifierDelimiter('`');
         } else {
             $this->db->setIdentifierDelimiter('"');
         }
@@ -34,11 +38,10 @@ class BaseProvider {
         $this->db->setRewrite(function ($table) {
             $rawNames = ['chat'];
             $aliases = [
-
             ];
             if (isset($aliases[$table])) {
                 return $aliases[$table];
-            } elseif (array_search($table, $rawNames) === false) {
+            } elseif (array_search($table, $rawNames, true) === false) {
                 return $table . 's';
             } else {
                 return $table;

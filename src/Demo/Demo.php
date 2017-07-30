@@ -1,4 +1,8 @@
-<?php namespace Demostf\API\Demo;
+<?php
+
+declare(strict_types=1);
+
+namespace Demostf\API\Demo;
 
 use Demostf\API\Data\DemoPlayer;
 use Demostf\API\Data\User;
@@ -146,21 +150,21 @@ class Demo implements \JsonSerializable {
     }
 
     public static function fromRow($row): Demo {
-        return new Demo(
-            (int)$row['id'],
+        return new self(
+            (int) $row['id'],
             $row['url'],
             $row['name'],
             $row['server'],
-            (int)$row['duration'],
+            (int) $row['duration'],
             $row['nick'],
             $row['map'],
             \DateTime::createFromFormat('U', '' . strtotime($row['created_at'])),
             $row['red'],
             $row['blu'],
-            (int)$row['scoreRed'],
-            (int)$row['scoreBlue'],
-            (int)$row['playerCount'],
-            (int)$row['uploader'],
+            (int) $row['scoreRed'],
+            (int) $row['scoreBlue'],
+            (int) $row['playerCount'],
+            (int) $row['uploader'],
             $row['hash'],
             $row['backend'],
             $row['path']
@@ -208,11 +212,12 @@ class Demo implements \JsonSerializable {
             'uploader' => $this->uploaderUser ? $this->getUploaderUser()->jsonSerialize() : $this->getUploader(),
             'hash' => $this->getHash(),
             'backend' => $this->getBackend(),
-            'path' => $this->getPath()
+            'path' => $this->getPath(),
         ];
         if ($this->players) {
             $data['players'] = $this->getPlayers();
         }
+
         return $data;
     }
 }

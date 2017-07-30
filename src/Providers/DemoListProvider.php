@@ -1,4 +1,8 @@
-<?php namespace Demostf\API\Providers;
+<?php
+
+declare(strict_types=1);
+
+namespace Demostf\API\Providers;
 
 use Demostf\API\Demo\Demo;
 use Doctrine\DBAL\Connection;
@@ -7,6 +11,7 @@ class DemoListProvider extends BaseProvider {
     public function listUploads(string $steamid, int $page, array $where = []) {
         $user = $this->db->user()->where('steamid', $steamid);
         $where['uploader'] = $user->fetch()->id;
+
         return $this->listDemos($page, $where);
     }
 
@@ -20,7 +25,7 @@ class DemoListProvider extends BaseProvider {
         $in = implode(', ', array_fill(0, count($userIds), '?'));
 
         $sql = 'SELECT demos.id FROM demos INNER JOIN players ON players.demo_id = demos.id
-		WHERE players.user_id IN (' . $in . ') GROUP BY demos.id HAVING COUNT(user_id)  = ? ORDER BY demos.id DESC LIMIT 50 OFFSET ' . ((int)$page - 1) * 50;
+		WHERE players.user_id IN (' . $in . ') GROUP BY demos.id HAVING COUNT(user_id)  = ? ORDER BY demos.id DESC LIMIT 50 OFFSET ' . ((int) $page - 1) * 50;
 
         $params = $userIds;
         $params[] = count($userIds);
@@ -31,13 +36,15 @@ class DemoListProvider extends BaseProvider {
         $demos = $this->db->demo()->where('id', $demoIds)
             ->where($where)
             ->orderBy('id', 'DESC');
+
         return $this->formatList($demos->fetchAll());
     }
 
     /**
-     * @param int $page
-     * @param array $where
+     * @param int    $page
+     * @param array  $where
      * @param string $order
+     *
      * @return Demo[]
      */
     public function listDemos(int $page, array $where = [], $order = 'DESC') {
@@ -66,6 +73,7 @@ class DemoListProvider extends BaseProvider {
             ->setFirstResult($offset);
 
         $demos = $query->execute()->fetchAll(\PDO::FETCH_ASSOC);
+
         return $this->formatList($demos);
     }
 

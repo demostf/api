@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Test\Providers;
 
@@ -71,7 +73,6 @@ class UserProviderTest extends TestCase {
         $id = $this->provider->getUserId($this->steamId->getSteamId64());
 
         $user = $this->provider->get($this->steamId->getSteamId64());
-
 
         $this->assertEquals($user->getId(), $id);
     }

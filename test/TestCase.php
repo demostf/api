@@ -1,4 +1,8 @@
-<?php namespace Demostf\API\Test;
+<?php
+
+declare(strict_types=1);
+
+namespace Demostf\API\Test;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
@@ -22,6 +26,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase {
             }
             $this->database = DriverManager::getConnection($connectionParams);
         }
+
         return $this->database;
     }
 
@@ -49,7 +54,8 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase {
     }
 
     protected function getRandomGenerator() {
-        $factory = new \RandomLib\Factory;
+        $factory = new \RandomLib\Factory();
+
         return $factory->getMediumStrengthGenerator();
     }
 
@@ -60,6 +66,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase {
             $steamId->imageUrl = 'foo';
         }, null, $steamId);
         $closure($steamId);
+
         return $steamId;
     }
 }

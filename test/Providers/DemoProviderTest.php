@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Test\Providers;
 
@@ -149,11 +151,13 @@ class DemoProviderTest extends TestCase {
 
     private function addPlayer(int $demoId, int $demoUserId, int $userId, string $team, string $class): int {
         $player = new Player(0, $demoId, $demoUserId, $userId, 'user_' . $userId, $team, $class);
+
         return $this->playerProvider->store($player);
     }
 
     private function addKill(int $demoId, int $attackerId, int $assisterId, int $victimId, string $weapon): int {
         $kill = new Kill(0, $demoId, $attackerId, $assisterId, $victimId, $weapon);
+
         return $this->killProvider->store($kill);
     }
 

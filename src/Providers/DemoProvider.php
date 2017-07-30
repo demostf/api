@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Providers;
 
@@ -37,12 +39,13 @@ class DemoProvider extends BaseProvider {
                 'id' => $uploader['id'],
                 'steamid' => $uploader['steamid'],
                 'name' => $uploader['name'],
-                'avatar' => $uploader['avatar']
+                'avatar' => $uploader['avatar'],
             ]));
             $formattedDemo->setPlayers(array_map(function ($player) {
                 return DemoPlayer::fromRow($player);
             }, $players));
         }
+
         return $formattedDemo;
     }
 
@@ -52,7 +55,7 @@ class DemoProvider extends BaseProvider {
             ->from('demos')
             ->where($query->expr()->eq('hash', $query->createNamedParameter($hash)));
 
-        return (int)$query->execute()->fetchColumn();
+        return (int) $query->execute()->fetchColumn();
     }
 
     public function storeDemo(Demo $demo, string $backend, string $path): int {
@@ -65,7 +68,7 @@ class DemoProvider extends BaseProvider {
                 'red' => $query->createNamedParameter($demo->getRed()),
                 'blu' => $query->createNamedParameter($demo->getBlue()),
                 'uploader' => $query->createNamedParameter($demo->getUploader(), \PDO::PARAM_INT),
-                'duration' => $query->createNamedParameter((int)$demo->getDuration(), \PDO::PARAM_INT),
+                'duration' => $query->createNamedParameter((int) $demo->getDuration(), \PDO::PARAM_INT),
                 'created_at' => $query->createNamedParameter($demo->getTime()->format(\DATE_ATOM)),
                 'updated_at' => 'now()',
                 'backend' => $query->createNamedParameter($backend),
@@ -76,10 +79,11 @@ class DemoProvider extends BaseProvider {
                 'server' => $query->createNamedParameter($demo->getServer()),
                 'nick' => $query->createNamedParameter($demo->getNick()),
                 '"playerCount"' => $query->createNamedParameter($demo->getPlayerCount(), \PDO::PARAM_INT),
-                'hash' => $query->createNamedParameter($demo->getHash())
+                'hash' => $query->createNamedParameter($demo->getHash()),
             ])
             ->execute();
-        return (int)$this->connection->lastInsertId();
+
+        return (int) $this->connection->lastInsertId();
     }
 
     public function setDemoUrl(int $id, string $backend, string $url, string $path) {

@@ -1,9 +1,11 @@
-<?php namespace Demostf\API\Providers;
+<?php
 
-use Demostf\API\Data\DemoPlayer;
+declare(strict_types=1);
+
+namespace Demostf\API\Providers;
+
 use Demostf\API\Data\ParsedDemo;
 use Demostf\API\Data\Upload;
-use Demostf\API\Data\User;
 use Demostf\API\Demo\DemoSaver;
 use Demostf\API\Demo\DemoStore;
 use Demostf\API\Demo\Header;

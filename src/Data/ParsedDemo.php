@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Data;
 
@@ -19,11 +21,11 @@ class ParsedDemo {
     /**
      * ParsedDemo constructor.
      *
-     * @param int $redScore
-     * @param int $blueScore
-     * @param ChatMessage[] $chat
+     * @param int            $redScore
+     * @param int            $blueScore
+     * @param ChatMessage[]  $chat
      * @param ParsedPlayer[] $players
-     * @param ParsedKill[] $kills
+     * @param ParsedKill[]   $kills
      */
     public function __construct(int $redScore, int $blueScore, array $chat, array $players, array $kills) {
         $this->redScore = $redScore;

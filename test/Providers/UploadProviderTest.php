@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Test\Providers;
 
@@ -25,7 +27,7 @@ class UploadProviderTest extends TestCase {
     private $headerParser;
     /** @var Parser */
     private $parser;
-    /** @var  DemoStore */
+    /** @var DemoStore */
     private $demoStore;
     /** @var UserProvider */
     private $userProvider;
@@ -49,6 +51,7 @@ class UploadProviderTest extends TestCase {
             ->method('parse')
             ->will($this->returnCallback(function ($path) {
                 $jsonPath = str_replace('.dem', '-raw.json', $path);
+
                 return json_decode(file_get_contents($jsonPath), true);
             }));
 
@@ -290,11 +293,10 @@ class UploadProviderTest extends TestCase {
         $this->saveSteamId('[U:1:143626373]', 'Pendulum');
         $this->saveSteamId('[U:1:30220936]', 'Jedi');
 
-
         $result = $this->uploadProvider->upload($token, 'RED', 'BLU', 'foodemo', $this->tmpDir . '/foo.dem');
         $this->assertStringStartsWith('STV available at: http://example.com/', $result);
 
-        $demoId = (int)substr($result, strlen('STV available at: http://example.com/'));
+        $demoId = (int) substr($result, strlen('STV available at: http://example.com/'));
 
         $demo = $this->demoProvider->get($demoId, true);
 

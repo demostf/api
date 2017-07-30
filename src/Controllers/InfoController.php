@@ -1,7 +1,10 @@
-<?php namespace Demostf\API\Controllers;
+<?php
+
+declare(strict_types=1);
+
+namespace Demostf\API\Controllers;
 
 use Demostf\API\Providers\InfoProvider;
-use flight\Engine;
 
 class InfoController extends BaseController {
     /** @var InfoProvider */

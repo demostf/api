@@ -1,9 +1,12 @@
-<?php namespace Demostf\API\Controllers;
+<?php
+
+declare(strict_types=1);
+
+namespace Demostf\API\Controllers;
 
 use Ehesp\SteamLogin\SteamLogin;
 use Demostf\API\Providers\AuthProvider;
 use Demostf\API\Providers\UserProvider;
-use flight\Engine;
 
 class AuthController extends BaseController {
     /**
@@ -38,7 +41,7 @@ class AuthController extends BaseController {
             'token' => $token,
             'steamid' => $userData['steamid'],
             'name' => $userData['name'],
-            'key' => $userData['key']
+            'key' => $userData['key'],
         ]);
     }
 
@@ -55,7 +58,7 @@ class AuthController extends BaseController {
             'token' => $token,
             'steamid' => null,
             'name' => null,
-            'key' => null
+            'key' => null,
         ]);
     }
 

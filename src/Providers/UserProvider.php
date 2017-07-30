@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Providers;
 
@@ -31,11 +33,12 @@ class UserProvider extends BaseProvider {
                 'steamid' => $query->createNamedParameter($steamId->getSteamId64()),
                 'name' => $query->createNamedParameter($steamId->getNickname()),
                 'avatar' => $query->createNamedParameter($steamId->getMediumAvatarUrl()),
-                'token' => $query->createNamedParameter($token)
+                'token' => $query->createNamedParameter($token),
             ])->add('orderBy', 'ON CONFLICT DO NOTHING')// hack to append arbitrary string to sql
             ->execute();
 
         $user = $this->get($steamId->getSteamId64());
+
         return $user ? $user->getToken() : $token;
     }
 
@@ -46,6 +49,7 @@ class UserProvider extends BaseProvider {
             ->where($query->expr()->eq('steamid', $query->createNamedParameter($steamid)));
 
         $row = $query->execute()->fetch();
+
         return $row ? User::fromRow($row) : null;
     }
 
@@ -71,7 +75,7 @@ class UserProvider extends BaseProvider {
         $bySteamId = $this->searchBySteamId($query);
         if ($bySteamId) {
             return [
-                $bySteamId
+                $bySteamId,
             ];
         }
 
@@ -106,7 +110,7 @@ class UserProvider extends BaseProvider {
                 $result[$id] = [
                     'id' => $id,
                     'name' => $player['name'],
-                    'steamid' => $player['steamid']
+                    'steamid' => $player['steamid'],
                 ];
             }
         }
@@ -121,6 +125,7 @@ class UserProvider extends BaseProvider {
             ->where($query->expr()->eq('token', $query->createNamedParameter($key)));
 
         $row = $query->execute()->fetch();
+
         return $row ? User::fromRow($row) : null;
     }
 

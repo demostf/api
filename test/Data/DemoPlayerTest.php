@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Test\Data;
 
@@ -17,7 +19,7 @@ class DemoPlayerTest extends TestCase {
             'avatar' => 'asd.png',
             'kills' => 5,
             'assists' => 3,
-            'deaths' => 7
+            'deaths' => 7,
         ];
 
         $demoPlayer = DemoPlayer::fromRow($data);

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API;
 
@@ -12,6 +14,7 @@ $uploadController = new Controllers\UploadController($container->getUploadProvid
 
 Flight::route('/*', function () {
     header('Access-Control-Allow-Origin: *');
+
     return true;
 });
 

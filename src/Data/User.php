@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Data;
 
@@ -47,13 +49,13 @@ class User implements \JsonSerializable {
             'id' => $this->getId(),
             'steamid' => $this->getSteamId(),
             'name' => $this->getName(),
-            'avatar' => $this->getAvatar()
+            'avatar' => $this->getAvatar(),
         ];
     }
 
     public static function fromRow(array $row): User {
-        return new User(
-            (int)$row['id'],
+        return new self(
+            (int) $row['id'],
             $row['steamid'],
             $row['name'],
             $row['avatar'],

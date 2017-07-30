@@ -1,4 +1,8 @@
-<?php namespace Demostf\API\Providers;
+<?php
+
+declare(strict_types=1);
+
+namespace Demostf\API\Providers;
 
 use Demostf\API\Demo\ChatMessage;
 
@@ -10,10 +14,11 @@ class ChatProvider extends BaseProvider {
             ->where($query->expr()->eq('demo_id', $query->createNamedParameter($demoId, \PDO::PARAM_INT)));
 
         $result = $query->execute();
+
         return array_map(function (array $row) {
             return new ChatMessage(
                 $row['from'],
-                (int)$row['time'],
+                (int) $row['time'],
                 $row['text']
             );
         }, $result->fetchAll());

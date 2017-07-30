@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Test\Demo;
 
@@ -56,7 +58,7 @@ class DemoSaverTest extends TestCase {
             3,
             [
                 new ChatMessage('user1', 12, 'msg1'),
-                new ChatMessage('user2', 13, 'msg2')
+                new ChatMessage('user2', 13, 'msg2'),
             ],
             [
                 new ParsedPlayer('user1', 1, '1234567', 'red', 'scout'),
@@ -107,7 +109,7 @@ class DemoSaverTest extends TestCase {
 
         $this->assertEquals([
             new ChatMessage('user1', 12, 'msg1'),
-            new ChatMessage('user2', 13, 'msg2')
+            new ChatMessage('user2', 13, 'msg2'),
         ], $chatProvider->getChat($demoId));
     }
 }

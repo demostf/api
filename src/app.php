@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API;
 
@@ -24,11 +26,13 @@ $infoController = new Controllers\InfoController($container->getInfoProvider());
 
 Flight::route('/*', function () {
     header('Access-Control-Allow-Origin: *');
+
     return true;
 });
 
 Flight::route('/auth/*', function () {
     session_start();
+
     return true;
 });
 

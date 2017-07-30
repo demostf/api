@@ -1,7 +1,10 @@
-<?php namespace Demostf\API\Controllers;
+<?php
+
+declare(strict_types=1);
+
+namespace Demostf\API\Controllers;
 
 use Demostf\API\Providers\UploadProvider;
-use flight\Engine;
 
 class UploadController extends BaseController {
     private $uploadProvider;
@@ -11,13 +14,14 @@ class UploadController extends BaseController {
     }
 
     public function upload() {
-        $key = $this->post('key', '');
-        $red = $this->post('red', 'RED');
-        $blu = $this->post('blu', 'BLU');
-        $name = $this->post('name', 'Unnamed');
+        $key = (string) $this->post('key', '');
+        $red = (string) $this->post('red', 'RED');
+        $blu = (string) $this->post('blu', 'BLU');
+        $name = (string) $this->post('name', 'Unnamed');
         $demo = $this->file('demo');
-        if (is_null($demo)) {
+        if (null === $demo) {
             echo 'No demo uploaded';
+
             return;
         }
         $demoFile = $demo['tmp_name'];

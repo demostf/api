@@ -1,17 +1,19 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 $_SERVER['SCRIPT_NAME'] = '';
 
-if ($_SERVER["REQUEST_URI"] === '/upload') {
+if ($_SERVER['REQUEST_URI'] === '/upload') {
     require __DIR__ . '/../src/public/upload.php';
-} elseif ($_SERVER["REQUEST_URI"] === '/reset') {
+} elseif ($_SERVER['REQUEST_URI'] === '/reset') {
     // allow the api tests to reset the database
     /** @var \Demostf\API\Container $container */
     $container = require __DIR__ . '/../src/init.php';
     $connection = $container->getConnection();
 
     clearDatabase($connection);
-} elseif ($_SERVER["REQUEST_URI"] === '/testuser') {
+} elseif ($_SERVER['REQUEST_URI'] === '/testuser') {
     // allow the api tests to create a test user
     /** @var \Demostf\API\Container $container */
     $container = require __DIR__ . '/../src/init.php';
@@ -23,7 +25,7 @@ if ($_SERVER["REQUEST_URI"] === '/upload') {
             'steamid' => $query->createNamedParameter('steamid1'),
             'name' => $query->createNamedParameter('nickname1'),
             'avatar' => $query->createNamedParameter('avatar1'),
-            'token' => $query->createNamedParameter('key1')
+            'token' => $query->createNamedParameter('key1'),
         ])->add('orderBy', 'ON CONFLICT DO NOTHING')// hack to append arbitrary string to sql
         ->execute();
 } else {

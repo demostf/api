@@ -1,4 +1,8 @@
-<?php namespace Demostf\API\Providers;
+<?php
+
+declare(strict_types=1);
+
+namespace Demostf\API\Providers;
 
 use Doctrine\DBAL\Connection;
 use RandomLib\Generator;
@@ -22,13 +26,14 @@ class AuthProvider extends BaseProvider {
         apcu_store($token, [
             'name' => $steamid->getNickname(),
             'steamid' => $steamid->getSteamId64(),
-            'key' => $key
+            'key' => $key,
         ]);
     }
 
     public function getUser($token) {
         $found = true;
         $result = apcu_fetch($token, $found);
+
         return $found ? $result : ['name' => null, 'steamid' => null, 'key' => null];
     }
 

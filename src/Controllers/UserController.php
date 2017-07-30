@@ -1,9 +1,10 @@
-<?php namespace Demostf\API\Controllers;
+<?php
 
-use Ehesp\SteamLogin\SteamLogin;
-use Demostf\API\Providers\AuthProvider;
+declare(strict_types=1);
+
+namespace Demostf\API\Controllers;
+
 use Demostf\API\Providers\UserProvider;
-use flight\Engine;
 
 class UserController extends BaseController {
     /**
@@ -15,8 +16,8 @@ class UserController extends BaseController {
         $this->userProvider = $userProvider;
     }
 
-    public function get($steamid) {
-        \Flight::json($this->userProvider->get($steamid));
+    public function get($steamId) {
+        \Flight::json($this->userProvider->get($steamId));
     }
 
     public function search() {

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Demostf\API\Test\Demo;
 
@@ -21,6 +23,7 @@ class ParserTest extends TestCase {
             ->method('parse')
             ->will($this->returnCallback(function ($path) {
                 $jsonPath = str_replace('.dem', '-raw.json', $path);
+
                 return json_decode(file_get_contents($jsonPath), true);
             }));
     }
@@ -51,9 +54,9 @@ class ParserTest extends TestCase {
 
         $expectedKills = $expectedRaw['kills'];
         $this->assertCount(count($expectedKills), $result->getKills());
-        $this->assertEquals((int)$expectedKills[0]['killer'], $result->getKills()[0]->getAttackerDemoId());
-        $this->assertEquals((int)$expectedKills[0]['assister'], $result->getKills()[0]->getAssisterDemoId());
-        $this->assertEquals((int)$expectedKills[0]['victim'], $result->getKills()[0]->getVictimDemoId());
+        $this->assertEquals((int) $expectedKills[0]['killer'], $result->getKills()[0]->getAttackerDemoId());
+        $this->assertEquals((int) $expectedKills[0]['assister'], $result->getKills()[0]->getAssisterDemoId());
+        $this->assertEquals((int) $expectedKills[0]['victim'], $result->getKills()[0]->getVictimDemoId());
         $this->assertEquals($expectedKills[0]['weapon'], $result->getKills()[0]->getWeapon());
     }
 

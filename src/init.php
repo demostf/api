@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use Demostf\API\Container;
 
@@ -27,7 +29,7 @@ $parserUrl = getenv('PARSER_URL') ?: '';
 $appRoot = getenv('APP_ROOT') ?: '';
 $editKey = getenv('EDIT_SECRET') ?: '';
 
-$factory = new \RandomLib\Factory;
+$factory = new \RandomLib\Factory();
 $generator = $factory->getMediumStrengthGenerator();
 
 $container = new Container(
