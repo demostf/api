@@ -7,6 +7,8 @@ namespace Demostf\API\Controllers;
 use Ehesp\SteamLogin\SteamLogin;
 use Demostf\API\Providers\AuthProvider;
 use Demostf\API\Providers\UserProvider;
+use flight\net\Request;
+use flight\net\Response;
 
 class AuthController extends BaseController {
     /**
@@ -24,7 +26,15 @@ class AuthController extends BaseController {
 
     private $apiRoot;
 
-    public function __construct(UserProvider $userProvider, AuthProvider $authProvider, string $host, string $apiRoot) {
+    public function __construct(
+        Request $request,
+        Response $response,
+        UserProvider $userProvider,
+        AuthProvider $authProvider,
+        string $host,
+        string $apiRoot
+    ) {
+        parent::__construct($request, $response);
         $this->userProvider = $userProvider;
         $this->authProvider = $authProvider;
         $this->host = $host;

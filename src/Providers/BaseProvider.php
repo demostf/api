@@ -23,10 +23,11 @@ class BaseProvider {
 
     /**
      * BaseProvider constructor.
-     * @param Connection $connection
+     *
+     * @param connection $connection
      *
      * The DBAL connection used will always be a PDO
-     * but phan isn't aware of this.
+     * but phan isn't aware of this
      *
      * @suppress PhanTypeMismatchArgument
      */

@@ -153,13 +153,28 @@ class DemoListProviderTest extends TestCase {
         $this->assertEquals($id2, $list[0]->getId());
         $this->assertEquals($id1, $list[1]->getId());
 
-        $list = $this->demoListProvider->listDemos(1, ['players' => [$steamId1->getSteamId64(), $steamId3->getSteamId64()]]);
+        $list = $this->demoListProvider->listDemos(1,
+            ['players' => [$steamId1->getSteamId64(), $steamId3->getSteamId64()]]);
 
         $this->assertCount(1, $list);
         $this->assertEquals($id2, $list[0]->getId());
 
-        $list = $this->demoListProvider->listDemos(1, ['players' => [$steamId2->getSteamId64(), $steamId3->getSteamId64()]]);
+        $list = $this->demoListProvider->listDemos(1,
+            ['players' => [$steamId2->getSteamId64(), $steamId3->getSteamId64()]]);
 
         $this->assertCount(0, $list);
+    }
+
+    public function testByUploaderFilterBackend() {
+        $steamId = $this->getSteamId('12345', 'bar');
+        $this->userProvider->store($steamId);
+        $userId = $this->userProvider->get($steamId->getSteamId64())->getId();
+        $id1 = $this->demoProvider->storeDemo($this->getDemo($userId, 'map1', 12), 'foo1', 'bar');
+        $id2 = $this->demoProvider->storeDemo($this->getDemo($userId, 'map2', 18), 'foo1', 'bar');
+        $id3 = $this->demoProvider->storeDemo($this->getDemo($userId + 1, 'map1', 12), 'foo2', 'bar');
+
+        $list = $this->demoListProvider->listUploads($steamId->getSteamId64(), 1, ['backend' => 'foo2']);
+
+        $this->assertEquals($id3, $list[0]->getId());
     }
 }

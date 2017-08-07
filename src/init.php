@@ -33,6 +33,8 @@ $factory = new \RandomLib\Factory();
 $generator = $factory->getMediumStrengthGenerator();
 
 $container = new Container(
+    Flight::request(),
+    Flight::response(),
     $db,
     $generator,
     'https://' . $host,

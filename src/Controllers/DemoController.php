@@ -7,6 +7,8 @@ namespace Demostf\API\Controllers;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoListProvider;
 use Demostf\API\Providers\DemoProvider;
+use flight\net\Request;
+use flight\net\Response;
 
 class DemoController extends BaseController {
     /** @var DemoProvider */
@@ -20,11 +22,14 @@ class DemoController extends BaseController {
     private $editKey;
 
     public function __construct(
+        Request $request,
+        Response $response,
         DemoProvider $demoProvider,
         ChatProvider $chatProvider,
         DemoListProvider $demoListProvider,
         string $editKey
     ) {
+        parent::__construct($request, $response);
         $this->demoProvider = $demoProvider;
         $this->chatProvider = $chatProvider;
         $this->demoListProvider = $demoListProvider;
@@ -35,16 +40,20 @@ class DemoController extends BaseController {
      * @param string $id
      */
     public function get($id) {
-        \Flight::json($this->demoProvider->get(intval($id, 10)));
+        $this->json($this->demoProvider->get(intval($id, 10)));
     }
 
     protected function getFilter() {
         $map = $this->query('map', '');
         $players = $this->query('players', '');
         $type = $this->query('type', '');
+        $backend = $this->query('backend', '');
         $filter = [];
         if ($map) {
             $filter['map'] = $map;
+        }
+        if ($backend) {
+            $filter['backend'] = $backend;
         }
         if ($players) {
             if (!is_array($players)) {
@@ -71,39 +80,39 @@ class DemoController extends BaseController {
     public function listDemos() {
         $page = $this->query('page', 1);
         $order = $this->query('order', 'DESC') === 'ASC' ? 'ASC' : 'DESC';
-        \Flight::json($this->demoListProvider->listDemos((int)$page, $this->getFilter(), $order));
+        $this->json($this->demoListProvider->listDemos((int) $page, $this->getFilter(), $order));
     }
 
     public function listProfile($steamId) {
         $page = $this->query('page', 1);
         $where = $this->getFilter();
         $where['players'][] = $steamId;
-        \Flight::json($this->demoListProvider->listProfile((int)$page, $where));
+        $this->json($this->demoListProvider->listProfile((int) $page, $where));
     }
 
     public function listUploads($steamId) {
         $page = $this->query('page', 1);
-        \Flight::json($this->demoListProvider->listUploads($steamId, (int)$page, $this->getFilter()));
+        $this->json($this->demoListProvider->listUploads($steamId, (int) $page, $this->getFilter()));
     }
 
     public function chat($demoId) {
-        \Flight::json($this->chatProvider->getChat((int)$demoId));
+        $this->json($this->chatProvider->getChat((int) $demoId));
     }
 
     public function setDemoUrl($id) {
-        $hash = (string)$this->post('hash', '');
-        $backend = (string)$this->post('backend', '');
-        $path = (string)$this->post('path', '');
-        $url = (string)$this->post('url', '');
-        $editKey = (string)$this->post('key', '');
+        $hash = (string) $this->post('hash', '');
+        $backend = (string) $this->post('backend', '');
+        $path = (string) $this->post('path', '');
+        $url = (string) $this->post('url', '');
+        $editKey = (string) $this->post('key', '');
         if ($editKey !== $this->editKey || $editKey === '') {
             throw new \InvalidArgumentException('Invalid key');
         }
 
-        $demo = $this->demoProvider->get((int)$id);
+        $demo = $this->demoProvider->get((int) $id);
         $existingHash = $demo->getHash();
         if ($existingHash === '' || $existingHash === $hash) {
-            $this->demoProvider->setDemoUrl((int)$id, $backend, $url, $path);
+            $this->demoProvider->setDemoUrl((int) $id, $backend, $url, $path);
         } else {
             throw new \InvalidArgumentException('Invalid demo hash');
         }

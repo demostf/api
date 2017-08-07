@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Demostf\API\Controllers;
 
 use Demostf\API\Providers\UserProvider;
+use flight\net\Request;
+use flight\net\Response;
 
 class UserController extends BaseController {
     /**
@@ -12,7 +14,8 @@ class UserController extends BaseController {
      */
     private $userProvider;
 
-    public function __construct(UserProvider $userProvider) {
+    public function __construct(Request $request, Response $response, UserProvider $userProvider) {
+        parent::__construct($request, $response);
         $this->userProvider = $userProvider;
     }
 

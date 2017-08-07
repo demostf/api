@@ -61,7 +61,7 @@ class Parser {
         foreach ($data['chat'] as $message) {
             if (isset($message['from'])) {
                 $chat[] = new ChatMessage($message['from'],
-                    (int)floor(($message['tick'] - $data['startTick']) * $intervalPerTick), $message['text']);
+                    (int) floor(($message['tick'] - $data['startTick']) * $intervalPerTick), $message['text']);
             }
         }
 
@@ -80,7 +80,7 @@ class Parser {
                     $player['userId'],
                     $this->convertSteamIdToCommunityId($player['steamId']),
                     $player['team'],
-                    $this->getClassName((int)$class)
+                    $this->getClassName((int) $class)
                 );
             }
         }

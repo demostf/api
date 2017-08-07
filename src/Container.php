@@ -19,6 +19,8 @@ use Demostf\API\Providers\PlayerProvider;
 use Demostf\API\Providers\UploadProvider;
 use Demostf\API\Providers\UserProvider;
 use Doctrine\DBAL\Connection;
+use flight\net\Request;
+use flight\net\Response;
 use RandomLib\Generator;
 
 class Container {
@@ -30,8 +32,12 @@ class Container {
     private $storeUrl;
     private $apiRoot;
     private $editKey;
+    private $request;
+    private $response;
 
     public function __construct(
+        Request $request,
+        Response $response,
         Connection $connection,
         Generator $generator,
         string $baseUrl,
@@ -41,6 +47,8 @@ class Container {
         string $apiRoot,
         string $editKey
     ) {
+        $this->request = $request;
+        $this->response = $response;
         $this->connection = $connection;
         $this->generator = $generator;
         $this->baseUrl = $baseUrl;
@@ -128,5 +136,13 @@ class Container {
 
     public function getConnection(): Connection {
         return $this->connection;
+    }
+
+    public function getRequest(): Request {
+        return $this->request;
+    }
+
+    public function getResponse(): Response {
+        return $this->response;
     }
 }

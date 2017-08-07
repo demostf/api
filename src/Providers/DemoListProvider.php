@@ -25,7 +25,7 @@ class DemoListProvider extends BaseProvider {
         $in = implode(', ', array_fill(0, count($userIds), '?'));
 
         $sql = 'SELECT demos.id FROM demos INNER JOIN players ON players.demo_id = demos.id
-		WHERE players.user_id IN (' . $in . ') GROUP BY demos.id HAVING COUNT(user_id)  = ? ORDER BY demos.id DESC LIMIT 50 OFFSET ' . ((int)$page - 1) * 50;
+		WHERE players.user_id IN (' . $in . ') GROUP BY demos.id HAVING COUNT(user_id)  = ? ORDER BY demos.id DESC LIMIT 50 OFFSET ' . ((int) $page - 1) * 50;
 
         $params = $userIds;
         $params[] = count($userIds);
@@ -69,6 +69,10 @@ class DemoListProvider extends BaseProvider {
         if (isset($where['uploader'])) {
             $query->where($query->expr()->in('uploader',
                 $query->createNamedParameter($where['uploader'], \PDO::PARAM_INT)));
+        }
+        if (isset($where['backend'])) {
+            $query->where($query->expr()->eq('backend',
+                $query->createNamedParameter($where['backend'])));
         }
         $query->orderBy('d.id', $order)
             ->setMaxResults(50)

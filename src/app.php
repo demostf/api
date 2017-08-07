@@ -10,19 +10,25 @@ use Flight;
 $container = require __DIR__ . '/init.php';
 
 $demoController = new Controllers\DemoController(
+    $container->getRequest(),
+    $container->getResponse(),
     $container->getDemoProvider(),
     $container->getChatProvider(),
     $container->getDemoListProvider(),
     $container->getEditKey()
 );
 $authController = new Controllers\AuthController(
+    $container->getRequest(),
+    $container->getResponse(),
     $container->getUserProvider(),
     $container->getAuthProvider(),
     $container->getBaseUrl(),
     $container->getApiRoot()
 );
-$userController = new Controllers\UserController($container->getUserProvider());
-$infoController = new Controllers\InfoController($container->getInfoProvider());
+$userController = new Controllers\UserController($container->getRequest(), $container->getResponse(),
+    $container->getUserProvider());
+$infoController = new Controllers\InfoController($container->getRequest(), $container->getResponse(),
+    $container->getInfoProvider());
 
 Flight::route('/*', function () {
     header('Access-Control-Allow-Origin: *');

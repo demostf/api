@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Demostf\API\Controllers;
 
 use Demostf\API\Providers\UploadProvider;
+use flight\net\Request;
+use flight\net\Response;
 
 class UploadController extends BaseController {
     private $uploadProvider;
 
-    public function __construct(UploadProvider $uploadProvider) {
+    public function __construct(Request $request, Response $response, UploadProvider $uploadProvider) {
+        parent::__construct($request, $response);
         $this->uploadProvider = $uploadProvider;
     }
 
