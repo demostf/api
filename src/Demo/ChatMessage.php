@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Demostf\API\Demo;
 
-class ChatMessage {
+class ChatMessage implements \JsonSerializable {
     /** @var string */
     private $user;
 
@@ -46,5 +46,13 @@ class ChatMessage {
      */
     public function getMessage(): string {
         return $this->message;
+    }
+
+    public function jsonSerialize() {
+        return [
+            'user' => $this->user,
+            'time' => $this->time,
+            'message' => $this->message,
+        ];
     }
 }

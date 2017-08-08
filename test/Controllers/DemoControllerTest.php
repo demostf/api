@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Demostf\API\Test\Controllers;
 
 use Demostf\API\Controllers\DemoController;
+use Demostf\API\Demo\ChatMessage;
 use Demostf\API\Demo\Demo;
 use Demostf\API\Demo\DemoStore;
 use Demostf\API\Providers\ChatProvider;
@@ -51,7 +52,7 @@ class DemoControllerTest extends ControllerTest {
             ->willReturn(['dummy']);
 
         $controller->listDemos();
-        $this->assertEquals('["dummy"]', $this->getResponseData());
+        $this->assertResponseData(['dummy']);
     }
 
     public function testGetListPageASC() {
@@ -63,7 +64,7 @@ class DemoControllerTest extends ControllerTest {
             ->willReturn(['dummy']);
 
         $controller->listDemos();
-        $this->assertEquals('["dummy"]', $this->getResponseData());
+        $this->assertResponseData(['dummy']);
     }
 
     public function testListFilterBackend() {
@@ -75,7 +76,7 @@ class DemoControllerTest extends ControllerTest {
             ->willReturn(['dummy']);
 
         $controller->listDemos();
-        $this->assertEquals('["dummy"]', $this->getResponseData());
+        $this->assertResponseData(['dummy']);
     }
 
     /**
@@ -177,5 +178,24 @@ class DemoControllerTest extends ControllerTest {
             ->with($demo);
 
         $controller->setDemoUrl('1');
+    }
+
+    public function testGetChat() {
+        $controller = $this->getController();
+
+        $this->chatProvider->expects($this->once())
+            ->method('getChat')
+            ->with(1)
+            ->willReturn([
+                new ChatMessage('foo', 1, 'bar'),
+                new ChatMessage('foo2', 2, 'bar2'),
+            ]);
+
+        $controller->chat('1');
+
+        $this->assertResponseData([
+            ['user' => 'foo', 'time' => 1, 'message' => 'bar'],
+            ['user' => 'foo2', 'time' => 2, 'message' => 'bar2'],
+        ]);
     }
 }

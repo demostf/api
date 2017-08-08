@@ -50,4 +50,12 @@ abstract class ControllerTest extends TestCase {
     protected function getResponseData() {
         return $this->responseData;
     }
+
+    protected function assertResponseData($expected) {
+        if (!is_string($expected)) {
+            $expected = json_encode($expected);
+        }
+
+        $this->assertEquals($expected, $this->getResponseData());
+    }
 }
