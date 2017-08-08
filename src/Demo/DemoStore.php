@@ -39,4 +39,10 @@ class DemoStore {
     private function getUrl(string $name): string {
         return 'https://' . $this->webRoot . $this->getPrefix($name) . $name;
     }
+
+    public function remove(Demo $demo) {
+        if (file_exists($demo->getPath())) {
+            unlink($demo->getPath());
+        }
+    }
 }

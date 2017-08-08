@@ -93,7 +93,7 @@ class Container {
             $this->baseUrl,
             new HeaderParser(),
             new Parser(new RawParser($this->parserUrl)),
-            new DemoStore($this->storeRoot, $this->storeUrl),
+            $this->getDemoStore(),
             $this->getUserProvider(),
             $this->getDemoProvider(),
             new DemoSaver(
@@ -104,6 +104,10 @@ class Container {
                 $this->getDemoProvider()
             )
         );
+    }
+
+    public function getDemoStore(): DemoStore {
+        return new DemoStore($this->storeRoot, $this->storeUrl);
     }
 
     public function getUserProvider(): UserProvider {

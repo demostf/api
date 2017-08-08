@@ -15,6 +15,7 @@ $demoController = new Controllers\DemoController(
     $container->getDemoProvider(),
     $container->getChatProvider(),
     $container->getDemoListProvider(),
+    $container->getDemoStore(),
     $container->getEditKey()
 );
 $authController = new Controllers\AuthController(

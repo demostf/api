@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Demostf\API\Controllers;
 
+use Demostf\API\Demo\DemoStore;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoListProvider;
 use Demostf\API\Providers\DemoProvider;
@@ -21,18 +22,22 @@ class DemoController extends BaseController {
 
     private $editKey;
 
+    private $store;
+
     public function __construct(
         Request $request,
         Response $response,
         DemoProvider $demoProvider,
         ChatProvider $chatProvider,
         DemoListProvider $demoListProvider,
+        DemoStore $store,
         string $editKey
     ) {
         parent::__construct($request, $response);
         $this->demoProvider = $demoProvider;
         $this->chatProvider = $chatProvider;
         $this->demoListProvider = $demoListProvider;
+        $this->store = $store;
         $this->editKey = $editKey;
     }
 
@@ -113,6 +118,10 @@ class DemoController extends BaseController {
         $existingHash = $demo->getHash();
         if ($existingHash === '' || $existingHash === $hash) {
             $this->demoProvider->setDemoUrl((int) $id, $backend, $url, $path);
+
+            if ($demo->getBackend() === 'static') {
+                $this->store->remove($demo);
+            }
         } else {
             throw new \InvalidArgumentException('Invalid demo hash');
         }
