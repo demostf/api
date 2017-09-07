@@ -1,3 +1,5 @@
 .env
+.phan
+.php_cs.*
 test
 vendor

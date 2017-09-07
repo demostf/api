@@ -5,7 +5,8 @@ RUN apk add --no-cache postgresql-dev wget autoconf g++ libc-dev make pcre-dev \
     && docker-php-ext-install pdo_pgsql \
     && pecl install apcu \
     && docker-php-ext-enable apcu \
-    && apk del autoconf g++ libc-dev make pcre-dev
+    && apk del autoconf g++ libc-dev make pcre-dev \
+    && sed -i -- 's/www-data/nobody/g' /usr/local/etc/php-fpm.d/www.conf
 
 COPY composer.json /app
 COPY src /app/src
