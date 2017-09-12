@@ -82,6 +82,20 @@ class DemoListProviderTest extends TestCase {
         $this->assertEquals($id1, $list[1]->getId());
     }
 
+    public function testFilterMapCleaned() {
+        $id1 = $this->demoProvider->storeDemo($this->getDemo(1, 'map_foo_b2'), 'foo', 'bar');
+        $id2 = $this->demoProvider->storeDemo($this->getDemo(1, 'map_bar'), 'foo', 'bar');
+        $id3 = $this->demoProvider->storeDemo($this->getDemo(1, 'map_foo'), 'foo', 'bar');
+        $id4 = $this->demoProvider->storeDemo($this->getDemo(1, 'map_foo_final1'), 'foo', 'bar');
+
+        $list = $this->demoListProvider->listDemos(1, ['map' => 'map_foo']);
+        $this->assertCount(3, $list);
+
+        $this->assertEquals($id4, $list[0]->getId());
+        $this->assertEquals($id3, $list[1]->getId());
+        $this->assertEquals($id1, $list[2]->getId());
+    }
+
     public function testFilterPlayerCount() {
         $id1 = $this->demoProvider->storeDemo($this->getDemo(1, 'map1', 17), 'foo', 'bar');
         $id2 = $this->demoProvider->storeDemo($this->getDemo(1, 'map2', 18), 'foo', 'bar');
