@@ -6,7 +6,7 @@ namespace Demostf\API\Providers;
 
 class InfoProvider extends BaseProvider {
     public function listMaps() {
-        $sql = 'SELECT DISTINCT(map), COUNT(map) AS count from demos GROUP BY map ORDER BY count DESC';
+        $sql = 'SELECT map, count FROM map_list';
         $result = $this->query($sql);
 
         return $result->fetchAll(\PDO::FETCH_COLUMN);
