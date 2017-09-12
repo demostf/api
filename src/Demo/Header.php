@@ -81,7 +81,7 @@ class Header {
         $this->protocol = $protocol;
         $this->server = $server;
         $this->nick = $nick;
-        $this->map = $map;
+        $this->map = strtolower($map);
         $this->game = $game;
         $this->duration = $duration;
         $this->ticks = $ticks;
