@@ -60,7 +60,10 @@ class DemoListProvider extends BaseProvider {
             ->leftJoin('d', 'upload_blacklist', 'b', $query->expr()->eq('uploader_id', 'uploader'))
             ->where($query->expr()->isNull('b.id'));
         if (isset($where['map'])) {
-            $query->where($query->expr()->eq('map', $query->createNamedParameter($where['map'])));
+            $query->where($query->expr()->orX(
+                $query->expr()->eq('clean_map_name(map)', $query->createNamedParameter($where['map'])),
+                $query->expr()->eq('map', $query->createNamedParameter($where['map']))
+            ));
         }
         if (isset($where['playerCount'])) {
             $query->where($query->expr()->in('"playerCount"',

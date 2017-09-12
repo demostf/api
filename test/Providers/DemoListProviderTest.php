@@ -71,11 +71,11 @@ class DemoListProviderTest extends TestCase {
     }
 
     public function testFilterMap() {
-        $id1 = $this->demoProvider->storeDemo($this->getDemo(1, 'map1'), 'foo', 'bar');
-        $id2 = $this->demoProvider->storeDemo($this->getDemo(1, 'map2'), 'foo', 'bar');
-        $id3 = $this->demoProvider->storeDemo($this->getDemo(1, 'map1'), 'foo', 'bar');
+        $id1 = $this->demoProvider->storeDemo($this->getDemo(1, 'map_foo'), 'foo', 'bar');
+        $id2 = $this->demoProvider->storeDemo($this->getDemo(1, 'map_bar'), 'foo', 'bar');
+        $id3 = $this->demoProvider->storeDemo($this->getDemo(1, 'map_foo'), 'foo', 'bar');
 
-        $list = $this->demoListProvider->listDemos(1, ['map' => 'map1']);
+        $list = $this->demoListProvider->listDemos(1, ['map' => 'map_foo']);
         $this->assertCount(2, $list);
 
         $this->assertEquals($id3, $list[0]->getId());
