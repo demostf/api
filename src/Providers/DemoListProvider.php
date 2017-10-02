@@ -24,8 +24,8 @@ class DemoListProvider extends BaseProvider {
         }
         $in = implode(', ', array_fill(0, count($userIds), '?'));
 
-        $sql = 'SELECT demos.id FROM demos INNER JOIN players ON players.demo_id = demos.id
-		WHERE players.user_id IN (' . $in . ') GROUP BY demos.id HAVING COUNT(user_id)  = ? ORDER BY demos.id DESC LIMIT 50 OFFSET ' . ((int) $page - 1) * 50;
+        $sql = 'SELECT players.demo_id FROM players WHERE players.user_id IN (' . $in . ') 
+        GROUP BY players.demo_id HAVING COUNT(user_id) = ? ORDER BY players.demo_id DESC LIMIT 50 OFFSET ' . ((int) $page - 1) * 50;
 
         $params = $userIds;
         $params[] = count($userIds);
