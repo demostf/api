@@ -82,8 +82,11 @@ before("reset db", function () {
 });
 
 beforeEach("create test user", function () {
-	chakram.post("testuser");
-	return chakram.wait();
+	chakram.post("reset");
+	return chakram.wait().then(function() {
+		chakram.post("testuser");
+		return chakram.wait();
+	});
 });
 
 afterEach("reset db", function () {
