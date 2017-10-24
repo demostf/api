@@ -52,7 +52,7 @@ class Parser {
         $players = [];
 
         if (!isset($data['rounds'])) {
-            throw new \Exception('Error while parsing demo, no users rounds found');
+            throw new \Exception("Error while parsing demo, no rounds field found\n" . json_encode($data));
         }
         foreach ($data['rounds'] as $round) {
             if ($round['winner'] === 'red') {
@@ -63,7 +63,7 @@ class Parser {
         }
 
         if (!isset($data['chat'])) {
-            throw new \Exception('Error while parsing demo, no users chat found');
+            throw new \Exception('Error while parsing demo, no chat field found');
         }
         foreach ($data['chat'] as $message) {
             if (isset($message['from'])) {
