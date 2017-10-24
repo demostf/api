@@ -50,6 +50,10 @@ class Parser {
         $chat = [];
         /** @var ParsedPlayer[] $players */
         $players = [];
+
+        if (!isset($data['rounds'])) {
+            throw new \Exception('Error while parsing demo, no users rounds found');
+        }
         foreach ($data['rounds'] as $round) {
             if ($round['winner'] === 'red') {
                 ++$red;
@@ -58,6 +62,9 @@ class Parser {
             }
         }
 
+        if (!isset($data['chat'])) {
+            throw new \Exception('Error while parsing demo, no users chat found');
+        }
         foreach ($data['chat'] as $message) {
             if (isset($message['from'])) {
                 $chat[] = new ChatMessage($message['from'],
@@ -65,6 +72,9 @@ class Parser {
             }
         }
 
+        if (!isset($data['users'])) {
+            throw new \Exception('Error while parsing demo, no users field found');
+        }
         foreach ($data['users'] as $player) {
             $class = 0;
             $classSpawns = 0;
