@@ -41,9 +41,16 @@ class DemoProvider extends BaseProvider {
                 'name' => $uploader['name'],
                 'avatar' => $uploader['avatar'],
             ]));
+            $uniquePlayers = [];
+            foreach ($players as $player) {
+                $key = $player['steamid'] . $player['team'];
+                if (!isset($uniquePlayers[$key])) {
+                    $uniquePlayers[$key] = $player;
+                }
+            }
             $formattedDemo->setPlayers(array_map(function ($player) {
                 return DemoPlayer::fromRow($player);
-            }, $players));
+            }, array_values($uniquePlayers)));
         }
 
         return $formattedDemo;
