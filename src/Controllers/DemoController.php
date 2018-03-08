@@ -71,11 +71,23 @@ class DemoController extends BaseController {
             case 'hl':
                 $filter['playerCount'] = [17, 18, 19];
                 break;
+            case 'prolander':
+                $filter['playerCount'] = [14, 15];
+                break;
             case '6v6':
                 $filter['playerCount'] = [11, 12, 13];
                 break;
             case '4v4':
                 $filter['playerCount'] = [7, 8, 9];
+                break;
+            case '3v3':
+                $filter['playerCount'] = [6];
+                break;
+            case '2v2':
+                $filter['playerCount'] = [6];
+                break;
+            case '1v1':
+                $filter['playerCount'] = [6];
                 break;
         }
 
