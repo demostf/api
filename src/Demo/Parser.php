@@ -84,12 +84,12 @@ class Parser {
                     $class = $classId;
                 }
             }
-            if ($class && $player['steamId']) {//skip spectators
+            if ($player['steamId'] && $player['steamId'] !== 'BOT') {//skip spectators
                 $players[] = new ParsedPlayer(
                     $player['name'],
                     $player['userId'],
                     $this->convertSteamIdToCommunityId($player['steamId']),
-                    $player['team'],
+                    $player['team'] ?? '',
                     $this->getClassName((int) $class)
                 );
             }
