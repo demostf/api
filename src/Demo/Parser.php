@@ -75,9 +75,38 @@ class Parser {
         if (!isset($data['users'])) {
             throw new \Exception('Error while parsing demo, no users field found');
         }
+
+        $deaths = array_filter($data['deaths'], function ($death) {
+            return $death['killer'] !== $death['victim'];
+        });
+        /** @var ParsedKill[] $kills */
+        $kills = array_map(function (array $death) {
+            return new ParsedKill($death['killer'] ?? 0, $death['assister'] ?? 0, $death['victim'] ?? 0,
+                $death['weapon']);
+        }, $deaths);
+        $activityMap = [];
+        foreach ($kills as $kill) {
+            if (!isset($activityMap[$kill->getAttackerDemoId()])) {
+                $activityMap[$kill->getAttackerDemoId()] = 0;
+            }
+            $activityMap[$kill->getAttackerDemoId()]++;
+            if (!isset($activityMap[$kill->getAssisterDemoId()])) {
+                $activityMap[$kill->getAssisterDemoId()] = 0;
+            }
+            $activityMap[$kill->getAssisterDemoId()]++;
+            if (!isset($activityMap[$kill->getVictimDemoId()])) {
+                $activityMap[$kill->getVictimDemoId()] = 0;
+            }
+            $activityMap[$kill->getVictimDemoId()]++;
+        }
+
         foreach ($data['users'] as $player) {
             $class = 0;
             $classSpawns = 0;
+            if (!isset($activityMap[$player['userId']])) {
+                // skip players with no kills, assists or deaths
+                continue;
+            }
             foreach ($player['classes'] as $classId => $spawns) {
                 if ($spawns > $classSpawns) {
                     $classSpawns = $spawns;
@@ -94,11 +123,6 @@ class Parser {
                 );
             }
         }
-
-        $kills = array_map(function (array $death) {
-            return new ParsedKill($death['killer'] ?? 0, $death['assister'] ?? 0, $death['victim'] ?? 0,
-                $death['weapon']);
-        }, $data['deaths']);
 
         return new ParsedDemo(
             $red,
