@@ -50,7 +50,7 @@ class ParserTest extends TestCase {
         $this->assertEquals($expectedPlayers[0]['demo_user_id'], $result->getPlayers()[0]->getDemoUserId());
         $this->assertEquals($expectedPlayers[0]['team'], $result->getPlayers()[0]->getTeam());
         $this->assertEquals($expectedPlayers[0]['class'], $result->getPlayers()[0]->getClass());
-        $this->assertEquals($parser->convertSteamIdToCommunityId($expectedPlayers[0]['steam_id']), $result->getPlayers()[0]->getSteamId());
+        $this->assertEquals(Parser::convertSteamIdToCommunityId($expectedPlayers[0]['steam_id']), $result->getPlayers()[0]->getSteamId());
 
         $expectedKills = $expectedRaw['kills'];
         $this->assertCount(count($expectedKills), $result->getKills());
@@ -79,18 +79,14 @@ class ParserTest extends TestCase {
     }
 
     public function testConvertSteamIdToCommunityId() {
-        $parser = new Parser($this->rawParser);
-
-        $steamId64 = $parser->convertSteamIdToCommunityId('STEAM_0:0:12345');
+        $steamId64 = Parser::convertSteamIdToCommunityId('STEAM_0:0:12345');
         $this->assertEquals('76561197960290418', $steamId64);
     }
 
     public function testConvertUIdToCommunityId() {
-        $parser = new Parser($this->rawParser);
-
-        $steamId64 = $parser->convertSteamIdToCommunityId('[U:1:12345]');
+        $steamId64 = Parser::convertSteamIdToCommunityId('[U:1:12345]');
         $this->assertEquals('76561197960278073', $steamId64);
-        $steamId64 = $parser->convertSteamIdToCommunityId('[U:1:39743963]');
+        $steamId64 = Parser::convertSteamIdToCommunityId('[U:1:39743963]');
         $this->assertEquals('76561198000009691', $steamId64);
     }
 }

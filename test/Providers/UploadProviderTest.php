@@ -262,7 +262,7 @@ class UploadProviderTest extends TestCase {
     }
 
     private function saveSteamId($steamId, $name) {
-        $steamId = $this->getSteamId($this->parser->convertSteamIdToCommunityId($steamId), $name);
+        $steamId = $this->getSteamId(Parser::convertSteamIdToCommunityId($steamId), $name);
         $this->userProvider->store($steamId);
     }
 

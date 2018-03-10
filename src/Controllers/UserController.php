@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Demostf\API\Controllers;
 
+use Demostf\API\Demo\Parser;
 use Demostf\API\Providers\UserProvider;
 use flight\net\Request;
 use flight\net\Response;
@@ -20,6 +21,9 @@ class UserController extends BaseController {
     }
 
     public function get($steamId) {
+        if (!is_numeric($steamId)) {
+            $steamId = Parser::convertSteamIdToCommunityId($steamId);
+        }
         \Flight::json($this->userProvider->get($steamId));
     }
 

@@ -117,7 +117,7 @@ class Parser {
                 $players[] = new ParsedPlayer(
                     $player['name'],
                     $player['userId'],
-                    $this->convertSteamIdToCommunityId($player['steamId']),
+                    self::convertSteamIdToCommunityId($player['steamId']),
                     $player['team'] ?? '',
                     $this->getClassName((int) $class)
                 );
@@ -151,7 +151,7 @@ class Parser {
      *
      * @return string The converted 64bit numeric SteamID
      */
-    public function convertSteamIdToCommunityId(string $steamId): string {
+    public static function convertSteamIdToCommunityId(string $steamId): string {
         if ($steamId === 'STEAM_ID_LAN' || $steamId === 'BOT') {
             throw new \InvalidArgumentException("Cannot convert SteamID \"$steamId\" to a community ID.");
         }
