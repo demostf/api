@@ -84,10 +84,10 @@ class DemoController extends BaseController {
                 $filter['playerCount'] = [6];
                 break;
             case '2v2':
-                $filter['playerCount'] = [6];
+                $filter['playerCount'] = [4];
                 break;
             case '1v1':
-                $filter['playerCount'] = [6];
+                $filter['playerCount'] = [2];
                 break;
         }
 
