@@ -81,7 +81,8 @@ class UploadProviderTest extends TestCase {
             $this->demoStore,
             $this->userProvider,
             $this->demoProvider,
-            $this->demoSaver
+            $this->demoSaver,
+            ''
         );
     }
 
@@ -305,5 +306,47 @@ class UploadProviderTest extends TestCase {
         $this->assertEquals('koth_product_rc8', $demo->getMap());
         $this->assertEquals(0, $demo->getBlueScore());
         $this->assertEquals(3, $demo->getRedScore());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Not an HL2 demo
+     */
+    public function testUploadKey() {
+        $uploadProvider = new UploadProvider(
+            $this->getDatabaseConnection(),
+            'http://example.com',
+            $this->headerParser,
+            $this->parser,
+            $this->demoStore,
+            $this->userProvider,
+            $this->demoProvider,
+            $this->demoSaver,
+            'foo'
+        );
+
+        $steamId = $this->getSteamId('123', 'a');
+        $token = $this->userProvider->store($steamId);
+
+        $this->assertEquals(
+            'Invalid key',
+            $uploadProvider->upload($token, 'RED', 'BLU', 'asdasd', 'asdas')
+        );
+
+        $uploadProvider = new UploadProvider(
+            $this->getDatabaseConnection(),
+            'http://example.com',
+            $this->headerParser,
+            $this->parser,
+            $this->demoStore,
+            $this->userProvider,
+            $this->demoProvider,
+            $this->demoSaver,
+            $token
+        );
+
+        file_put_contents($this->tmpDir . '/foo.dem', 'asd');
+
+        $uploadProvider->upload($token, 'RED', 'BLU', 'asdasd', $this->tmpDir . '/foo.dem');
     }
 }

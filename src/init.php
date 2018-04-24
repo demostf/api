@@ -28,6 +28,7 @@ $storeHost = getenv('DEMO_HOST') ?: '';
 $parserUrl = getenv('PARSER_URL') ?: '';
 $appRoot = getenv('APP_ROOT') ?: '';
 $editKey = getenv('EDIT_SECRET') ?: '';
+$uploadKey = getenv('UPLOAD_KEY') ?: '';
 
 $factory = new \RandomLib\Factory();
 $generator = $factory->getMediumStrengthGenerator();
@@ -42,7 +43,8 @@ $container = new Container(
     $storeRoot,
     $storeHost,
     $appRoot,
-    $editKey
+    $editKey,
+    $uploadKey
 );
 
 return $container;

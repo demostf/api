@@ -34,6 +34,7 @@ class Container {
     private $editKey;
     private $request;
     private $response;
+    private $uploadKey;
 
     public function __construct(
         Request $request,
@@ -45,7 +46,8 @@ class Container {
         string $storeRoot,
         string $storeUrl,
         string $apiRoot,
-        string $editKey
+        string $editKey,
+        string $uploadKey
     ) {
         $this->request = $request;
         $this->response = $response;
@@ -57,6 +59,7 @@ class Container {
         $this->storeUrl = $storeUrl;
         $this->apiRoot = $apiRoot;
         $this->editKey = $editKey;
+        $this->uploadKey = $uploadKey;
     }
 
     public function getAuthProvider(): AuthProvider {
@@ -102,7 +105,8 @@ class Container {
                 $this->getChatProvider(),
                 $this->getUserProvider(),
                 $this->getDemoProvider()
-            )
+            ),
+            $this->getUploadKey()
         );
     }
 
@@ -148,5 +152,9 @@ class Container {
 
     public function getResponse(): Response {
         return $this->response;
+    }
+
+    public function getUploadKey(): string {
+        return $this->uploadKey;
     }
 }

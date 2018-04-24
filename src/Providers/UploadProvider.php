@@ -30,16 +30,18 @@ class UploadProvider extends BaseProvider {
     /** @var DemoSaver */
     private $demoSaver;
     private $baseUrl;
+    private $uploadKey;
 
     public function __construct(
         Connection $db,
-                                string $baseUrl,
-                                HeaderParser $headerParser,
-                                Parser $parser,
-                                DemoStore $store,
-                                UserProvider $userProvider,
-                                DemoProvider $demoProvider,
-                                DemoSaver $demoSaver
+        string $baseUrl,
+        HeaderParser $headerParser,
+        Parser $parser,
+        DemoStore $store,
+        UserProvider $userProvider,
+        DemoProvider $demoProvider,
+        DemoSaver $demoSaver,
+        string $uploadKey
     ) {
         parent::__construct($db);
         $this->baseUrl = $baseUrl;
@@ -49,11 +51,12 @@ class UploadProvider extends BaseProvider {
         $this->userProvider = $userProvider;
         $this->demoProvider = $demoProvider;
         $this->demoSaver = $demoSaver;
+        $this->uploadKey = $uploadKey;
     }
 
     public function upload(string $key, string $red, string $blu, string $name, string $demoFile): string {
         $user = $this->userProvider->byKey($key);
-        if (!$user) {
+        if (!$user || ($this->uploadKey !== '' && $this->uploadKey !== $key)) {
             return 'Invalid key';
         }
 
