@@ -4,7 +4,7 @@
         "morris/lessql": "^0.3.0",
         "vlucas/phpdotenv": "^1.1",
         "ircmaxell/random-lib": "^1.1",
-        "ehesp/steam-login": "^1.0",
+        "ehesp/steam-login": "^1.2",
         "koraktor/steam-condenser": "^1.3",
         "guzzlehttp/guzzle": "^6.2",
         "doctrine/dbal": "^2.5"
