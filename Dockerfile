@@ -12,7 +12,7 @@ COPY composer.json /app
 COPY src /app/src
 
 RUN wget https://getcomposer.org/composer.phar \
-    && php composer.phar -d=/app install --no-dev --no-interaction --ignore-platform-reqs \
+    && php composer.phar --working-dir=/app install --no-dev --no-interaction --ignore-platform-reqs \
     && rm composer.phar
 
 RUN echo "clear_env = no" >> /usr/local/etc/php/php-fpm.conf \
