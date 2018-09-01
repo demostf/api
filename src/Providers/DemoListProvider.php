@@ -22,15 +22,21 @@ class DemoListProvider extends BaseProvider {
         foreach ($users as $user) {
             $userIds[] = $user['id'];
         }
-        $in = implode(', ', array_fill(0, count($userIds), '?'));
 
-        $sql = 'SELECT players.demo_id FROM players WHERE players.user_id IN (' . $in . ') 
-        GROUP BY players.demo_id HAVING COUNT(user_id) = ? ORDER BY players.demo_id DESC LIMIT 50 OFFSET ' . ((int) $page - 1) * 50;
+        $query = $this->getQueryBuilder();
+        $query->select('p.demo_id')
+            ->from('players', 'p')
+            ->where($query->expr()->in('user_id', $query->createNamedParameter($userIds, Connection::PARAM_INT_ARRAY)))
+            ->groupBy('demo_id')
+            ->having($query->expr()->eq(
+                'COUNT(user_id)',
+                $query->createNamedParameter(count($userIds, \PDO::PARAM_INT))
+            ))
+            ->orderBy('demo_id')
+            ->setMaxResults(50)
+            ->setFirstResult(((int) $page - 1) * 50);
 
-        $params = $userIds;
-        $params[] = count($userIds);
-
-        $result = $this->query($sql, $params);
+        $result = $query->execute();
         $demoIds = $result->fetchAll(\PDO::FETCH_COLUMN);
 
         $demos = $this->db->demo()->where('id', $demoIds)
