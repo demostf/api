@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Demostf\API\Providers;
 
+use Demostf\API\Data\SteamUser;
 use Demostf\API\Data\User;
 use Doctrine\DBAL\Connection;
 use RandomLib\Generator;
@@ -71,22 +72,29 @@ class UserProvider extends BaseProvider {
         }
     }
 
-    public function search($query): array {
-        $bySteamId = $this->searchBySteamId($query);
+    /**
+     * @param string $search
+     * @return SteamUser[]
+     */
+    public function search(string $search): array {
+        $bySteamId = $this->searchBySteamId($search);
         if ($bySteamId) {
             return [
                 $bySteamId,
             ];
         }
 
-        $sql = 'SELECT user_id, players.name, count(demo_id) AS count, steamid,
-		 1-(players.name <-> ?) AS sim FROM players
-		 INNER JOIN users ON users.id = players.user_id
-		 WHERE players.name % ? OR players.name ~* ?
-		 GROUP BY players.name, user_id, steamid
-		 ORDER BY count DESC
-		 LIMIT 100';
-        $result = $this->query($sql, [$query, $query, $query]);
+        $query = $this->getQueryBuilder();
+        $nameParameter = $query->createNamedParameter($search, \PDO::PARAM_STR, ':query');
+        $query->select('user_id', 'p.name', 'count(demo_id) AS count', 'steamid', "1 - (p.name <-> $nameParameter) AS sim")
+            ->from('players', 'p')
+            ->innerJoin('p', 'users', 'u', $query->expr()->eq('u.id', 'p.user_id'))
+            ->where($query->expr()->comparison('p.name', '%', $nameParameter))
+            ->orWhere($query->expr()->comparison('p.name', '~*', $nameParameter))
+            ->groupBy('p.name', 'user_id', 'steamid')
+            ->orderBy('count', 'DESC')
+            ->setMaxResults(100);
+        $result = $query->execute();
         $players = $result->fetchAll(\PDO::FETCH_ASSOC);
 
         usort($players, function ($b, $a) use ($query) {
@@ -107,11 +115,7 @@ class UserProvider extends BaseProvider {
         foreach ($players as $player) {
             $id = $player['user_id'];
             if (!isset($result[$id])) {
-                $result[$id] = [
-                    'id' => $id,
-                    'name' => $player['name'],
-                    'steamid' => $player['steamid'],
-                ];
+                $result[$id] = new SteamUser($id, $player['steamid'], $player['name']);
             }
         }
 

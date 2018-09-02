@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace Demostf\API\Test\Providers;
 
+use Demostf\API\Data\Player;
+use Demostf\API\Providers\PlayerProvider;
 use Demostf\API\Providers\UserProvider;
 use Demostf\API\Test\TestCase;
 
 class UserProviderTest extends TestCase {
     /** @var UserProvider */
     private $provider;
+    /** @var PlayerProvider */
+    private $playerProvider;
 
     /** @var \SteamId */
     private $steamId;
@@ -19,6 +23,7 @@ class UserProviderTest extends TestCase {
 
         $this->steamId = $this->getSteamId('76561198024494988', 'Icewind');
         $this->provider = new UserProvider($this->getDatabaseConnection(), $this->getRandomGenerator());
+        $this->playerProvider = new PlayerProvider($this->getDatabaseConnection());
     }
 
     public function testGetNonExisting() {
@@ -59,6 +64,22 @@ class UserProviderTest extends TestCase {
         $result = $this->provider->search('__NOT__FOUND__');
 
         $this->assertCount(0, $result);
+
+        $this->provider->store($this->steamId);
+        $user = $this->provider->get($this->steamId->getSteamId64());
+        $this->playerProvider->store(new Player(
+            0,
+            1,
+            2,
+            $user->getId(),
+            $user->getName(),
+            'red',
+            'scout'
+        ));
+
+        $result = $this->provider->search('Icewind');
+        $this->assertCount(1, $result);
+        $this->assertEquals($this->steamId->getSteamId64(), $result[0]->getSteamId());
     }
 
     public function testGetIdExisting() {
