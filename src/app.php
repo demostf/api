@@ -30,6 +30,7 @@ $userController = new Controllers\UserController($container->getRequest(), $cont
     $container->getUserProvider());
 $infoController = new Controllers\InfoController($container->getRequest(), $container->getResponse(),
     $container->getInfoProvider());
+$tempController = new Controllers\TempController($container->getApiRoot() . '/temp/');
 
 Flight::route('/*', function () {
     header('Access-Control-Allow-Origin: *');
@@ -65,5 +66,7 @@ Flight::route('/auth/get/@token', [$authController, 'get']);
 Flight::route('/auth/handle/@token', [$authController, 'handle']);
 Flight::route('/auth/login/@token', [$authController, 'login']);
 Flight::route('/auth/logout/@token', [$authController, 'logout']);
+
+Flight::route('/temp/@hash', [$tempController, 'serve']);
 
 Flight::start();

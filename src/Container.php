@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Demostf\API;
 
+use Demostf\API\Controllers\TempController;
 use Demostf\API\Demo\DemoSaver;
 use Demostf\API\Demo\DemoStore;
 use Demostf\API\Demo\HeaderParser;
@@ -90,12 +91,16 @@ class Container {
         return new PlayerProvider($this->connection);
     }
 
+    public function getRawParser(): RawParser {
+        return new RawParser($this->getParserUrl(), new TempController($this->getApiRoot() . '/temp/'));
+    }
+
     public function getUploadProvider(): UploadProvider {
         return new UploadProvider(
             $this->connection,
             $this->baseUrl,
             new HeaderParser(),
-            new Parser(new RawParser($this->parserUrl)),
+            new Parser($this->getRawParser()),
             $this->getDemoStore(),
             $this->getUserProvider(),
             $this->getDemoProvider(),
