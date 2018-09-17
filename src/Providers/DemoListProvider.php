@@ -66,21 +66,21 @@ class DemoListProvider extends BaseProvider {
             ->leftJoin('d', 'upload_blacklist', 'b', $query->expr()->eq('uploader_id', 'uploader'))
             ->where($query->expr()->isNull('b.id'));
         if (isset($where['map'])) {
-            $query->where($query->expr()->orX(
+            $query->andWhere($query->expr()->orX(
                 $query->expr()->eq('clean_map_name(map)', $query->createNamedParameter($where['map'])),
                 $query->expr()->eq('map', $query->createNamedParameter($where['map']))
             ));
         }
         if (isset($where['playerCount'])) {
-            $query->where($query->expr()->in('"playerCount"',
+            $query->andWhere($query->expr()->in('"playerCount"',
                 $query->createNamedParameter($where['playerCount'], Connection::PARAM_INT_ARRAY)));
         }
         if (isset($where['uploader'])) {
-            $query->where($query->expr()->in('uploader',
+            $query->andWhere($query->expr()->in('uploader',
                 $query->createNamedParameter($where['uploader'], \PDO::PARAM_INT)));
         }
         if (isset($where['backend'])) {
-            $query->where($query->expr()->eq('backend',
+            $query->andWhere($query->expr()->eq('backend',
                 $query->createNamedParameter($where['backend'])));
         }
         $query->orderBy('d.id', $order)
