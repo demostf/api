@@ -32,7 +32,7 @@ class DemoListProvider extends BaseProvider {
                 'COUNT(user_id)',
                 $query->createNamedParameter(count($userIds, \PDO::PARAM_INT))
             ))
-            ->orderBy('demo_id')
+            ->orderBy('demo_id', 'desc')
             ->setMaxResults(50)
             ->setFirstResult(((int) $page - 1) * 50);
 
