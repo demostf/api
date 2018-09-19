@@ -184,11 +184,12 @@ class DemoListProviderTest extends TestCase {
         $this->userProvider->store($steamId);
         $userId = $this->userProvider->get($steamId->getSteamId64())->getId();
         $id1 = $this->demoProvider->storeDemo($this->getDemo($userId, 'map1', 12), 'foo1', 'bar');
-        $id2 = $this->demoProvider->storeDemo($this->getDemo($userId, 'map2', 18), 'foo1', 'bar');
+        $id2 = $this->demoProvider->storeDemo($this->getDemo($userId, 'map2', 18), 'foo2', 'bar');
         $id3 = $this->demoProvider->storeDemo($this->getDemo($userId + 1, 'map1', 12), 'foo2', 'bar');
 
         $list = $this->demoListProvider->listUploads($steamId->getSteamId64(), 1, ['backend' => 'foo2']);
 
-        $this->assertEquals($id3, $list[0]->getId());
+        $this->assertCount(1, $list);
+        $this->assertEquals($id2, $list[0]->getId());
     }
 }
