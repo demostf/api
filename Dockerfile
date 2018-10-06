@@ -16,5 +16,5 @@ RUN wget https://getcomposer.org/composer.phar \
     && rm composer.phar
 
 RUN echo "clear_env = no" >> /usr/local/etc/php/php-fpm.conf \
-    && echo "post_max_size = 100M" >> /usr/local/etc/php/php.ini \
-    && echo "upload_max_filesize = 100M" >> /usr/local/etc/php/php.ini
+    && echo "post_max_size = 150M" >> /usr/local/etc/php/php.ini \
+    && echo "upload_max_filesize = 150M" >> /usr/local/etc/php/php.ini
