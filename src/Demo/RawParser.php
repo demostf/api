@@ -30,7 +30,6 @@ class RawParser {
         $url = $this->tempController->register($key, $path);
         try {
             $client = new Client();
-            echo($url);
             $response = $client->post($this->parserUrl, [
                 'body' => stream_for($url),
                 'headers' => [
