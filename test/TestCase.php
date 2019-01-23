@@ -21,7 +21,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase {
                 'port' => getenv('DB_PORT'),
                 'driver' => getenv('DB_TYPE'),
             ];
-            if ($connectionParams['driver'] === 'pgsql') {
+            if ('pgsql' === $connectionParams['driver']) {
                 $connectionParams['driver'] = 'pdo_pgsql';
             }
             $this->database = DriverManager::getConnection($connectionParams);

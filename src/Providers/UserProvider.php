@@ -65,7 +65,7 @@ class UserProvider extends BaseProvider {
             ->setMaxResults(1);
 
         $result = $query->execute()->fetch();
-        if (is_array($result)) {
+        if (\is_array($result)) {
             return $result;
         } else {
             return null;
@@ -74,6 +74,7 @@ class UserProvider extends BaseProvider {
 
     /**
      * @param string $search
+     *
      * @return SteamUser[]
      */
     public function search(string $search): array {
@@ -102,7 +103,7 @@ class UserProvider extends BaseProvider {
             $countWeight = 1;
             $simWeight = 5;
             $diff = ($a['sim'] * $simWeight + $a['count'] * $countWeight) - ($b['sim'] * $simWeight + $b['count'] * $countWeight);
-            if ($diff === 0) {
+            if (0 === $diff) {
                 return 0;
             } else {
                 return ($diff < 0) ? -1 : 1;

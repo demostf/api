@@ -51,7 +51,7 @@ class BaseProvider {
             ];
             if (isset($aliases[$table])) {
                 return $aliases[$table];
-            } elseif (array_search($table, $rawNames, true) === false) {
+            } elseif (false === array_search($table, $rawNames, true)) {
                 return $table . 's';
             } else {
                 return $table;

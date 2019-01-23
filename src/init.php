@@ -18,7 +18,7 @@ $connectionParams = [
     'port' => getenv('DB_PORT'),
     'driver' => getenv('DB_TYPE'),
 ];
-if ($connectionParams['driver'] === 'pgsql') {
+if ('pgsql' === $connectionParams['driver']) {
     $connectionParams['driver'] = 'pdo_pgsql';
 }
 $db = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);

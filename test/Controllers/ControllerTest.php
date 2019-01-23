@@ -52,7 +52,7 @@ abstract class ControllerTest extends TestCase {
     }
 
     protected function assertResponseData($expected) {
-        if (!is_string($expected)) {
+        if (!\is_string($expected)) {
             $expected = json_encode($expected);
         }
 

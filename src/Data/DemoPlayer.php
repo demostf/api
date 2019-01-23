@@ -79,7 +79,7 @@ class DemoPlayer implements \JsonSerializable {
         return $this->deaths;
     }
 
-    public static function fromRow($row): DemoPlayer {
+    public static function fromRow($row): self {
         return new self(
             $row['id'],
             $row['user_id'],

@@ -26,8 +26,8 @@ class DemoStoreTest extends TestCase {
 
         $this->assertStringEqualsFile($storedDemo->getPath(), 'foobar');
         unlink($storedDemo->getPath());
-        rmdir(dirname($storedDemo->getPath()));
-        rmdir(dirname($storedDemo->getPath(), 2));
+        rmdir(\dirname($storedDemo->getPath()));
+        rmdir(\dirname($storedDemo->getPath(), 2));
         rmdir($targetDir);
     }
 }

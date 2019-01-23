@@ -53,7 +53,7 @@ class User implements \JsonSerializable {
         ];
     }
 
-    public static function fromRow(array $row): User {
+    public static function fromRow(array $row): self {
         return new self(
             (int) $row['id'],
             $row['steamid'],

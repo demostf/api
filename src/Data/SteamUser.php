@@ -34,11 +34,11 @@ class SteamUser implements \JsonSerializable {
         return [
             'id' => $this->getId(),
             'steamid' => $this->getSteamId(),
-            'name' => $this->getName()
+            'name' => $this->getName(),
         ];
     }
 
-    public static function fromRow(array $row): SteamUser {
+    public static function fromRow(array $row): self {
         return new self(
             (int) $row['id'],
             $row['steamid'],

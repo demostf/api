@@ -30,7 +30,7 @@ class DemoListProvider extends BaseProvider {
             ->groupBy('demo_id')
             ->having($query->expr()->eq(
                 'COUNT(user_id)',
-                $query->createNamedParameter(count($userIds, \PDO::PARAM_INT))
+                $query->createNamedParameter(\count($userIds, \PDO::PARAM_INT))
             ))
             ->orderBy('demo_id', 'desc')
             ->setMaxResults(50)
@@ -54,7 +54,7 @@ class DemoListProvider extends BaseProvider {
      * @return Demo[]
      */
     public function listDemos(int $page, array $where = [], string $order = 'DESC') {
-        if (isset($where['players']) and is_array($where['players']) and count($where['players']) > 0) {
+        if (isset($where['players']) and \is_array($where['players']) and \count($where['players']) > 0) {
             return $this->listProfile($page, $where);
         }
 

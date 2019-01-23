@@ -35,7 +35,7 @@ class Parser {
 
     public function analyse(string $path): ParsedDemo {
         $data = $this->rawParser->parse($path);
-        if (is_array($data)) {
+        if (\is_array($data)) {
             return $this->handleData($data);
         } else {
             throw new \InvalidArgumentException('Error parsing demo');
@@ -55,7 +55,7 @@ class Parser {
             throw new \Exception("Error while parsing demo, no rounds field found\n" . json_encode($data));
         }
         foreach ($data['rounds'] as $round) {
-            if ($round['winner'] === 'red') {
+            if ('red' === $round['winner']) {
                 ++$red;
             } else {
                 ++$blue;
@@ -89,15 +89,15 @@ class Parser {
             if (!isset($activityMap[$kill->getAttackerDemoId()])) {
                 $activityMap[$kill->getAttackerDemoId()] = 0;
             }
-            $activityMap[$kill->getAttackerDemoId()]++;
+            ++$activityMap[$kill->getAttackerDemoId()];
             if (!isset($activityMap[$kill->getAssisterDemoId()])) {
                 $activityMap[$kill->getAssisterDemoId()] = 0;
             }
-            $activityMap[$kill->getAssisterDemoId()]++;
+            ++$activityMap[$kill->getAssisterDemoId()];
             if (!isset($activityMap[$kill->getVictimDemoId()])) {
                 $activityMap[$kill->getVictimDemoId()] = 0;
             }
-            $activityMap[$kill->getVictimDemoId()]++;
+            ++$activityMap[$kill->getVictimDemoId()];
         }
 
         foreach ($data['users'] as $player) {
@@ -113,7 +113,7 @@ class Parser {
                     $class = $classId;
                 }
             }
-            if ($player['steamId'] && $player['steamId'] !== 'BOT') {//skip spectators
+            if ($player['steamId'] && 'BOT' !== $player['steamId']) {//skip spectators
                 $players[] = new ParsedPlayer(
                     $player['name'],
                     $player['userId'],
@@ -152,7 +152,7 @@ class Parser {
      * @return string The converted 64bit numeric SteamID
      */
     public static function convertSteamIdToCommunityId(string $steamId): string {
-        if ($steamId === 'STEAM_ID_LAN' || $steamId === 'BOT') {
+        if ('STEAM_ID_LAN' === $steamId || 'BOT' === $steamId) {
             throw new \InvalidArgumentException("Cannot convert SteamID \"$steamId\" to a community ID.");
         }
         if (preg_match('/^STEAM_[0-1]:[0-1]:[0-9]+$/', $steamId)) {

@@ -31,7 +31,7 @@ class UploadController extends BaseController {
 
         try {
             $result = $this->uploadProvider->upload($key, $red, $blu, $name, $demoFile);
-            if ($result === 'Invalid key') {
+            if ('Invalid key' === $result) {
                 \Flight::response()->status(401)->write($result)->send();
             } else {
                 echo $result;

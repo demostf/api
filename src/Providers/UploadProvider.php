@@ -56,7 +56,7 @@ class UploadProvider extends BaseProvider {
 
     public function upload(string $key, string $red, string $blu, string $name, string $demoFile): string {
         $user = $this->userProvider->byKey($key);
-        if (!$user || ($this->uploadKey !== '' && $this->uploadKey !== $key)) {
+        if (!$user || ('' !== $this->uploadKey && $this->uploadKey !== $key)) {
             return 'Invalid key';
         }
 
@@ -106,7 +106,7 @@ class UploadProvider extends BaseProvider {
 
     public function validateParsed(Header $header, ParsedDemo $parsedDemo) {
         $rounds = $parsedDemo->getRedScore() + $parsedDemo->getBlueScore();
-        if ($rounds === 0 && $header->getDuration() < (5 * 60)) {
+        if (0 === $rounds && $header->getDuration() < (5 * 60)) {
             return 'Demos must be at least 5 minutes long';
         }
 

@@ -297,7 +297,7 @@ class UploadProviderTest extends TestCase {
         $result = $this->uploadProvider->upload($token, 'RED', 'BLU', 'foodemo', $this->tmpDir . '/foo.dem');
         $this->assertStringStartsWith('STV available at: http://example.com/', $result);
 
-        $demoId = (int) substr($result, strlen('STV available at: http://example.com/'));
+        $demoId = (int) substr($result, \strlen('STV available at: http://example.com/'));
 
         $demo = $this->demoProvider->get($demoId, true);
 

@@ -19,8 +19,8 @@ class DemoStore {
 
     public function store(string $sourcePath, string $name): StoredDemo {
         $target = $this->generatePath($name);
-        if (!is_dir(dirname($target))) {
-            mkdir(dirname($target), 0777, true);
+        if (!is_dir(\dirname($target))) {
+            mkdir(\dirname($target), 0777, true);
         }
         rename($sourcePath, $target);
         chmod($target, 0755);

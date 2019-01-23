@@ -33,8 +33,8 @@ class RawParser {
             $response = $client->post($this->parserUrl, [
                 'body' => stream_for($url),
                 'headers' => [
-                    'Content-Type' => 'application/octet-stream'
-                ]
+                    'Content-Type' => 'application/octet-stream',
+                ],
             ]);
             $result = json_decode($response->getBody()->getContents(), true);
             $this->tempController->unregister($key);
@@ -45,7 +45,7 @@ class RawParser {
             }
         } catch (RequestException $e) {
             $this->tempController->unregister($key);
-            if (strpos($e->getMessage(), 'cURL error 52') !== false) {
+            if (false !== strpos($e->getMessage(), 'cURL error 52')) {
                 throw new \Exception('Failed to parse demo, can\'t reach demo parser');
             }
             throw new \Exception('Failed to parse demo, ' . $e->getMessage() . ' ' . $url);

@@ -17,7 +17,7 @@ class HeaderParser {
             'A8type/Iversion/Iprotocol/A260server/A260nick/A260map/A260game/fduration/Vticks/Vframes/Vsigon',
             $head
         );
-        if (!isset($info['type']) || $info['type'] !== 'HL2DEMO') {
+        if (!isset($info['type']) || 'HL2DEMO' !== $info['type']) {
             throw new \InvalidArgumentException('Not an HL2 demo');
         }
 
@@ -52,7 +52,7 @@ class HeaderParser {
         if (!is_readable($path)) {
             throw new \InvalidArgumentException('Unable to open demo: ' . $path);
         }
-        $fh = fopen($path, 'rb');
+        $fh = fopen($path, 'r');
 
         return $this->parseStream($fh);
     }

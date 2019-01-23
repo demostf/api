@@ -149,7 +149,7 @@ class Demo implements \JsonSerializable {
         $this->uploaderUser = $uploaderUser;
     }
 
-    public static function fromRow($row): Demo {
+    public static function fromRow($row): self {
         return new self(
             (int) $row['id'],
             $row['url'],

@@ -45,7 +45,7 @@ class DemoController extends BaseController {
      * @param string $id
      */
     public function get($id) {
-        $this->json($this->demoProvider->get(intval($id, 10)));
+        $this->json($this->demoProvider->get(\intval($id, 10)));
     }
 
     protected function getFilter() {
@@ -61,7 +61,7 @@ class DemoController extends BaseController {
             $filter['backend'] = $backend;
         }
         if ($players) {
-            if (!is_array($players)) {
+            if (!\is_array($players)) {
                 $players = explode(',', $players);
             }
             $players = array_filter($players);
@@ -96,7 +96,7 @@ class DemoController extends BaseController {
 
     public function listDemos() {
         $page = $this->query('page', 1);
-        $order = $this->query('order', 'DESC') === 'ASC' ? 'ASC' : 'DESC';
+        $order = 'ASC' === $this->query('order', 'DESC') ? 'ASC' : 'DESC';
         $this->json($this->demoListProvider->listDemos((int) $page, $this->getFilter(), $order));
     }
 
@@ -122,16 +122,16 @@ class DemoController extends BaseController {
         $path = (string) $this->post('path', '');
         $url = (string) $this->post('url', '');
         $editKey = (string) $this->post('key', '');
-        if ($editKey !== $this->editKey || $editKey === '') {
+        if ($editKey !== $this->editKey || '' === $editKey) {
             throw new \InvalidArgumentException('Invalid key');
         }
 
         $demo = $this->demoProvider->get((int) $id);
         $existingHash = $demo->getHash();
-        if ($existingHash === '' || $existingHash === $hash) {
+        if ('' === $existingHash || $existingHash === $hash) {
             $this->demoProvider->setDemoUrl((int) $id, $backend, $url, $path);
 
-            if ($demo->getBackend() === 'static') {
+            if ('static' === $demo->getBackend()) {
                 $this->store->remove($demo);
             }
         } else {

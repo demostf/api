@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 $_SERVER['SCRIPT_NAME'] = '';
 
-if ($_SERVER['REQUEST_URI'] === '/upload') {
+if ('/upload' === $_SERVER['REQUEST_URI']) {
     require __DIR__ . '/../src/public/upload.php';
-} elseif ($_SERVER['REQUEST_URI'] === '/reset') {
+} elseif ('/reset' === $_SERVER['REQUEST_URI']) {
     // allow the api tests to reset the database
     /** @var \Demostf\API\Container $container */
     $container = require __DIR__ . '/../src/init.php';
     $connection = $container->getConnection();
 
     clearDatabase($connection);
-} elseif ($_SERVER['REQUEST_URI'] === '/testuser') {
+} elseif ('/testuser' === $_SERVER['REQUEST_URI']) {
     // allow the api tests to create a test user
     /** @var \Demostf\API\Container $container */
     $container = require __DIR__ . '/../src/init.php';
