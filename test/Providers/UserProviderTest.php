@@ -77,6 +77,8 @@ class UserProviderTest extends TestCase {
             'scout'
         ));
 
+        $this->getDatabaseConnection()->query('REFRESH MATERIALIZED VIEW name_list');
+
         $result = $this->provider->search('Icewind');
         $this->assertCount(1, $result);
         $this->assertEquals($this->steamId->getSteamId64(), $result[0]->getSteamId());
