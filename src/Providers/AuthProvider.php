@@ -23,7 +23,7 @@ class AuthProvider extends BaseProvider {
     }
 
     public function setUser(string $token, \SteamId $steamid, string $key) {
-        apcu_store($token, [
+        \apcu_store($token, [
             'name' => $steamid->getNickname(),
             'steamid' => $steamid->getSteamId64(),
             'key' => $key,
@@ -32,12 +32,12 @@ class AuthProvider extends BaseProvider {
 
     public function getUser(string $token) {
         $found = true;
-        $result = apcu_fetch($token, $found);
+        $result = \apcu_fetch($token, $found);
 
         return $found ? $result : ['name' => null, 'steamid' => null, 'key' => null];
     }
 
     public function logout($token) {
-        apcu_delete($token);
+        \apcu_delete($token);
     }
 }
