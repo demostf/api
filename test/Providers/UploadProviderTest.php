@@ -128,7 +128,7 @@ class UploadProviderTest extends TestCase {
     }
 
     public function testValidateHeaderToBig() {
-        $this->assertEquals('Demos cant be more than 100MB in size', $this->uploadProvider->validateHeader(
+        $this->assertEquals('Demos cant be more than 150MB in size', $this->uploadProvider->validateHeader(
             99999999999,
             new Header(
                 'HL2DEMO',
