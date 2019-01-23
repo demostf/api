@@ -17,6 +17,7 @@ env:
     - DB_HOST=localhost
     - DB_USERNAME=postgres
     - DB_PASSWORD=
+    - DB_PORT=5432
     - DB_DATABASE=travis_ci_test
     - BASE_HOST=example.com
     - DEMO_ROOT=/tmp/demos
