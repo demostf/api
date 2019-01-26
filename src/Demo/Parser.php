@@ -35,7 +35,7 @@ class Parser {
 
     public function analyse(string $path): ParsedDemo {
         $data = $this->rawParser->parse($path);
-        if (\is_array($data)) {
+        if (\is_array($data) && isset($data['intervalPerTick'])) {
             return $this->handleData($data);
         } else {
             throw new \InvalidArgumentException('Error parsing demo');
