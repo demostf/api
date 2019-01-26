@@ -6,8 +6,8 @@
         "ircmaxell/random-lib": "^1.1",
         "ehesp/steam-login": "^1.2",
         "koraktor/steam-condenser": "^1.3",
-        "guzzlehttp/guzzle": "^6.2",
-        "doctrine/dbal": "^2.5"
+        "guzzlehttp/guzzle": "^6.3",
+        "doctrine/dbal": "^2.9"
     },
     "autoload": {
         "files": [
