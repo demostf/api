@@ -29,17 +29,17 @@ class TempController extends BaseController {
     }
 
     public function register(string $key, string $path): string {
-        \apcu_store($key, $path);
+        apcu_store($key, $path);
 
         return $this->webRoot . $key;
     }
 
     public function unregister(string $key) {
-        \apcu_dec($key);
+        apcu_dec($key);
     }
 
     public function serve(string $key) {
-        $path = \apcu_fetch($key);
+        $path = apcu_fetch($key);
         if ($path) {
             $handle = fopen($path, 'r');
             fpassthru($handle);
