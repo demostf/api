@@ -14,6 +14,7 @@ use Demostf\API\Providers\DemoProvider;
 use Demostf\API\Providers\KillProvider;
 use Demostf\API\Providers\PlayerProvider;
 use Demostf\API\Providers\UserProvider;
+use Doctrine\DBAL\Connection;
 
 class DemoSaver {
     /** @var KillProvider */
@@ -26,18 +27,29 @@ class DemoSaver {
     private $userProvider;
     /** @var DemoProvider */
     private $demoProvider;
+    private $connection;
 
-    public function __construct(KillProvider $killProvider, PlayerProvider $playerProvider, ChatProvider $chatProvider, UserProvider $userProvider, DemoProvider $demoProvider) {
+    public function __construct(
+        KillProvider $killProvider,
+        PlayerProvider $playerProvider,
+        ChatProvider $chatProvider,
+        UserProvider $userProvider,
+        DemoProvider $demoProvider,
+        Connection $connection
+    ) {
         $this->killProvider = $killProvider;
         $this->playerProvider = $playerProvider;
         $this->chatProvider = $chatProvider;
         $this->userProvider = $userProvider;
         $this->demoProvider = $demoProvider;
+        $this->connection = $connection;
     }
 
     public function saveDemo(ParsedDemo $demo, Header $header, StoredDemo $storedDemo, Upload $upload): int {
         /** @var int[] $userMap [$demoUserId => $dbUserId] */
         $userMap = [0 => 0];
+
+        $this->connection->beginTransaction();
 
         $demoId = $this->demoProvider->storeDemo(new Demo(
             0,
@@ -88,6 +100,8 @@ class DemoSaver {
         foreach ($demo->getChat() as $chat) {
             $this->chatProvider->storeChatMessage($demoId, $chat);
         }
+
+        $this->connection->commit();
 
         return $demoId;
     }

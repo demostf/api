@@ -109,7 +109,8 @@ class Container {
                 $this->getPlayerProvider(),
                 $this->getChatProvider(),
                 $this->getUserProvider(),
-                $this->getDemoProvider()
+                $this->getDemoProvider(),
+                $this->getConnection()
             ),
             $this->getUploadKey()
         );
