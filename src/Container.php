@@ -28,7 +28,7 @@ class Container {
     private $connection;
     private $generator;
     private $baseUrl;
-    private $parserUrl;
+    private $parserPath;
     private $storeRoot;
     private $storeUrl;
     private $apiRoot;
@@ -43,7 +43,7 @@ class Container {
         Connection $connection,
         Generator $generator,
         string $baseUrl,
-        string $parserUrl,
+        string $parserPath,
         string $storeRoot,
         string $storeUrl,
         string $apiRoot,
@@ -55,7 +55,7 @@ class Container {
         $this->connection = $connection;
         $this->generator = $generator;
         $this->baseUrl = $baseUrl;
-        $this->parserUrl = $parserUrl;
+        $this->parserPath = $parserPath;
         $this->storeRoot = $storeRoot;
         $this->storeUrl = $storeUrl;
         $this->apiRoot = $apiRoot;
@@ -92,7 +92,7 @@ class Container {
     }
 
     public function getRawParser(): RawParser {
-        return new RawParser($this->getParserUrl(), new TempController($this->getApiRoot() . '/temp/'));
+        return new RawParser($this->getParserPath(), new TempController($this->getApiRoot() . '/temp/'));
     }
 
     public function getUploadProvider(): UploadProvider {
@@ -127,8 +127,8 @@ class Container {
         return $this->baseUrl;
     }
 
-    public function getParserUrl(): string {
-        return $this->parserUrl;
+    public function getParserPath(): string {
+        return $this->parserPath;
     }
 
     public function getStoreRoot(): string {

@@ -16,38 +16,26 @@ use function GuzzleHttp\Psr7\stream_for;
  */
 class RawParser {
     /** @var string */
-    private $parserUrl;
+    private $parserPath;
 
     private $tempController;
 
-    public function __construct(string $parserUrl, TempController $tempController) {
-        $this->parserUrl = $parserUrl;
+    public function __construct(string $parserPath, TempController $tempController) {
+        $this->parserPath = $parserPath;
         $this->tempController = $tempController;
     }
 
     public function parse(string $path): ?array {
-        $key = md5($path);
-        $url = $this->tempController->register($key, $path);
         try {
-            $client = new Client();
-            $response = $client->post($this->parserUrl, [
-                'body' => stream_for($url),
-                'headers' => [
-                    'Content-Type' => 'application/octet-stream',
-                ],
-            ]);
-            $result = json_decode($response->getBody()->getContents(), true);
-            $this->tempController->unregister($key);
+            $command = $this->parserPath . " " . escapeshellarg($path);
+            $output = shell_exec($command);
+            $result = \GuzzleHttp\json_decode($output, true);
             if (null === $result) {
                 throw new \Exception('Failed to parse demo, unexpected result from parser');
             } else {
                 return $result;
             }
         } catch (RequestException $e) {
-            $this->tempController->unregister($key);
-            if (false !== strpos($e->getMessage(), 'cURL error 52')) {
-                throw new \Exception('Failed to parse demo, can\'t reach demo parser');
-            }
             throw new \Exception('Failed to parse demo, ' . $e->getMessage() . ' ' . $url);
         }
     }

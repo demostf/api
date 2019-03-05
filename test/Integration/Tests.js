@@ -104,6 +104,7 @@ function uploadDemo(file) {
 			key: 'key1'
 		}
 	}).then((response) => {
+		console.log(`body: "${response.body}"`);
 		return parseInt(response.body.match(/\/(\d+)/)[1], 10);
 	});
 }

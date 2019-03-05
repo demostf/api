@@ -25,7 +25,7 @@ $db = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
 $host = getenv('BASE_HOST') ?: '';
 $storeRoot = getenv('DEMO_ROOT') ?: '';
 $storeHost = getenv('DEMO_HOST') ?: '';
-$parserUrl = getenv('PARSER_URL') ?: '';
+$parserPath = getenv('PARSER_PATH') ?: '';
 $appRoot = getenv('APP_ROOT') ?: '';
 $editKey = getenv('EDIT_SECRET') ?: '';
 $uploadKey = getenv('UPLOAD_KEY') ?: '';
@@ -39,7 +39,7 @@ $container = new Container(
     $db,
     $generator,
     'https://' . $host,
-    $parserUrl,
+    $parserPath,
     $storeRoot,
     $storeHost,
     $appRoot,
