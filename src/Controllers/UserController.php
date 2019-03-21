@@ -22,7 +22,11 @@ class UserController extends BaseController {
 
     public function get($steamId) {
         if (!is_numeric($steamId)) {
-            $steamId = Parser::convertSteamIdToCommunityId($steamId);
+            try {
+                $steamId = Parser::convertSteamIdToCommunityId($steamId);
+            } catch (\InvalidArgumentException $e) {
+
+            }
         }
         \Flight::json($this->userProvider->get($steamId));
     }
