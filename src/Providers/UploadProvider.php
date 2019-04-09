@@ -93,8 +93,8 @@ class UploadProvider extends BaseProvider {
             return 'Demos needs to be at least 1KB is size';
         }
 
-        if ($size > 150 * 1024 * 1024) {
-            return 'Demos cant be more than 150MB in size';
+        if ($size > 200 * 1024 * 1024) {
+            return 'Demos cant be more than 200MB in size';
         }
 
         if ($header->getDuration() > (60 * 60)) {
@@ -106,7 +106,7 @@ class UploadProvider extends BaseProvider {
 
     public function validateParsed(Header $header, ParsedDemo $parsedDemo) {
         $rounds = $parsedDemo->getRedScore() + $parsedDemo->getBlueScore();
-        if (0 === $rounds && $header->getDuration() < (5 * 60)) {
+        if (0 === $rounds && $header->getDuration() < (15 * 60)) {
             return 'Demos must be at least 5 minutes long';
         }
 
