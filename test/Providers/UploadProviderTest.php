@@ -19,6 +19,7 @@ use Demostf\API\Providers\PlayerProvider;
 use Demostf\API\Providers\UploadProvider;
 use Demostf\API\Providers\UserProvider;
 use Demostf\API\Test\TestCase;
+use Doctrine\DBAL\Connection;
 
 class UploadProviderTest extends TestCase {
     /** @var RawParser */
@@ -70,7 +71,8 @@ class UploadProviderTest extends TestCase {
             new PlayerProvider($this->getDatabaseConnection()),
             new ChatProvider($this->getDatabaseConnection()),
             $this->userProvider,
-            $this->demoProvider
+            $this->demoProvider,
+            $this->createMock(Connection::class)
         );
 
         $this->uploadProvider = new UploadProvider(
@@ -128,7 +130,7 @@ class UploadProviderTest extends TestCase {
     }
 
     public function testValidateHeaderToBig() {
-        $this->assertEquals('Demos cant be more than 150MB in size', $this->uploadProvider->validateHeader(
+        $this->assertEquals('Demos cant be more than 200MB in size', $this->uploadProvider->validateHeader(
             99999999999,
             new Header(
                 'HL2DEMO',

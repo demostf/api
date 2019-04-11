@@ -18,6 +18,7 @@ use Demostf\API\Providers\KillProvider;
 use Demostf\API\Providers\PlayerProvider;
 use Demostf\API\Providers\UserProvider;
 use Demostf\API\Test\TestCase;
+use Doctrine\DBAL\Connection;
 
 class DemoSaverTest extends TestCase {
     public function testSave() {
@@ -76,7 +77,8 @@ class DemoSaverTest extends TestCase {
             new PlayerProvider($this->getDatabaseConnection()),
             $chatProvider,
             $userProvider,
-            $demoProvider
+            $demoProvider,
+            $this->createMock(Connection::class)
         );
 
         $storedDemo = new StoredDemo('http://example.com/foo', 'foo', 'example');
