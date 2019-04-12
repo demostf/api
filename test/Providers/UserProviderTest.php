@@ -18,7 +18,7 @@ class UserProviderTest extends TestCase {
     /** @var \SteamId */
     private $steamId;
 
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->steamId = $this->getSteamId('76561198024494988', 'Icewind');

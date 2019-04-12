@@ -7,12 +7,14 @@ namespace Demostf\API\Test\Demo;
 use Demostf\API\Demo\Parser;
 use Demostf\API\Demo\RawParser;
 use Demostf\API\Test\TestCase;
+use InvalidArgumentException;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class ParserTest extends TestCase {
-    /** @var RawParser|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var RawParser|MockObject */
     private $rawParser;
 
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->rawParser = $this->getMockBuilder(RawParser::class)
@@ -60,10 +62,9 @@ class ParserTest extends TestCase {
         $this->assertEquals($expectedKills[0]['weapon'], $result->getKills()[0]->getWeapon());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testFailedParse() {
+        $this->expectException(InvalidArgumentException::class);
+
         /** @var RawParser|\PHPUnit_Framework_MockObject_MockObject $rawParser */
         $rawParser = $this->getMockBuilder(RawParser::class)
             ->disableOriginalConstructor()

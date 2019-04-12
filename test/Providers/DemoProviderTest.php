@@ -27,7 +27,7 @@ class DemoProviderTest extends TestCase {
     /** @var KillProvider */
     private $killProvider;
 
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->provider = new DemoProvider($this->getDatabaseConnection());

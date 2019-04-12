@@ -20,6 +20,7 @@ use Demostf\API\Providers\UploadProvider;
 use Demostf\API\Providers\UserProvider;
 use Demostf\API\Test\TestCase;
 use Doctrine\DBAL\Connection;
+use InvalidArgumentException;
 
 class UploadProviderTest extends TestCase {
     /** @var RawParser */
@@ -41,7 +42,7 @@ class UploadProviderTest extends TestCase {
     /** @var string */
     private $tmpDir;
 
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->rawParser = $this->getMockBuilder(RawParser::class)
@@ -104,7 +105,7 @@ class UploadProviderTest extends TestCase {
         rmdir($dir);
     }
 
-    public function tearDown() {
+    public function tearDown(): void {
         $this->rmdirr($this->tmpDir);
 
         parent::tearDown();
@@ -212,11 +213,10 @@ class UploadProviderTest extends TestCase {
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Not an HL2 demo
-     */
     public function testUploadNonDemo() {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Not an HL2 demo");
+
         file_put_contents($this->tmpDir . '/foo.dem', 'asd');
 
         $steamId = $this->getSteamId('123', 'a');
@@ -310,11 +310,10 @@ class UploadProviderTest extends TestCase {
         $this->assertEquals(3, $demo->getRedScore());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Not an HL2 demo
-     */
     public function testUploadKey() {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Not an HL2 demo");
+
         $uploadProvider = new UploadProvider(
             $this->getDatabaseConnection(),
             'http://example.com',

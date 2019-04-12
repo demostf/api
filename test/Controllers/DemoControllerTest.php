@@ -11,18 +11,20 @@ use Demostf\API\Demo\DemoStore;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoListProvider;
 use Demostf\API\Providers\DemoProvider;
+use \InvalidArgumentException;
+use PHPUnit\Framework\MockObject\MockObject;
 
 class DemoControllerTest extends ControllerTest {
-    /** @var DemoStore|\PHPUnit_Framework_MockObject_MockObject $demoStore */
+    /** @var DemoStore|MockObject $demoStore */
     private $demoStore;
-    /** @var DemoProvider|\PHPUnit_Framework_MockObject_MockObject $demoProvider */
+    /** @var DemoProvider|MockObject $demoProvider */
     private $demoProvider;
-    /** @var ChatProvider|\PHPUnit_Framework_MockObject_MockObject $chatProvider */
+    /** @var ChatProvider|MockObject $chatProvider */
     private $chatProvider;
-    /** @var DemoListProvider|\PHPUnit_Framework_MockObject_MockObject $demoListProvider */
+    /** @var DemoListProvider|MockObject $demoListProvider */
     private $demoListProvider;
 
-    public function setUp() {
+    public function setUp(): void {
         parent::setUp();
 
         $this->demoStore = $this->createMock(DemoStore::class);
@@ -79,10 +81,6 @@ class DemoControllerTest extends ControllerTest {
         $this->assertResponseData(['dummy']);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid key
-     */
     public function testSetDemoUrlInvalidKey() {
         $controller = $this->getController([], [
             'hash' => 'foo',
@@ -92,13 +90,12 @@ class DemoControllerTest extends ControllerTest {
             'key' => 'invalid',
         ]);
 
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid key");
+
         $controller->setDemoUrl('1');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Invalid demo hash
-     */
     public function testSetDemoUrlInvalidHash() {
         $controller = $this->getController([], [
             'hash' => 'invalidhash',
@@ -107,6 +104,9 @@ class DemoControllerTest extends ControllerTest {
             'url' => 'http://bar/',
             'key' => 'supersecretkey',
         ]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Invalid demo hash");
 
         $demo = $this->createConfiguredMock(Demo::class, [
             'getHash' => 'validhash',

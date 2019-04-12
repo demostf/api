@@ -16,7 +16,7 @@ mocha: node_modules
 
 .PHONY: phpunit
 phpunit:
-	cd test; DB_PORT=5433 DB_TYPE=pgsql DB_HOST=localhost DB_USERNAME=postgres DB_USERNAME=postgres DB_PASSWORD=test DB_DATABASE=postgres phpunit
+	cd test; DB_PORT=5433 DB_TYPE=pgsql DB_HOST=localhost DB_USERNAME=postgres DB_USERNAME=postgres DB_PASSWORD=test DB_DATABASE=postgres ../vendor/bin/phpunit
 
 .PHONY: test
 tests: phpunit mocha

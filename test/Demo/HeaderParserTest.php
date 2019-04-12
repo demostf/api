@@ -7,6 +7,7 @@ namespace Demostf\API\Test\Demo;
 use Demostf\API\Demo\Header;
 use Demostf\API\Demo\HeaderParser;
 use Demostf\API\Test\TestCase;
+use InvalidArgumentException;
 
 class HeaderParserTest extends TestCase {
     public function testParseFile() {
@@ -40,28 +41,25 @@ class HeaderParserTest extends TestCase {
         $this->assertEquals($expected->getVersion(), $parsed->getVersion());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Not an HL2 demo
-     */
     public function testNonDemoShort() {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Not an HL2 demo");
+
         $parser = new HeaderParser();
         $parser->parseString('short');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage Not an HL2 demo
-     */
     public function testNonDemoLong() {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Not an HL2 demo");
+
         $parser = new HeaderParser();
         $parser->parseHeader(__FILE__);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testNonExisting() {
+        $this->expectException(InvalidArgumentException::class);
+
         $parser = new HeaderParser();
         $parser->parseHeader('/non/existing');
     }
