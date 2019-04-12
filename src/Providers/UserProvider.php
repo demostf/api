@@ -7,7 +7,10 @@ namespace Demostf\API\Providers;
 use Demostf\API\Data\SteamUser;
 use Demostf\API\Data\User;
 use Doctrine\DBAL\Connection;
+use function is_array;
+use PDO;
 use RandomLib\Generator;
+use SteamId;
 
 class UserProvider extends BaseProvider {
     /**
@@ -20,7 +23,7 @@ class UserProvider extends BaseProvider {
         $this->generator = $generator;
     }
 
-    public function store(\SteamId $steamId): string {
+    public function store(SteamId $steamId): string {
         $token = $this->generator->generateString(64, Generator::EASY_TO_READ);
 
         $user = $this->get($steamId->getSteamId64());
@@ -65,7 +68,7 @@ class UserProvider extends BaseProvider {
             ->setMaxResults(1);
 
         $result = $query->execute()->fetch();
-        if (\is_array($result)) {
+        if (is_array($result)) {
             return $result;
         } else {
             return null;
@@ -86,7 +89,7 @@ class UserProvider extends BaseProvider {
         }
 
         $query = $this->getQueryBuilder();
-        $nameParameter = $query->createNamedParameter($search, \PDO::PARAM_STR, ':query');
+        $nameParameter = $query->createNamedParameter($search, PDO::PARAM_STR, ':query');
         $query->select('user_id', 'name', 'count', 'steamid', "1 - (name <-> $nameParameter) AS sim")
             ->from('name_list')
             ->where($query->expr()->comparison('name', '%', $nameParameter))
@@ -94,7 +97,7 @@ class UserProvider extends BaseProvider {
             ->orderBy('count', 'DESC')
             ->setMaxResults(100);
         $result = $query->execute();
-        $players = $result->fetchAll(\PDO::FETCH_ASSOC);
+        $players = $result->fetchAll(PDO::FETCH_ASSOC);
 
         usort($players, function ($b, $a) use ($query) {
             if ($a['steamid'] === $query && $a['steamid'] !== $query) {
@@ -138,7 +141,7 @@ class UserProvider extends BaseProvider {
             return $existing->getId();
         }
 
-        $this->store(new \SteamId($steamId));
+        $this->store(new SteamId($steamId));
 
         return $this->get($steamId)->getId();
     }

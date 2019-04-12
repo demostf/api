@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Demostf\API\Container;
+use Doctrine\DBAL\DriverManager;
 
 $autoloader = require __DIR__ . '/../vendor/autoload.php';
 
@@ -21,7 +22,7 @@ $connectionParams = [
 if ('pgsql' === $connectionParams['driver']) {
     $connectionParams['driver'] = 'pdo_pgsql';
 }
-$db = \Doctrine\DBAL\DriverManager::getConnection($connectionParams);
+$db = DriverManager::getConnection($connectionParams);
 $host = getenv('BASE_HOST') ?: '';
 $storeRoot = getenv('DEMO_ROOT') ?: '';
 $storeHost = getenv('DEMO_HOST') ?: '';

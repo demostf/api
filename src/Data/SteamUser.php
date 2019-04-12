@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Demostf\API\Data;
 
-class SteamUser implements \JsonSerializable {
+use JsonSerializable;
+
+class SteamUser implements JsonSerializable {
     /** @var int */
     private $id;
     /** @var string */

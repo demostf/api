@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Demostf\API\Demo;
 
-class ChatMessage implements \JsonSerializable {
+use JsonSerializable;
+
+class ChatMessage implements JsonSerializable {
     /** @var string */
     private $user;
 

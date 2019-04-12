@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Demostf\API\Providers;
 
+use const DATE_ATOM;
 use Demostf\API\Data\DemoPlayer;
 use Demostf\API\Data\User;
 use Demostf\API\Demo\Demo;
+use PDO;
 
 class DemoProvider extends BaseProvider {
     const VERSION = 4;
@@ -33,7 +35,7 @@ class DemoProvider extends BaseProvider {
         if ($fetchDetails) {
             $uploader = $demo->user()->via('uploader')->fetch();
             $playerQuery = $this->query($sql, [$formattedDemo->getId(), $formattedDemo->getId()]);
-            $players = $playerQuery->fetchAll(\PDO::FETCH_ASSOC);
+            $players = $playerQuery->fetchAll(PDO::FETCH_ASSOC);
 
             $formattedDemo->setUploaderUser(User::fromRow([
                 'id' => $uploader['id'],
@@ -74,18 +76,18 @@ class DemoProvider extends BaseProvider {
                 'map' => $query->createNamedParameter($demo->getMap()),
                 'red' => $query->createNamedParameter($demo->getRed()),
                 'blu' => $query->createNamedParameter($demo->getBlue()),
-                'uploader' => $query->createNamedParameter($demo->getUploader(), \PDO::PARAM_INT),
-                'duration' => $query->createNamedParameter((int) $demo->getDuration(), \PDO::PARAM_INT),
-                'created_at' => $query->createNamedParameter($demo->getTime()->format(\DATE_ATOM)),
+                'uploader' => $query->createNamedParameter($demo->getUploader(), PDO::PARAM_INT),
+                'duration' => $query->createNamedParameter((int) $demo->getDuration(), PDO::PARAM_INT),
+                'created_at' => $query->createNamedParameter($demo->getTime()->format(DATE_ATOM)),
                 'updated_at' => 'now()',
                 'backend' => $query->createNamedParameter($backend),
                 'path' => $query->createNamedParameter($path),
-                '"scoreBlue"' => $query->createNamedParameter($demo->getBlueScore(), \PDO::PARAM_INT),
-                '"scoreRed"' => $query->createNamedParameter($demo->getRedScore(), \PDO::PARAM_INT),
-                'version' => $query->createNamedParameter(self::VERSION, \PDO::PARAM_INT),
+                '"scoreBlue"' => $query->createNamedParameter($demo->getBlueScore(), PDO::PARAM_INT),
+                '"scoreRed"' => $query->createNamedParameter($demo->getRedScore(), PDO::PARAM_INT),
+                'version' => $query->createNamedParameter(self::VERSION, PDO::PARAM_INT),
                 'server' => $query->createNamedParameter($demo->getServer()),
                 'nick' => $query->createNamedParameter($demo->getNick()),
-                '"playerCount"' => $query->createNamedParameter($demo->getPlayerCount(), \PDO::PARAM_INT),
+                '"playerCount"' => $query->createNamedParameter($demo->getPlayerCount(), PDO::PARAM_INT),
                 'hash' => $query->createNamedParameter($demo->getHash()),
             ])
             ->execute();
@@ -99,7 +101,7 @@ class DemoProvider extends BaseProvider {
             ->set('backend', $query->createNamedParameter($backend))
             ->set('url', $query->createNamedParameter($url))
             ->set('path', $query->createNamedParameter($path))
-            ->where($query->expr()->eq('id', $query->createNamedParameter($id, \PDO::PARAM_INT)))
+            ->where($query->expr()->eq('id', $query->createNamedParameter($id, PDO::PARAM_INT)))
             ->execute();
     }
 }

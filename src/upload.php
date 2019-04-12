@@ -9,13 +9,10 @@ use Flight;
 /** @var Container $container */
 $container = require __DIR__ . '/init.php';
 
-$tempController = new Controllers\TempController($container->getApiRoot() . '/temp/');
-
 $uploadController = new Controllers\UploadController(
     $container->getRequest(),
     $container->getResponse(),
-    $container->getUploadProvider(),
-    $tempController
+    $container->getUploadProvider()
 );
 
 Flight::route('/*', function () {

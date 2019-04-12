@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Demostf\API\Demo;
 
 use Demostf\API\Data\StoredDemo;
+use function dirname;
 
 class DemoStore {
     /** @var string */
@@ -19,8 +20,8 @@ class DemoStore {
 
     public function store(string $sourcePath, string $name): StoredDemo {
         $target = $this->generatePath($name);
-        if (!is_dir(\dirname($target))) {
-            mkdir(\dirname($target), 0777, true);
+        if (!is_dir(dirname($target))) {
+            mkdir(dirname($target), 0777, true);
         }
         rename($sourcePath, $target);
         chmod($target, 0755);

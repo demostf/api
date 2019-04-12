@@ -6,6 +6,7 @@ namespace Demostf\API\Providers;
 
 use Doctrine\DBAL\Connection;
 use RandomLib\Generator;
+use SteamId;
 
 class AuthProvider extends BaseProvider {
     /**
@@ -22,7 +23,7 @@ class AuthProvider extends BaseProvider {
         return $this->generator->generateString(32, Generator::CHAR_ALNUM);
     }
 
-    public function setUser(string $token, \SteamId $steamid, string $key) {
+    public function setUser(string $token, SteamId $steamid, string $key) {
         apcu_store($token, [
             'name' => $steamid->getNickname(),
             'steamid' => $steamid->getSteamId64(),

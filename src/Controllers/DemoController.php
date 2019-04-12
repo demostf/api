@@ -10,6 +10,9 @@ use Demostf\API\Providers\DemoListProvider;
 use Demostf\API\Providers\DemoProvider;
 use flight\net\Request;
 use flight\net\Response;
+use function intval;
+use InvalidArgumentException;
+use function is_array;
 
 class DemoController extends BaseController {
     /** @var DemoProvider */
@@ -45,7 +48,7 @@ class DemoController extends BaseController {
      * @param string $id
      */
     public function get($id) {
-        $this->json($this->demoProvider->get(\intval($id, 10)));
+        $this->json($this->demoProvider->get(intval($id, 10)));
     }
 
     protected function getFilter() {
@@ -61,7 +64,7 @@ class DemoController extends BaseController {
             $filter['backend'] = $backend;
         }
         if ($players) {
-            if (!\is_array($players)) {
+            if (!is_array($players)) {
                 $players = explode(',', $players);
             }
             $players = array_filter($players);
@@ -123,7 +126,7 @@ class DemoController extends BaseController {
         $url = (string) $this->post('url', '');
         $editKey = (string) $this->post('key', '');
         if ($editKey !== $this->editKey || '' === $editKey) {
-            throw new \InvalidArgumentException('Invalid key');
+            throw new InvalidArgumentException('Invalid key');
         }
 
         $demo = $this->demoProvider->get((int) $id);
@@ -135,7 +138,7 @@ class DemoController extends BaseController {
                 $this->store->remove($demo);
             }
         } else {
-            throw new \InvalidArgumentException('Invalid demo hash');
+            throw new InvalidArgumentException('Invalid demo hash');
         }
     }
 }

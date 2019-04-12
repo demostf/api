@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Demostf\API\Data;
 
-class DemoPlayer implements \JsonSerializable {
+use JsonSerializable;
+
+class DemoPlayer implements JsonSerializable {
     /** @var int */
     private $id;
     /** @var int */

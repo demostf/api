@@ -35,7 +35,7 @@ before_script:
   - echo "error_reporting = E_ALL & ~E_DEPRECATED" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini #random-lib complains about mcrypt
 
 script:
-  - phpunit --coverage-clover coverage.xml --configuration test/phpunit.xml
+  - vendor/bin/phpunit --coverage-clover coverage.xml --configuration test/phpunit.xml
   - IFS=$'\n'; COMMIT_SCA_FILES=($(git diff --name-only --diff-filter=ACMRTUXB "${$TRAVIS_COMMIT_RANGE}")); unset IFS
   - vendor/bin/php-cs-fixer fix --config=.php_cs.dist -v --dry-run --allow-risky yes --stop-on-violation --using-cache=no --path-mode=intersection -- "${COMMIT_SCA_FILES[@]}"
   - phpenv config-rm xdebug.ini

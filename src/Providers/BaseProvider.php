@@ -17,7 +17,7 @@ class BaseProvider {
     protected $connection;
 
     /**
-     * @var \LessQL\Database
+     * @var Database
      */
     protected $db;
 

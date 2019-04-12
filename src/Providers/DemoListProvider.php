@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Demostf\API\Providers;
 
+use function count;
 use Demostf\API\Demo\Demo;
 use Doctrine\DBAL\Connection;
+use function is_array;
+use PDO;
 
 class DemoListProvider extends BaseProvider {
     public function listUploads(string $steamId, int $page, array $where = []) {
@@ -30,14 +33,14 @@ class DemoListProvider extends BaseProvider {
             ->groupBy('demo_id')
             ->having($query->expr()->eq(
                 'COUNT(user_id)',
-                $query->createNamedParameter(\count($userIds, \PDO::PARAM_INT))
+                $query->createNamedParameter(count($userIds, PDO::PARAM_INT))
             ))
             ->orderBy('demo_id', 'desc')
             ->setMaxResults(50)
             ->setFirstResult(((int) $page - 1) * 50);
 
         $result = $query->execute();
-        $demoIds = $result->fetchAll(\PDO::FETCH_COLUMN);
+        $demoIds = $result->fetchAll(PDO::FETCH_COLUMN);
 
         $demos = $this->db->demo()->where('id', $demoIds)
             ->where($where)
@@ -54,7 +57,7 @@ class DemoListProvider extends BaseProvider {
      * @return Demo[]
      */
     public function listDemos(int $page, array $where = [], string $order = 'DESC') {
-        if (isset($where['players']) and \is_array($where['players']) and \count($where['players']) > 0) {
+        if (isset($where['players']) and is_array($where['players']) and count($where['players']) > 0) {
             return $this->listProfile($page, $where);
         }
 
@@ -77,7 +80,7 @@ class DemoListProvider extends BaseProvider {
         }
         if (isset($where['uploader'])) {
             $query->andWhere($query->expr()->in('uploader',
-                $query->createNamedParameter($where['uploader'], \PDO::PARAM_INT)));
+                $query->createNamedParameter($where['uploader'], PDO::PARAM_INT)));
         }
         if (isset($where['backend'])) {
             $query->andWhere($query->expr()->eq('backend',
@@ -87,7 +90,7 @@ class DemoListProvider extends BaseProvider {
             ->setMaxResults(50)
             ->setFirstResult($offset);
 
-        $demos = $query->execute()->fetchAll(\PDO::FETCH_ASSOC);
+        $demos = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return $this->formatList($demos);
     }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Demostf\API\Controllers;
 
 use Demostf\API\Providers\UploadProvider;
+use Exception;
+use Flight;
 use flight\net\Request;
 use flight\net\Response;
 
@@ -32,12 +34,12 @@ class UploadController extends BaseController {
         try {
             $result = $this->uploadProvider->upload($key, $red, $blu, $name, $demoFile);
             if ('Invalid key' === $result) {
-                \Flight::response()->status(401)->write($result)->send();
+                Flight::response()->status(401)->write($result)->send();
             } else {
                 echo $result;
             }
-        } catch (\Exception $e) {
-            \Flight::response()
+        } catch (Exception $e) {
+            Flight::response()
                 ->status(500)
                 ->write($e->getMessage())
                 ->send();

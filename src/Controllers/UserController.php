@@ -6,8 +6,10 @@ namespace Demostf\API\Controllers;
 
 use Demostf\API\Demo\Parser;
 use Demostf\API\Providers\UserProvider;
+use Flight;
 use flight\net\Request;
 use flight\net\Response;
+use InvalidArgumentException;
 
 class UserController extends BaseController {
     /**
@@ -24,14 +26,14 @@ class UserController extends BaseController {
         if (!is_numeric($steamId)) {
             try {
                 $steamId = Parser::convertSteamIdToCommunityId($steamId);
-            } catch (\InvalidArgumentException $e) {
+            } catch (InvalidArgumentException $e) {
             }
         }
-        \Flight::json($this->userProvider->get($steamId));
+        Flight::json($this->userProvider->get($steamId));
     }
 
     public function search() {
         $query = $this->query('query', '');
-        \Flight::json($this->userProvider->search($query));
+        Flight::json($this->userProvider->search($query));
     }
 }

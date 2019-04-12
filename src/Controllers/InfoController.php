@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Demostf\API\Controllers;
 
 use Demostf\API\Providers\InfoProvider;
+use Flight;
 use flight\net\Request;
 use flight\net\Response;
 
@@ -18,10 +19,10 @@ class InfoController extends BaseController {
     }
 
     public function listMaps() {
-        \Flight::json($this->infoProvider->listMaps());
+        Flight::json($this->infoProvider->listMaps());
     }
 
     public function stats() {
-        \Flight::json($this->infoProvider->getStats());
+        Flight::json($this->infoProvider->getStats());
     }
 }

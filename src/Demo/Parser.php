@@ -7,6 +7,9 @@ namespace Demostf\API\Demo;
 use Demostf\API\Data\ParsedDemo;
 use Demostf\API\Data\ParsedKill;
 use Demostf\API\Data\ParsedPlayer;
+use Exception;
+use InvalidArgumentException;
+use function is_array;
 
 /**
  * Higher level parser.
@@ -35,10 +38,10 @@ class Parser {
 
     public function analyse(string $path): ParsedDemo {
         $data = $this->rawParser->parse($path);
-        if (\is_array($data) && isset($data['intervalPerTick'])) {
+        if (is_array($data) && isset($data['intervalPerTick'])) {
             return $this->handleData($data);
         } else {
-            throw new \InvalidArgumentException('Error parsing demo');
+            throw new InvalidArgumentException('Error parsing demo');
         }
     }
 
@@ -52,7 +55,7 @@ class Parser {
         $players = [];
 
         if (!isset($data['rounds'])) {
-            throw new \Exception("Error while parsing demo, no rounds field found\n" . json_encode($data));
+            throw new Exception("Error while parsing demo, no rounds field found\n" . json_encode($data));
         }
         foreach ($data['rounds'] as $round) {
             if ('red' === $round['winner']) {
@@ -63,7 +66,7 @@ class Parser {
         }
 
         if (!isset($data['chat'])) {
-            throw new \Exception('Error while parsing demo, no chat field found');
+            throw new Exception('Error while parsing demo, no chat field found');
         }
         foreach ($data['chat'] as $message) {
             if (isset($message['from'])) {
@@ -73,7 +76,7 @@ class Parser {
         }
 
         if (!isset($data['users'])) {
-            throw new \Exception('Error while parsing demo, no users field found');
+            throw new Exception('Error while parsing demo, no users field found');
         }
 
         $deaths = array_filter($data['deaths'], function ($death) {
@@ -146,14 +149,14 @@ class Parser {
      * @param string $steamId The SteamID string as used on servers, like
      *                        <var>STEAM_0:0:12345</var>
      *
-     * @throws \InvalidArgumentException if the SteamID doesn't have the correct
+     * @throws InvalidArgumentException if the SteamID doesn't have the correct
      *                                   format
      *
      * @return string The converted 64bit numeric SteamID
      */
     public static function convertSteamIdToCommunityId(string $steamId): string {
         if ('STEAM_ID_LAN' === $steamId || 'BOT' === $steamId) {
-            throw new \InvalidArgumentException("Cannot convert SteamID \"$steamId\" to a community ID.");
+            throw new InvalidArgumentException("Cannot convert SteamID \"$steamId\" to a community ID.");
         }
         if (preg_match('/^STEAM_[0-1]:[0-1]:[0-9]+$/', $steamId)) {
             $steamParts = explode(':', substr($steamId, 8));
@@ -166,7 +169,7 @@ class Parser {
 
             return '7656' . $steamId;
         } else {
-            throw new \InvalidArgumentException("SteamID \"$steamId\" doesn't have the correct format.");
+            throw new InvalidArgumentException("SteamID \"$steamId\" doesn't have the correct format.");
         }
     }
 }

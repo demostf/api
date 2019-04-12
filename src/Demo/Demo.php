@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Demostf\API\Demo;
 
+use DateTime;
 use Demostf\API\Data\DemoPlayer;
 use Demostf\API\Data\User;
+use JsonSerializable;
 
-class Demo implements \JsonSerializable {
+class Demo implements JsonSerializable {
     /** @var int */
     private $id;
     /** @var string */
@@ -22,7 +24,7 @@ class Demo implements \JsonSerializable {
     private $nick;
     /** @var string */
     private $map;
-    /** @var \DateTime */
+    /** @var DateTime */
     private $time;
     /** @var string */
     private $red;
@@ -55,7 +57,7 @@ class Demo implements \JsonSerializable {
         float $duration,
         string $nick,
         string $map,
-        \DateTime $time,
+        DateTime $time,
         string $red,
         string $blue,
         int $redScore,
@@ -113,7 +115,7 @@ class Demo implements \JsonSerializable {
         return $this->map;
     }
 
-    public function getTime(): \DateTime {
+    public function getTime(): DateTime {
         return $this->time;
     }
 
@@ -158,7 +160,7 @@ class Demo implements \JsonSerializable {
             (int) $row['duration'],
             $row['nick'],
             $row['map'],
-            \DateTime::createFromFormat('U', '' . strtotime($row['created_at'])),
+            DateTime::createFromFormat('U', '' . strtotime($row['created_at'])),
             $row['red'],
             $row['blu'],
             (int) $row['scoreRed'],
