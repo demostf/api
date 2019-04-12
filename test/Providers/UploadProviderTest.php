@@ -215,7 +215,7 @@ class UploadProviderTest extends TestCase {
 
     public function testUploadNonDemo() {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("Not an HL2 demo");
+        $this->expectExceptionMessage('Not an HL2 demo');
 
         file_put_contents($this->tmpDir . '/foo.dem', 'asd');
 
@@ -312,7 +312,7 @@ class UploadProviderTest extends TestCase {
 
     public function testUploadKey() {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("Not an HL2 demo");
+        $this->expectExceptionMessage('Not an HL2 demo');
 
         $uploadProvider = new UploadProvider(
             $this->getDatabaseConnection(),

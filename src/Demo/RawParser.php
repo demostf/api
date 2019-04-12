@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace Demostf\API\Demo;
 
 use Demostf\API\Controllers\TempController;
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use function GuzzleHttp\Psr7\stream_for;
 
 /**
  * Wrapper around demo.js parser.
@@ -27,7 +25,7 @@ class RawParser {
 
     public function parse(string $path): ?array {
         try {
-            $command = $this->parserPath . " " . escapeshellarg($path);
+            $command = $this->parserPath . ' ' . escapeshellarg($path);
             $output = shell_exec($command);
             $result = \GuzzleHttp\json_decode($output, true);
             if (null === $result) {

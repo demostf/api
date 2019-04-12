@@ -11,7 +11,7 @@ use Demostf\API\Demo\DemoStore;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoListProvider;
 use Demostf\API\Providers\DemoProvider;
-use \InvalidArgumentException;
+use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class DemoControllerTest extends ControllerTest {
@@ -91,7 +91,7 @@ class DemoControllerTest extends ControllerTest {
         ]);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("Invalid key");
+        $this->expectExceptionMessage('Invalid key');
 
         $controller->setDemoUrl('1');
     }
@@ -106,7 +106,7 @@ class DemoControllerTest extends ControllerTest {
         ]);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("Invalid demo hash");
+        $this->expectExceptionMessage('Invalid demo hash');
 
         $demo = $this->createConfiguredMock(Demo::class, [
             'getHash' => 'validhash',

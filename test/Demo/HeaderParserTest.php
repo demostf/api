@@ -43,7 +43,7 @@ class HeaderParserTest extends TestCase {
 
     public function testNonDemoShort() {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("Not an HL2 demo");
+        $this->expectExceptionMessage('Not an HL2 demo');
 
         $parser = new HeaderParser();
         $parser->parseString('short');
@@ -51,7 +51,7 @@ class HeaderParserTest extends TestCase {
 
     public function testNonDemoLong() {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage("Not an HL2 demo");
+        $this->expectExceptionMessage('Not an HL2 demo');
 
         $parser = new HeaderParser();
         $parser->parseHeader(__FILE__);
