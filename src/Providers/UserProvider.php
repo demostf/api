@@ -47,12 +47,25 @@ class UserProvider extends BaseProvider {
     }
 
     public function get(string $steamid): ?User {
+        // first search in the view which contains the most used name for the users
+
         $query = $this->getQueryBuilder();
         $query->select(['id', 'steamid', 'name', 'avatar', 'token'])
-            ->from('users')
+            ->from('users_named')
             ->where($query->expr()->eq('steamid', $query->createNamedParameter($steamid)));
 
         $row = $query->execute()->fetch();
+
+        if (!$row) {
+            // if the user is newly inserted it wont be in our view yet
+
+            $query = $this->getQueryBuilder();
+            $query->select(['id', 'steamid', 'name', 'avatar', 'token'])
+                ->from('users')
+                ->where($query->expr()->eq('steamid', $query->createNamedParameter($steamid)));
+
+            $row = $query->execute()->fetch();
+        }
 
         return $row ? User::fromRow($row) : null;
     }
