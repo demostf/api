@@ -92,9 +92,9 @@ class DemoSaver {
             $this->killProvider->store(new Kill(
                 0,
                 $demoId,
-                $userMap[$kill->getAttackerDemoId()],
-                $userMap[$kill->getAssisterDemoId()],
-                $userMap[$kill->getVictimDemoId()],
+                $userMap[$kill->getAttackerDemoId()] ?? 0,
+                $userMap[$kill->getAssisterDemoId()] ?? 0,
+                $userMap[$kill->getVictimDemoId()] ?? 0,
                 $kill->getWeapon()
             ));
         }
