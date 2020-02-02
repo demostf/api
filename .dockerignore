@@ -3,3 +3,4 @@
 .php_cs.*
 test
 vendor
+node_modules
