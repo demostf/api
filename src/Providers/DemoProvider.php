@@ -23,7 +23,7 @@ class DemoProvider extends BaseProvider {
 		(SELECT COUNT(*) FROM demokills WHERE assister_id=players.user_id) AS assists,
 		(SELECT COUNT(*) FROM demokills WHERE victim_id=players.user_id) AS deaths
 		FROM players
-		INNER JOIN users ON players.user_id = users.id
+		INNER JOIN users_named ON players.user_id = users.id
 		WHERE demo_id = ?';
 
         $demoData = $demo->fetch();
