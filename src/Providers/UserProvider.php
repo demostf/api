@@ -70,6 +70,30 @@ class UserProvider extends BaseProvider {
         return $row ? User::fromRow($row) : null;
     }
 
+    public function getById(int $userId): ?User {
+        // first search in the view which contains the most used name for the users
+
+        $query = $this->getQueryBuilder();
+        $query->select(['id', 'steamid', 'name', 'avatar', 'token'])
+            ->from('users_named')
+            ->where($query->expr()->eq('id', $query->createNamedParameter($userId, \PDO::PARAM_INT)));
+
+        $row = $query->execute()->fetch();
+
+        if (!$row) {
+            // if the user is newly inserted it wont be in our view yet
+
+            $query = $this->getQueryBuilder();
+            $query->select(['id', 'steamid', 'name', 'avatar', 'token'])
+                ->from('users')
+                ->where($query->expr()->eq('id', $query->createNamedParameter($userId, \PDO::PARAM_INT)));
+
+            $row = $query->execute()->fetch();
+        }
+
+        return $row ? User::fromRow($row) : null;
+    }
+
     private function searchBySteamId(string $steamId): ?array {
         $query = $this->getQueryBuilder();
         $query->select('u.id', 'p.name', 'count(demo_id) as count', 'steamid')

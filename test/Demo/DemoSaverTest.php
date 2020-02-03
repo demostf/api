@@ -26,7 +26,7 @@ class DemoSaverTest extends TestCase {
         $steamId2 = $this->getSteamId('2345678', 'user2');
 
         $userProvider = new UserProvider($this->getDatabaseConnection(), $this->getRandomGenerator());
-        $demoProvider = new DemoProvider($this->getDatabaseConnection());
+        $demoProvider = new DemoProvider($this->getDatabaseConnection(), $userProvider);
         $chatProvider = new ChatProvider($this->getDatabaseConnection());
 
         $userProvider->store($steamId1);

@@ -30,8 +30,8 @@ class DemoProviderTest extends TestCase {
     public function setUp(): void {
         parent::setUp();
 
-        $this->provider = new DemoProvider($this->getDatabaseConnection());
         $this->userProvider = new UserProvider($this->getDatabaseConnection(), $this->getRandomGenerator());
+        $this->provider = new DemoProvider($this->getDatabaseConnection(), $this->userProvider);
         $this->playerProvider = new PlayerProvider($this->getDatabaseConnection());
         $this->killProvider = new KillProvider($this->getDatabaseConnection());
     }

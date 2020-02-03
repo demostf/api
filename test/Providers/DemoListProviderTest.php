@@ -26,9 +26,9 @@ class DemoListProviderTest extends TestCase {
         parent::setUp();
 
         $this->demoListProvider = new DemoListProvider($this->getDatabaseConnection());
-        $this->demoProvider = new DemoProvider($this->getDatabaseConnection());
-        $this->playerProvider = new PlayerProvider($this->getDatabaseConnection());
         $this->userProvider = new UserProvider($this->getDatabaseConnection(), $this->getRandomGenerator());
+        $this->demoProvider = new DemoProvider($this->getDatabaseConnection(), $this->userProvider);
+        $this->playerProvider = new PlayerProvider($this->getDatabaseConnection());
     }
 
     private function getDemo(int $uploaderId, $map = 'map', $playerCount = 18) {

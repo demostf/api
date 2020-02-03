@@ -74,7 +74,7 @@ class UploadProviderTest extends TestCase {
         $this->parser = new Parser($this->rawParser);
         $this->demoStore = new DemoStore($targetDir, 'example.com');
         $this->userProvider = new UserProvider($this->getDatabaseConnection(), $this->getRandomGenerator());
-        $this->demoProvider = new DemoProvider($this->getDatabaseConnection());
+        $this->demoProvider = new DemoProvider($this->getDatabaseConnection(), $this->userProvider);
         $this->demoSaver = new DemoSaver(
             new KillProvider($this->getDatabaseConnection()),
             new PlayerProvider($this->getDatabaseConnection()),

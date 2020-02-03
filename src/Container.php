@@ -75,7 +75,7 @@ class Container {
     }
 
     public function getDemoProvider(): DemoProvider {
-        return new DemoProvider($this->connection);
+        return new DemoProvider($this->connection, $this->getUserProvider());
     }
 
     public function getInfoProvider(): InfoProvider {

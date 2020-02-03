@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Demostf\API\Providers;
 
+use Doctrine\DBAL\Connection;
+use LessQL\Database;
 use const DATE_ATOM;
 use Demostf\API\Data\DemoPlayer;
 use Demostf\API\Data\User;
@@ -12,6 +14,14 @@ use PDO;
 
 class DemoProvider extends BaseProvider {
     const VERSION = 4;
+
+    private $userProvider;
+
+    public function __construct(Connection $connection, UserProvider $userProvider) {
+        parent::__construct($connection);
+
+        $this->userProvider = $userProvider;
+    }
 
     public function get(int $id, bool $fetchDetails = true): ?Demo {
         $demo = $this->db->demo()->where('id', $id);
@@ -23,7 +33,7 @@ class DemoProvider extends BaseProvider {
 		(SELECT COUNT(*) FROM demokills WHERE assister_id=players.user_id) AS assists,
 		(SELECT COUNT(*) FROM demokills WHERE victim_id=players.user_id) AS deaths
 		FROM players
-		INNER JOIN users_named ON players.user_id = users.id
+		INNER JOIN users ON players.user_id = users.id
 		WHERE demo_id = ?';
 
         $demoData = $demo->fetch();
@@ -33,16 +43,11 @@ class DemoProvider extends BaseProvider {
         $formattedDemo = Demo::fromRow($demoData);
 
         if ($fetchDetails) {
-            $uploader = $demo->user()->via('uploader')->fetch();
+            $uploader = $this->userProvider->getById($demoData['uploader']);
             $playerQuery = $this->query($sql, [$formattedDemo->getId(), $formattedDemo->getId()]);
             $players = $playerQuery->fetchAll(PDO::FETCH_ASSOC);
 
-            $formattedDemo->setUploaderUser(User::fromRow([
-                'id' => $uploader['id'],
-                'steamid' => $uploader['steamid'],
-                'name' => $uploader['name'],
-                'avatar' => $uploader['avatar'],
-            ]));
+            $formattedDemo->setUploaderUser($uploader);
             $uniquePlayers = [];
             foreach ($players as $player) {
                 $key = $player['steamid'] . $player['team'];
