@@ -1,5 +1,5 @@
 FROM registry.gitlab.com/rust_musl_docker/image:stable-latest AS build
-ENV PARSER_VERSION 571bd1b
+ENV PARSER_VERSION 90c5e6c
 WORKDIR /root/build
 RUN git clone https://github.com/demostf/parser
 WORKDIR /root/build/parser
