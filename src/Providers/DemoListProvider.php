@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Demostf\API\Providers;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use function count;
 use Demostf\API\Demo\Demo;
 use Doctrine\DBAL\Connection;
@@ -30,6 +31,7 @@ class DemoListProvider extends BaseProvider {
         $query->select('p.demo_id')
             ->from('players', 'p')
             ->where($query->expr()->in('user_id', $query->createNamedParameter($userIds, Connection::PARAM_INT_ARRAY)))
+            ->innerJoin('p', 'demos', 'd', $query->expr()->eq('demo_id', 'd.id'))
             ->groupBy('demo_id')
             ->having($query->expr()->eq(
                 'COUNT(user_id)',
@@ -39,14 +41,36 @@ class DemoListProvider extends BaseProvider {
             ->setMaxResults(50)
             ->setFirstResult(((int) $page - 1) * 50);
 
+        $this->addWhere($query, $where);
+
         $result = $query->execute();
         $demoIds = $result->fetchAll(PDO::FETCH_COLUMN);
 
         $demos = $this->db->demo()->where('id', $demoIds)
-            ->where($where)
             ->orderBy('id', 'DESC');
 
         return $this->formatList($demos->fetchAll());
+    }
+
+    private function addWhere(QueryBuilder $query, array $where = []) {
+        if (isset($where['map'])) {
+            $query->andWhere($query->expr()->orX(
+                $query->expr()->eq('clean_map_name(map)', $query->createNamedParameter($where['map'])),
+                $query->expr()->eq('map', $query->createNamedParameter($where['map']))
+            ));
+        }
+        if (isset($where['playerCount'])) {
+            $query->andWhere($query->expr()->in('"playerCount"',
+                $query->createNamedParameter($where['playerCount'], Connection::PARAM_INT_ARRAY)));
+        }
+        if (isset($where['uploader'])) {
+            $query->andWhere($query->expr()->in('uploader',
+                $query->createNamedParameter($where['uploader'], PDO::PARAM_INT)));
+        }
+        if (isset($where['backend'])) {
+            $query->andWhere($query->expr()->eq('backend',
+                $query->createNamedParameter($where['backend'])));
+        }
     }
 
     /**
@@ -68,24 +92,9 @@ class DemoListProvider extends BaseProvider {
             ->from('demos', 'd')
             ->leftJoin('d', 'upload_blacklist', 'b', $query->expr()->eq('uploader_id', 'uploader'))
             ->where($query->expr()->isNull('b.id'));
-        if (isset($where['map'])) {
-            $query->andWhere($query->expr()->orX(
-                $query->expr()->eq('clean_map_name(map)', $query->createNamedParameter($where['map'])),
-                $query->expr()->eq('map', $query->createNamedParameter($where['map']))
-            ));
-        }
-        if (isset($where['playerCount'])) {
-            $query->andWhere($query->expr()->in('"playerCount"',
-                $query->createNamedParameter($where['playerCount'], Connection::PARAM_INT_ARRAY)));
-        }
-        if (isset($where['uploader'])) {
-            $query->andWhere($query->expr()->in('uploader',
-                $query->createNamedParameter($where['uploader'], PDO::PARAM_INT)));
-        }
-        if (isset($where['backend'])) {
-            $query->andWhere($query->expr()->eq('backend',
-                $query->createNamedParameter($where['backend'])));
-        }
+
+        $this->addWhere($query, $where);
+
         $query->orderBy('d.id', $order)
             ->setMaxResults(50)
             ->setFirstResult($offset);
