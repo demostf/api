@@ -60,6 +60,14 @@ class UploadProvider extends BaseProvider {
             return 'Invalid key';
         }
 
+        if (!mb_check_encoding($red, 'UTF-8')) {
+            $red = 'RED';
+        }
+
+        if (!mb_check_encoding($blu, 'UTF-8')) {
+            $blu = 'BLU';
+        }
+
         $hash = hash_file('md5', $demoFile);
 
         $existingDemo = $this->demoProvider->demoIdByHash($hash);
