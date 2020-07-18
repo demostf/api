@@ -28,6 +28,8 @@ class UserController extends BaseController {
                 $steamId = Parser::convertSteamIdToCommunityId($steamId);
             } catch (InvalidArgumentException $e) {
             }
+        } else if ($user = $this->userProvider->getById((int)$steamId)) {
+            Flight::json($user);
         }
         Flight::json($this->userProvider->get($steamId));
     }
