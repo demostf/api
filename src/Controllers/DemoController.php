@@ -8,6 +8,7 @@ use Demostf\API\Demo\DemoStore;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoListProvider;
 use Demostf\API\Providers\DemoProvider;
+use Flight;
 use flight\net\Request;
 use flight\net\Response;
 use function intval;
@@ -126,7 +127,8 @@ class DemoController extends BaseController {
         $url = (string) $this->post('url', '');
         $editKey = (string) $this->post('key', '');
         if ($editKey !== $this->editKey || '' === $editKey) {
-            throw new InvalidArgumentException('Invalid key');
+            Flight::response()->status(401)->write('Invalid key')->send();
+            return;
         }
 
         $demo = $this->demoProvider->get((int) $id);
@@ -138,7 +140,8 @@ class DemoController extends BaseController {
                 $this->store->remove($demo);
             }
         } else {
-            throw new InvalidArgumentException('Invalid demo hash');
+            Flight::response()->status(412)->write('Invalid demo hash')->send();
+            return;
         }
     }
 }
