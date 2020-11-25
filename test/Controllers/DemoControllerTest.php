@@ -8,6 +8,8 @@ use Demostf\API\Controllers\DemoController;
 use Demostf\API\Demo\ChatMessage;
 use Demostf\API\Demo\Demo;
 use Demostf\API\Demo\DemoStore;
+use Demostf\API\Error\InvalidHashException;
+use Demostf\API\Error\InvalidKeyException;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoListProvider;
 use Demostf\API\Providers\DemoProvider;
@@ -90,7 +92,7 @@ class DemoControllerTest extends ControllerTest {
             'key' => 'invalid',
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidKeyException::class);
         $this->expectExceptionMessage('Invalid key');
 
         $controller->setDemoUrl('1');
@@ -105,7 +107,7 @@ class DemoControllerTest extends ControllerTest {
             'key' => 'supersecretkey',
         ]);
 
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(InvalidHashException::class);
         $this->expectExceptionMessage('Invalid demo hash');
 
         $demo = $this->createConfiguredMock(Demo::class, [

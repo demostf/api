@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Demostf\API;
 
+use Demostf\API\Error\InvalidHashException;
+use Demostf\API\Error\InvalidKeyException;
 use Flight;
 
 /** @var Container $container */
@@ -65,5 +67,15 @@ Flight::route('/auth/get/@token', [$authController, 'get']);
 Flight::route('/auth/handle/@token', [$authController, 'handle']);
 Flight::route('/auth/login/@token', [$authController, 'login']);
 Flight::route('/auth/logout/@token', [$authController, 'logout']);
+
+Flight::map('error', function(\Exception $ex){
+    $code = 500;
+    if ($ex instanceof InvalidKeyException) {
+        $code = 401;
+    } else if ($ex instanceof InvalidHashException) {
+        $code = 412;
+    }
+    Flight::response()->status($code)->write($ex->getMessage())->send();
+});
 
 Flight::start();

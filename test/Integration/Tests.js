@@ -201,7 +201,7 @@ describe("Set url", function () {
 					}
 				});
 				expect(setUrl).to.be.containsText('Invalid key');
-				expect(setUrl).to.have.status(500);
+				expect(setUrl).to.have.status(401);
 				return chakram.wait();
 			});
 		});
@@ -220,7 +220,7 @@ describe("Set url", function () {
 					}
 				});
 				expect(setUrl).to.be.containsText('Invalid demo hash');
-				expect(setUrl).to.have.status(500);
+				expect(setUrl).to.have.status(412);
 				return chakram.wait();
 			});
 		});

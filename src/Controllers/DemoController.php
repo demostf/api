@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Demostf\API\Controllers;
 
 use Demostf\API\Demo\DemoStore;
+use Demostf\API\Error\InvalidHashException;
+use Demostf\API\Error\InvalidKeyException;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoListProvider;
 use Demostf\API\Providers\DemoProvider;
 use flight\net\Request;
 use flight\net\Response;
 use function intval;
-use InvalidArgumentException;
 use function is_array;
 
 class DemoController extends BaseController {
@@ -140,7 +141,7 @@ class DemoController extends BaseController {
         $url = (string) $this->post('url', '');
         $editKey = (string) $this->post('key', '');
         if ($editKey !== $this->editKey || '' === $editKey) {
-            throw new InvalidArgumentException('Invalid key');
+            throw new InvalidKeyException('Invalid key');
         }
 
         $demo = $this->demoProvider->get((int) $id);
@@ -152,7 +153,7 @@ class DemoController extends BaseController {
                 $this->store->remove($demo);
             }
         } else {
-            throw new InvalidArgumentException('Invalid demo hash');
+            throw new InvalidHashException('Invalid demo hash');
         }
     }
 }
