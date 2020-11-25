@@ -71,6 +71,14 @@ class DemoListProvider extends BaseProvider {
             $query->andWhere($query->expr()->eq('backend',
                 $query->createNamedParameter($where['backend'])));
         }
+        if (isset($where['before'])) {
+            $query->andWhere($query->expr()->lt('created_at',
+                $query->createNamedParameter($where['before']->format(DATE_ATOM))));
+        }
+        if (isset($where['after'])) {
+            $query->andWhere($query->expr()->gt('created_at',
+                $query->createNamedParameter($where['after']->format(DATE_ATOM))));
+        }
     }
 
     /**

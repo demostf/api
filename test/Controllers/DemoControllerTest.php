@@ -198,4 +198,33 @@ class DemoControllerTest extends ControllerTest {
             ['user' => 'foo2', 'time' => 2, 'message' => 'bar2'],
         ]);
     }
+
+    public function testListFilterTime() {
+        $controller = $this->getController(['before' => '500', 'after' => '100']);
+
+        $this->demoListProvider->expects($this->once())
+            ->method('listDemos')
+            ->with(1, [
+                'before' => \DateTime::createFromFormat('U', '500'),
+                'after' => \DateTime::createFromFormat('U', '100')
+            ], 'DESC')
+            ->willReturn(['dummy']);
+
+        $controller->listDemos();
+        $this->assertResponseData(['dummy']);
+    }
+
+    public function testListFilterTimeInvalid() {
+        $controller = $this->getController(['before' => '500', 'after' => 'foobar']);
+
+        $this->demoListProvider->expects($this->once())
+            ->method('listDemos')
+            ->with(1, [
+                'before' => \DateTime::createFromFormat('U', '500')
+            ], 'DESC')
+            ->willReturn(['dummy']);
+
+        $controller->listDemos();
+        $this->assertResponseData(['dummy']);
+    }
 }

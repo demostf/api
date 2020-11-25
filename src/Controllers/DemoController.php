@@ -56,6 +56,8 @@ class DemoController extends BaseController {
         $players = $this->query('players', '');
         $type = $this->query('type', '');
         $backend = $this->query('backend', '');
+        $before = $this->query('before', '');
+        $after = $this->query('after', '');
         $filter = [];
         if ($map) {
             $filter['map'] = $map;
@@ -92,6 +94,18 @@ class DemoController extends BaseController {
             case '1v1':
                 $filter['playerCount'] = [2];
                 break;
+        }
+        if ($before) {
+            $date = \DateTime::createFromFormat('U', $before);
+            if ($date) {
+                $filter['before'] = $date;
+            }
+        }
+        if ($after) {
+            $date = \DateTime::createFromFormat('U', $after);
+            if ($date) {
+                $filter['after'] = $date;
+            }
         }
 
         return $filter;

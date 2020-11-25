@@ -31,7 +31,9 @@ class DemoListProviderTest extends TestCase {
         $this->playerProvider = new PlayerProvider($this->getDatabaseConnection());
     }
 
-    private function getDemo(int $uploaderId, $map = 'map', $playerCount = 18) {
+    private function getDemo(int $uploaderId, $map = 'map', $playerCount = 18, int $time = null) {
+        $time = is_null($time) ? new \DateTime() : \DateTime::createFromFormat('U', (string) $time);
+
         return new Demo(
             0,
             'http://example.com',
@@ -40,7 +42,7 @@ class DemoListProviderTest extends TestCase {
             12,
             'nick',
             $map,
-            new \DateTime(),
+            $time,
             'RED',
             'BLUE',
             1,
@@ -190,6 +192,32 @@ class DemoListProviderTest extends TestCase {
         $list = $this->demoListProvider->listUploads($steamId->getSteamId64(), 1, ['backend' => 'foo2']);
 
         $this->assertCount(1, $list);
+        $this->assertEquals($id2, $list[0]->getId());
+    }
+
+    public function testFilterTime() {
+        $id1 = $this->demoProvider->storeDemo($this->getDemo(1, 'map1', 18, 1000), 'foo', 'bar');
+        $id2 = $this->demoProvider->storeDemo($this->getDemo(1, 'map2', 18, 1500), 'foo', 'bar');
+        $id3 = $this->demoProvider->storeDemo($this->getDemo(1, 'map1', 18, 2000), 'foo', 'bar');
+
+        $date1 = \DateTime::createFromFormat('U', '1200');
+        $date2 = \DateTime::createFromFormat('U', '1700');
+
+        $list = $this->demoListProvider->listDemos(1, ['before' => $date2]);
+        $this->assertCount(2, $list);
+
+        $this->assertEquals($id2, $list[0]->getId());
+        $this->assertEquals($id1, $list[1]->getId());
+
+        $list = $this->demoListProvider->listDemos(1, ['after' => $date1]);
+        $this->assertCount(2, $list);
+
+        $this->assertEquals($id3, $list[0]->getId());
+        $this->assertEquals($id2, $list[1]->getId());
+
+        $list = $this->demoListProvider->listDemos(1, ['before' => $date2, 'after' => $date1]);
+        $this->assertCount(1, $list);
+
         $this->assertEquals($id2, $list[0]->getId());
     }
 }
