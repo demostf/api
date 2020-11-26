@@ -30,6 +30,7 @@ class UserController extends BaseController {
             }
         } else if ($user = $this->userProvider->getById((int)$steamId)) {
             Flight::json($user);
+            return;
         }
         Flight::json($this->userProvider->get($steamId));
     }
