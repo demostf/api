@@ -159,12 +159,12 @@ class Parser {
         }
         if (preg_match('/^STEAM_[0-1]:[0-1]:[0-9]+$/', $steamId)) {
             $steamParts = explode(':', substr($steamId, 8));
-            $steamId = $steamParts[0] + $steamParts[1] * 2 + 1197960265728;
+            $steamId = (int)$steamParts[0] + (int)$steamParts[1] * 2 + 1197960265728;
 
             return '7656' . $steamId;
         } elseif (preg_match('/^\[U:[0-1]:[0-9]+\]$/', $steamId)) {
             $steamParts = explode(':', substr($steamId, 3, -1));
-            $steamId = $steamParts[0] + $steamParts[1] + 1197960265727;
+            $steamId = (int)$steamParts[0] + (int)$steamParts[1] + 1197960265727;
 
             return '7656' . $steamId;
         } else {
