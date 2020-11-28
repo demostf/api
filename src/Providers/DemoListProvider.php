@@ -120,9 +120,7 @@ class DemoListProvider extends BaseProvider {
 
         $query = $this->getQueryBuilder();
         $query->select('d.*')
-            ->from('demos', 'd')
-            ->leftJoin('d', 'upload_blacklist', 'b', $query->expr()->eq('uploader_id', 'uploader'))
-            ->where($query->expr()->isNull('b.id'));
+            ->from('demos', 'd');
 
         $this->addWhere($query, $where);
 
