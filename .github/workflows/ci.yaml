@@ -23,7 +23,7 @@ jobs:
       - uses: php-actions/phpstan@v1
         with:
           error_format: github
-          args: src
+          args: --level 5 src
 
   phpunit:
     runs-on: ubuntu-latest
