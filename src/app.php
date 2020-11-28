@@ -7,6 +7,7 @@ namespace Demostf\API;
 use Demostf\API\Error\InvalidHashException;
 use Demostf\API\Error\InvalidKeyException;
 use Flight;
+use flight\net\Response;
 
 /** @var Container $container */
 $container = require __DIR__ . '/init.php';
@@ -75,7 +76,9 @@ Flight::map('error', function (\Exception $ex) {
     } elseif ($ex instanceof InvalidHashException) {
         $code = 412;
     }
-    Flight::response()->status($code)->write($ex->getMessage())->send();
+    /** @var Response $response */
+    $response = Flight::response()->status($code);
+    $response->write($ex->getMessage())->send();
 });
 
 Flight::start();
