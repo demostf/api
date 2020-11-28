@@ -29,8 +29,7 @@ class DemoListProvider extends BaseProvider {
 
         $query = $this->getQueryBuilder();
         $query->select('p.demo_id')
-            ->from('players', 'p')
-            ->innerJoin('p', 'demos', 'd', $query->expr()->eq('demo_id', 'd.id'));
+            ->from('players', 'p');
 
         if (count($userIds) > 1) {
             $query->where($query->expr()->in('user_id',
