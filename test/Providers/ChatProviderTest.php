@@ -24,7 +24,7 @@ class ChatProviderTest extends TestCase {
 
     public function testStoreRetrieve() {
         $message1 = new ChatMessage('foo', 2, 'bar');
-        $message2 = new ChatMessage('foo2', 2, 'bar2');
+        $message2 = new ChatMessage('foo2', 1, 'bar2');
         $message3 = new ChatMessage('foo2', 2, 'bar2');
 
         $this->provider->storeChatMessage(1, $message1);
@@ -32,10 +32,9 @@ class ChatProviderTest extends TestCase {
         $this->provider->storeChatMessage(2, $message3);
 
         $result = $this->provider->getChat(1);
-        sort($result);
 
         $this->assertCount(2, $result);
-        $this->assertEquals($message1, $result[0]);
-        $this->assertEquals($message2, $result[1]);
+        $this->assertEquals($message2, $result[0]);
+        $this->assertEquals($message1, $result[1]);
     }
 }

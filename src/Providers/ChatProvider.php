@@ -12,7 +12,8 @@ class ChatProvider extends BaseProvider {
         $query = $this->getQueryBuilder();
         $query->select('text', '"from"', 'time')
             ->from('chat')
-            ->where($query->expr()->eq('demo_id', $query->createNamedParameter($demoId, PDO::PARAM_INT)));
+            ->where($query->expr()->eq('demo_id', $query->createNamedParameter($demoId, PDO::PARAM_INT)))
+            ->orderBy('time', 'ASC');
 
         $result = $query->execute();
 
