@@ -5,7 +5,7 @@ name: CI
 jobs:
   php-cs-fixer:
     name: PHP-CS-Fixer
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@master
       - name: PHP-CS-Fixer
@@ -15,7 +15,7 @@ jobs:
 
   phpstan:
     name: PHPStan Static Analysis
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v2
@@ -23,10 +23,10 @@ jobs:
       - uses: php-actions/phpstan@v1
         with:
           error_format: github
-          args: --level 5 src
+          args: --level 6 src
 
   phpunit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     name: Unit tests
 
     services:

@@ -8,7 +8,10 @@ use Demostf\API\Demo\ChatMessage;
 use PDO;
 
 class ChatProvider extends BaseProvider {
-    public function getChat(int $demoId) {
+    /**
+     * @return ChatMessage[]
+     */
+    public function getChat(int $demoId): array {
         $query = $this->getQueryBuilder();
         $query->select('text', '"from"', 'time')
             ->from('chat')
@@ -26,7 +29,7 @@ class ChatProvider extends BaseProvider {
         }, $result->fetchAll());
     }
 
-    public function storeChatMessage(int $demoId, ChatMessage $message) {
+    public function storeChatMessage(int $demoId, ChatMessage $message): void {
         $query = $this->getQueryBuilder();
         $query->insert('chat')
             ->values([

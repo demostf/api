@@ -40,7 +40,7 @@ class DemoStore {
         return 'https://' . $this->webRoot . $this->getPrefix($name) . $name;
     }
 
-    public function remove(Demo $demo) {
+    public function remove(Demo $demo): void {
         if (file_exists($demo->getPath())) {
             unlink($demo->getPath());
         }

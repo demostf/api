@@ -5,17 +5,12 @@ declare(strict_types=1);
 namespace Demostf\API\Data;
 
 class Kill {
-    private $id;
-
-    private $demoId;
-
-    private $attackerId;
-
-    private $assisterId;
-
-    private $victimId;
-
-    private $weapon;
+    private int $id;
+    private int $demoId;
+    private int $attackerId;
+    private int $assisterId;
+    private int $victimId;
+    private string $weapon;
 
     public function __construct(int $id, int $demoId, int $attackerId, int $assisterId, int $victimId, string $weapon) {
         $this->id = $id;

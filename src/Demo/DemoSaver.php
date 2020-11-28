@@ -18,17 +18,12 @@ use Demostf\API\Providers\UserProvider;
 use Doctrine\DBAL\Connection;
 
 class DemoSaver {
-    /** @var KillProvider */
-    private $killProvider;
-    /** @var PlayerProvider */
-    private $playerProvider;
-    /** @var ChatProvider */
-    private $chatProvider;
-    /** @var UserProvider */
-    private $userProvider;
-    /** @var DemoProvider */
-    private $demoProvider;
-    private $connection;
+    private KillProvider $killProvider;
+    private PlayerProvider $playerProvider;
+    private ChatProvider $chatProvider;
+    private UserProvider $userProvider;
+    private DemoProvider $demoProvider;
+    private Connection $connection;
 
     public function __construct(
         KillProvider $killProvider,

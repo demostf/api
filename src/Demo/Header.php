@@ -133,7 +133,12 @@ class Header {
         return $this->version;
     }
 
-    public static function fromArray(array $info) {
+    /**
+     * @param mixed[] $info
+     *
+     * @return Header
+     */
+    public static function fromArray(array $info): self {
         return new self(
             $info['type'],
             $info['version'],

@@ -7,16 +7,11 @@ namespace Demostf\API\Data;
 use JsonSerializable;
 
 class User implements JsonSerializable {
-    /** @var int */
-    private $id;
-    /** @var string */
-    private $steamId;
-    /** @var string */
-    private $name;
-    /** @var string */
-    private $avatar;
-    /** @var string */
-    private $token;
+    private int $id;
+    private string $steamId;
+    private string $name;
+    private string $avatar;
+    private string $token;
 
     public function __construct(int $id, string $steamId, string $name, string $avatar, string $token) {
         $this->id = $id;
@@ -55,6 +50,11 @@ class User implements JsonSerializable {
         ];
     }
 
+    /**
+     * @param mixed[] $row
+     *
+     * @return User
+     */
     public static function fromRow(array $row): self {
         return new self(
             (int) $row['id'],

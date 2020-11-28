@@ -7,16 +7,14 @@ namespace Demostf\API\Data;
 use Demostf\API\Demo\ChatMessage;
 
 class ParsedDemo {
-    /** @var int */
-    private $redScore;
-    /** @var int */
-    private $blueScore;
+    private int $redScore;
+    private int $blueScore;
     /** @var ChatMessage[] */
-    private $chat;
+    private array $chat;
     /** @var ParsedPlayer[] */
-    private $players;
+    private array $players;
     /** @var ParsedKill[] */
-    private $kills;
+    private array $kills;
 
     /**
      * ParsedDemo constructor.

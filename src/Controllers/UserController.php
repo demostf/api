@@ -12,17 +12,14 @@ use flight\net\Response;
 use InvalidArgumentException;
 
 class UserController extends BaseController {
-    /**
-     * @var UserProvider
-     */
-    private $userProvider;
+    private UserProvider $userProvider;
 
     public function __construct(Request $request, Response $response, UserProvider $userProvider) {
         parent::__construct($request, $response);
         $this->userProvider = $userProvider;
     }
 
-    public function get($steamId) {
+    public function get(string $steamId): void {
         if (!is_numeric($steamId)) {
             try {
                 $steamId = Parser::convertSteamIdToCommunityId($steamId);
@@ -36,7 +33,7 @@ class UserController extends BaseController {
         Flight::json($this->userProvider->get($steamId));
     }
 
-    public function search() {
+    public function search(): void {
         $query = $this->query('query', '');
         Flight::json($this->userProvider->search($query));
     }

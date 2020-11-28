@@ -40,6 +40,11 @@ class SteamUser implements JsonSerializable {
         ];
     }
 
+    /**
+     * @param mixed[] $row
+     *
+     * @return SteamUser
+     */
     public static function fromRow(array $row): self {
         return new self(
             (int) $row['id'],

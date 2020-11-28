@@ -23,7 +23,7 @@ class AuthProvider extends BaseProvider {
         return $this->generator->generateString(32, Generator::CHAR_ALNUM);
     }
 
-    public function setUser(string $token, SteamId $steamid, string $key) {
+    public function setUser(string $token, SteamId $steamid, string $key): void {
         apcu_store($token, [
             'name' => $steamid->getNickname(),
             'steamid' => $steamid->getSteamId64(),
@@ -31,14 +31,17 @@ class AuthProvider extends BaseProvider {
         ]);
     }
 
-    public function getUser(string $token) {
+    /**
+     * @return (string|null)[]
+     */
+    public function getUser(string $token): array {
         $found = true;
         $result = apcu_fetch($token, $found);
 
         return $found ? $result : ['name' => null, 'steamid' => null, 'key' => null];
     }
 
-    public function logout($token) {
+    public function logout(string $token): void {
         apcu_delete($token);
     }
 }

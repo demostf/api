@@ -10,6 +10,13 @@ use Doctrine\DBAL\Query\QueryBuilder;
 use PDO;
 
 class DemoListProvider extends BaseProvider {
+    /**
+     * @param mixed[] $where
+     *
+     * @throws \Doctrine\DBAL\Exception
+     *
+     * @return Demo[]
+     */
     public function listUploads(string $steamId, int $page, array $where = []) {
         $query = $this->getQueryBuilder();
         $query->select('id')
@@ -25,11 +32,19 @@ class DemoListProvider extends BaseProvider {
         return $this->listDemos($page, $where);
     }
 
-    public function listProfile(int $page, array $where = []) {
+    /**
+     * @param mixed[] $where
+     *
+     * @throws \Doctrine\DBAL\Exception
+     *
+     * @return Demo[]
+     */
+    public function listProfile(int $page, array $where = []): array {
         $query = $this->getQueryBuilder();
         $query->select('id')
             ->from('users')
-            ->where($query->expr()->in('steamid', $query->createNamedParameter($where['players'], Connection::PARAM_STR_ARRAY)));
+            ->where($query->expr()->in('steamid',
+                $query->createNamedParameter($where['players'], Connection::PARAM_STR_ARRAY)));
         unset($where['players']);
         $result = $query->execute();
         $userIds = $result->fetchAll(PDO::FETCH_COLUMN);
@@ -73,7 +88,10 @@ class DemoListProvider extends BaseProvider {
         return $this->formatList($query->execute()->fetchAll());
     }
 
-    private function addWhere(QueryBuilder $query, array $where = []) {
+    /**
+     * @param mixed[] $where
+     */
+    private function addWhere(QueryBuilder $query, array $where = []): void {
         if (isset($where['map'])) {
             $query->andWhere($query->expr()->orX(
                 $query->expr()->eq('clean_map_name(map)', $query->createNamedParameter($where['map'])),
@@ -103,9 +121,13 @@ class DemoListProvider extends BaseProvider {
     }
 
     /**
+     * @param mixed[] $where
+     *
+     * @throws \Doctrine\DBAL\Exception
+     *
      * @return Demo[]
      */
-    public function listDemos(int $page, array $where = [], string $order = 'DESC') {
+    public function listDemos(int $page, array $where = [], string $order = 'DESC'): array {
         if (isset($where['players']) and \is_array($where['players']) and \count($where['players']) > 0) {
             return $this->listProfile($page, $where);
         }
@@ -127,7 +149,12 @@ class DemoListProvider extends BaseProvider {
         return $this->formatList($demos);
     }
 
-    protected function formatList(array $rows) {
+    /**
+     * @param array[] $rows
+     *
+     * @return Demo[]
+     */
+    protected function formatList(array $rows): array {
         return array_map(function ($row) {
             return Demo::fromRow($row);
         }, $rows);

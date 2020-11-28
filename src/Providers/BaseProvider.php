@@ -8,10 +8,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 
 class BaseProvider {
-    /**
-     * @var Connection
-     */
-    protected $connection;
+    protected Connection $connection;
 
     /**
      * BaseProvider constructor.
@@ -25,13 +22,6 @@ class BaseProvider {
      */
     public function __construct(Connection $connection) {
         $this->connection = $connection;
-    }
-
-    protected function query(string $sql, array $params = []) {
-        $query = $this->connection->prepare($sql);
-        $query->execute($params);
-
-        return $query;
     }
 
     /**

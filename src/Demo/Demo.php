@@ -10,44 +10,26 @@ use Demostf\API\Data\User;
 use JsonSerializable;
 
 class Demo implements JsonSerializable {
-    /** @var int */
-    private $id;
-    /** @var string */
-    private $url;
-    /** @var string */
-    private $name;
-    /** @var string */
-    private $server;
-    /** @var float */
-    private $duration;
-    /** @var string */
-    private $nick;
-    /** @var string */
-    private $map;
-    /** @var DateTime */
-    private $time;
-    /** @var string */
-    private $red;
-    /** @var string */
-    private $blue;
-    /** @var int */
-    private $redScore;
-    /** @var int */
-    private $blueScore;
-    /** @var int */
-    private $playerCount;
-    /** @var int */
-    private $uploader;
-    /** @var User|null */
-    private $uploaderUser;
+    private int $id;
+    private string $url;
+    private string $name;
+    private string $server;
+    private float $duration;
+    private string $nick;
+    private string $map;
+    private DateTime $time;
+    private string $red;
+    private string $blue;
+    private int $redScore;
+    private int $blueScore;
+    private int $playerCount;
+    private int $uploader;
+    private ?User $uploaderUser;
     /** @var DemoPlayer[] */
-    private $players;
-    /** @var string */
-    private $hash;
-    /** @var string */
-    private $backend;
-    /** @var string */
-    private $path;
+    private array $players;
+    private string $hash;
+    private string $backend;
+    private string $path;
 
     public function __construct(
         int $id,
@@ -85,6 +67,7 @@ class Demo implements JsonSerializable {
         $this->hash = $hash;
         $this->backend = $backend;
         $this->path = $path;
+        $this->players = [];
     }
 
     public function getId(): int {
@@ -147,11 +130,16 @@ class Demo implements JsonSerializable {
         return $this->uploaderUser;
     }
 
-    public function setUploaderUser(User $uploaderUser) {
+    public function setUploaderUser(User $uploaderUser): void {
         $this->uploaderUser = $uploaderUser;
     }
 
-    public static function fromRow($row): self {
+    /**
+     * @param mixed[] $row
+     *
+     * @return Demo
+     */
+    public static function fromRow(array $row): self {
         return new self(
             (int) $row['id'],
             $row['url'],
@@ -180,7 +168,10 @@ class Demo implements JsonSerializable {
         return $this->players;
     }
 
-    public function setPlayers(array $players) {
+    /**
+     * @param DemoPlayer[] $players
+     */
+    public function setPlayers(array $players): void {
         $this->players = $players;
     }
 

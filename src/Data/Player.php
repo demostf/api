@@ -5,26 +5,13 @@ declare(strict_types=1);
 namespace Demostf\API\Data;
 
 class Player {
-    /** @var int */
-    private $id;
-
-    /** @var int */
-    private $demoId;
-
-    /** @var int */
-    private $demoUserId;
-
-    /** @var int */
-    private $userId;
-
-    /** @var string */
-    private $name;
-
-    /** @var string */
-    private $team;
-
-    /** @var string */
-    private $class;
+    private int $id;
+    private int $demoId;
+    private int $demoUserId;
+    private int $userId;
+    private string $name;
+    private string $team;
+    private string $class;
 
     public function __construct(int $id, int $demoId, int $demoUserId, int $userId, string $name, string $team, string $class) {
         $this->id = $id;

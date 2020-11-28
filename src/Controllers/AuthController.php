@@ -13,20 +13,10 @@ use flight\net\Response;
 use SteamId;
 
 class AuthController extends BaseController {
-    /**
-     * @var UserProvider
-     */
-    private $userProvider;
-
-    /**
-     * @var AuthProvider
-     */
-    private $authProvider;
-
-    /** @var string */
-    private $host;
-
-    private $apiRoot;
+    private UserProvider $userProvider;
+    private AuthProvider $authProvider;
+    private string $host;
+    private string $apiRoot;
 
     public function __construct(
         Request $request,
@@ -43,11 +33,11 @@ class AuthController extends BaseController {
         $this->apiRoot = $apiRoot;
     }
 
-    public function token() {
+    public function token(): void {
         echo $this->authProvider->generateToken();
     }
 
-    public function get($token) {
+    public function get(string $token): void {
         $userData = $this->authProvider->getUser($token);
         Flight::json([
             'token' => $token,
@@ -57,14 +47,14 @@ class AuthController extends BaseController {
         ]);
     }
 
-    public function login($token) {
+    public function login(string $token): void {
         $_SESSION['return'] = $this->query('return', 'https://' . $this->host);
         $steam = new SteamLogin();
         $url = $steam->url($this->apiRoot . '/auth/handle/' . urlencode($token), $this->apiRoot);
         Flight::redirect(str_replace('&amp;', '&', $url)); // headers make no sense
     }
 
-    public function logout($token) {
+    public function logout(string $token): void {
         $this->authProvider->logout($token);
         Flight::json([
             'token' => $token,
@@ -74,7 +64,7 @@ class AuthController extends BaseController {
         ]);
     }
 
-    public function handle($token) {
+    public function handle(string $token): void {
         $return = $_SESSION['return'] ?? 'https://' . $this->host;
         unset($_SESSION['return']);
         $steam = new SteamLogin();

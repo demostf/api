@@ -5,13 +5,10 @@ declare(strict_types=1);
 namespace Demostf\API\Data;
 
 class ParsedKill {
-    private $attackerDemoId;
-
-    private $assisterDemoId;
-
-    private $victimDemoId;
-
-    private $weapon;
+    private int $attackerDemoId;
+    private int $assisterDemoId;
+    private int $victimDemoId;
+    private string $weapon;
 
     public function __construct(int $attackerDemoId, int $assisterDemoId, int $victimDemoId, string $weapon) {
         $this->attackerDemoId = $attackerDemoId;

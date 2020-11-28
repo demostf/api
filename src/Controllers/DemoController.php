@@ -14,17 +14,11 @@ use flight\net\Request;
 use flight\net\Response;
 
 class DemoController extends BaseController {
-    /** @var DemoProvider */
-    private $demoProvider;
-
-    /** @var ChatProvider */
-    private $chatProvider;
-
-    private $demoListProvider;
-
-    private $editKey;
-
-    private $store;
+    private DemoProvider $demoProvider;
+    private ChatProvider $chatProvider;
+    private DemoListProvider $demoListProvider;
+    private string $editKey;
+    private DemoStore $store;
 
     public function __construct(
         Request $request,
@@ -43,14 +37,14 @@ class DemoController extends BaseController {
         $this->editKey = $editKey;
     }
 
-    /**
-     * @param string $id
-     */
-    public function get($id) {
+    public function get(string $id): void {
         $this->json($this->demoProvider->get(\intval($id, 10)));
     }
 
-    protected function getFilter() {
+    /**
+     * @return array<mixed>
+     */
+    protected function getFilter(): array {
         $map = $this->query('map', '');
         $players = $this->query('players', '');
         $type = $this->query('type', '');
@@ -110,29 +104,29 @@ class DemoController extends BaseController {
         return $filter;
     }
 
-    public function listDemos() {
-        $page = $this->query('page', 1);
+    public function listDemos(): void {
+        $page = (int) $this->query('page', '1');
         $order = 'ASC' === $this->query('order', 'DESC') ? 'ASC' : 'DESC';
         $this->json($this->demoListProvider->listDemos((int) $page, $this->getFilter(), $order));
     }
 
-    public function listProfile($steamId) {
-        $page = $this->query('page', 1);
+    public function listProfile(string $steamId): void {
+        $page = (int) $this->query('page', '1');
         $where = $this->getFilter();
         $where['players'][] = $steamId;
         $this->json($this->demoListProvider->listProfile((int) $page, $where));
     }
 
-    public function listUploads($steamId) {
-        $page = $this->query('page', 1);
+    public function listUploads(string $steamId): void {
+        $page = (int) $this->query('page', '1');
         $this->json($this->demoListProvider->listUploads($steamId, (int) $page, $this->getFilter()));
     }
 
-    public function chat($demoId) {
+    public function chat(string $demoId): void {
         $this->json($this->chatProvider->getChat((int) $demoId));
     }
 
-    public function setDemoUrl($id) {
+    public function setDemoUrl(string $id): void {
         $hash = (string) $this->post('hash', '');
         $backend = (string) $this->post('backend', '');
         $path = (string) $this->post('path', '');

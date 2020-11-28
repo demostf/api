@@ -13,7 +13,7 @@ use PDO;
 class DemoProvider extends BaseProvider {
     const VERSION = 4;
 
-    private $userProvider;
+    private UserProvider $userProvider;
 
     public function __construct(Connection $connection, UserProvider $userProvider) {
         parent::__construct($connection);
@@ -49,7 +49,7 @@ class DemoProvider extends BaseProvider {
 
         if ($fetchDetails) {
             $uploader = $this->userProvider->getById($demo->getUploader());
-            $playerQuery = $this->query($sql, [$demo->getId(), $demo->getId()]);
+            $playerQuery = $this->connection->executeQuery($sql, [$demo->getId(), $demo->getId()]);
             $players = $playerQuery->fetchAll(PDO::FETCH_ASSOC);
 
             $demo->setUploaderUser($uploader);
@@ -105,7 +105,7 @@ class DemoProvider extends BaseProvider {
         return (int) $this->connection->lastInsertId();
     }
 
-    public function setDemoUrl(int $id, string $backend, string $url, string $path) {
+    public function setDemoUrl(int $id, string $backend, string $url, string $path): void {
         $query = $this->getQueryBuilder();
         $query->update('demos')
             ->set('backend', $query->createNamedParameter($backend))

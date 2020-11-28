@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace Demostf\API\Data;
 
 class StoredDemo {
-    /** @var string */
-    private $url;
-    /** @var string */
-    private $backend;
-    /** @var string */
-    private $path;
+    private string $url;
+    private string $backend;
+    private string $path;
 
     public function __construct(string $url, string $backend, string $path) {
         $this->url = $url;

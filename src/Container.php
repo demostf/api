@@ -24,17 +24,17 @@ use flight\net\Response;
 use RandomLib\Generator;
 
 class Container {
-    private $connection;
-    private $generator;
-    private $baseUrl;
-    private $parserPath;
-    private $storeRoot;
-    private $storeUrl;
-    private $apiRoot;
-    private $editKey;
-    private $request;
-    private $response;
-    private $uploadKey;
+    private Connection $connection;
+    private Generator $generator;
+    private string $baseUrl;
+    private string $parserPath;
+    private string $storeRoot;
+    private string $storeUrl;
+    private string $apiRoot;
+    private string $editKey;
+    private Request $request;
+    private Response $response;
+    private string $uploadKey;
 
     public function __construct(
         Request $request,

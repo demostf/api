@@ -7,7 +7,10 @@ namespace Demostf\API\Providers;
 use PDO;
 
 class InfoProvider extends BaseProvider {
-    public function listMaps() {
+    /**
+     * @return string[]
+     */
+    public function listMaps(): array {
         $query = $this->getQueryBuilder();
         $query->select('map', 'count')
             ->from('map_list');
@@ -24,7 +27,10 @@ class InfoProvider extends BaseProvider {
         return $query->execute()->fetch(PDO::FETCH_COLUMN);
     }
 
-    public function getStats() {
+    /**
+     * @return int[]
+     */
+    public function getStats(): array {
         $demoCount = $this->count('demos');
         $playerCount = $this->count('users');
 

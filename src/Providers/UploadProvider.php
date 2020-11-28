@@ -13,25 +13,16 @@ use Demostf\API\Demo\HeaderParser;
 use Demostf\API\Demo\Parser;
 use Demostf\API\Error\InvalidKeyException;
 use Doctrine\DBAL\Connection;
-use RandomLib\Generator;
 
 class UploadProvider extends BaseProvider {
-    /** @var Generator */
-    private $generator;
-    /** @var HeaderParser */
-    private $headerParser;
-    /** @var Parser */
-    private $parser;
-    /** @var DemoStore */
-    private $store;
-    /** @var UserProvider */
-    private $userProvider;
-    /** @var DemoProvider */
-    private $demoProvider;
-    /** @var DemoSaver */
-    private $demoSaver;
-    private $baseUrl;
-    private $uploadKey;
+    private HeaderParser $headerParser;
+    private Parser $parser;
+    private DemoStore $store;
+    private UserProvider $userProvider;
+    private DemoProvider $demoProvider;
+    private DemoSaver $demoSaver;
+    private string $baseUrl;
+    private string $uploadKey;
 
     public function __construct(
         Connection $db,
@@ -97,7 +88,7 @@ class UploadProvider extends BaseProvider {
         return 'STV available at: ' . $this->baseUrl . '/' . $id;
     }
 
-    public function validateHeader(int $size, Header $header) {
+    public function validateHeader(int $size, Header $header): ?string {
         if ($size < 1024) {
             return 'Demos needs to be at least 1KB is size';
         }
@@ -113,7 +104,7 @@ class UploadProvider extends BaseProvider {
         return null;
     }
 
-    public function validateParsed(Header $header, ParsedDemo $parsedDemo) {
+    public function validateParsed(Header $header, ParsedDemo $parsedDemo): ?string {
         $rounds = $parsedDemo->getRedScore() + $parsedDemo->getBlueScore();
         if (0 === $rounds && $header->getDuration() < (15 * 60)) {
             return 'Demos must be at least 5 minutes long';

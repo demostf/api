@@ -22,6 +22,8 @@ class RawParser {
 
     /**
      * @throws Exception
+     *
+     * @return mixed[]|null
      */
     public function parse(string $path): ?array {
         try {

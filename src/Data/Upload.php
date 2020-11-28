@@ -5,16 +5,11 @@ declare(strict_types=1);
 namespace Demostf\API\Data;
 
 class Upload {
-    /** @var string */
-    private $name;
-    /** @var string */
-    private $red;
-    /** @var string */
-    private $blue;
-    /** @var int */
-    private $uploaderId;
-    /** @var string */
-    private $hash;
+    private string $name;
+    private string $red;
+    private string $blue;
+    private int $uploaderId;
+    private string $hash;
 
     public function __construct(string $name, string $red, string $blue, int $uploaderId, string $hash) {
         $this->name = $name;

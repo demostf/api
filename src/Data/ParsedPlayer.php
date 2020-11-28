@@ -5,16 +5,11 @@ declare(strict_types=1);
 namespace Demostf\API\Data;
 
 class ParsedPlayer {
-    /** @var string */
-    private $name;
-    /** @var int */
-    private $demoUserId;
-    /** @var string */
-    private $steamId;
-    /** @var string */
-    private $team;
-    /** @var string` */
-    private $class;
+    private string $name;
+    private int $demoUserId;
+    private string $steamId;
+    private string $team;
+    private string $class;
 
     public function __construct(string $name, int $demoUserId, string $steamId, string $team, string $class) {
         $this->name = $name;

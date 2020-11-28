@@ -171,7 +171,7 @@ class UserProvider extends BaseProvider {
         return $row ? User::fromRow($row) : null;
     }
 
-    public function getUserId(string $steamId) {
+    public function getUserId(string $steamId): int {
         $existing = $this->get($steamId);
         if ($existing) {
             return $existing->getId();
