@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Demostf\API\Providers;
 
 use Doctrine\DBAL\Connection;
-use LessQL\Database;
 use const DATE_ATOM;
 use Demostf\API\Data\DemoPlayer;
-use Demostf\API\Data\User;
 use Demostf\API\Demo\Demo;
 use PDO;
 
@@ -23,9 +21,17 @@ class DemoProvider extends BaseProvider {
         $this->userProvider = $userProvider;
     }
 
-    public function get(int $id, bool $fetchDetails = true): ?Demo {
-        $demo = $this->db->demo()->where('id', $id);
+    private function fetchDemo(int $id): ?Demo {
+        $query = $this->getQueryBuilder();
+        $query->select('*')
+            ->from('demos')
+            ->where($query->expr()->eq('id', $query->createNamedParameter($id, PDO::PARAM_INT)));
+        $row = $query->execute()->fetch();
 
+        return $row ? Demo::fromRow($row) : null;
+    }
+
+    public function get(int $id, bool $fetchDetails = true): ?Demo {
         // sql magic
         $sql = 'WITH demokills AS (SELECT attacker_id, assister_id, victim_id FROM kills WHERE demo_id = ?)
 		SELECT players.id, user_id, players.name, team, class, users.steamid, users.avatar,
@@ -36,18 +42,17 @@ class DemoProvider extends BaseProvider {
 		INNER JOIN users ON players.user_id = users.id
 		WHERE demo_id = ?';
 
-        $demoData = $demo->fetch();
-        if (!$demoData) {
+        $demo = $this->fetchDemo($id);
+        if ($demo === null) {
             return null;
         }
-        $formattedDemo = Demo::fromRow($demoData);
 
         if ($fetchDetails) {
-            $uploader = $this->userProvider->getById($demoData['uploader']);
-            $playerQuery = $this->query($sql, [$formattedDemo->getId(), $formattedDemo->getId()]);
+            $uploader = $this->userProvider->getById($demo->getUploader());
+            $playerQuery = $this->query($sql, [$demo->getId(), $demo->getId()]);
             $players = $playerQuery->fetchAll(PDO::FETCH_ASSOC);
 
-            $formattedDemo->setUploaderUser($uploader);
+            $demo->setUploaderUser($uploader);
             $uniquePlayers = [];
             foreach ($players as $player) {
                 $key = $player['steamid'] . $player['team'];
@@ -55,12 +60,12 @@ class DemoProvider extends BaseProvider {
                     $uniquePlayers[$key] = $player;
                 }
             }
-            $formattedDemo->setPlayers(array_map(function ($player) {
+            $demo->setPlayers(array_map(function ($player) {
                 return DemoPlayer::fromRow($player);
             }, array_values($uniquePlayers)));
         }
 
-        return $formattedDemo;
+        return $demo;
     }
 
     public function demoIdByHash(string $hash): int {

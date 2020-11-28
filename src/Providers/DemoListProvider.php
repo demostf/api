@@ -13,19 +13,29 @@ use PDO;
 
 class DemoListProvider extends BaseProvider {
     public function listUploads(string $steamId, int $page, array $where = []) {
-        $user = $this->db->user()->where('steamid', $steamId);
-        $where['uploader'] = $user->fetch()->id;
+        $query = $this->getQueryBuilder();
+        $query->select('id')
+            ->from('users')
+            ->where($query->expr()->eq('steamid', $query->createNamedParameter($steamId, PDO::PARAM_STR)));
+
+        $result = $query->execute();
+        $userId = $result->fetch(PDO::FETCH_COLUMN);
+        $result->closeCursor();
+
+        $where['uploader'] = $userId;
 
         return $this->listDemos($page, $where);
     }
 
     public function listProfile(int $page, array $where = []) {
-        $users = $this->db->user()->where('steamid', $where['players']);
+        $query = $this->getQueryBuilder();
+        $query->select('id')
+            ->from('users')
+            ->where($query->expr()->in('steamid', $query->createNamedParameter($where['players'], Connection::PARAM_STR_ARRAY)));
         unset($where['players']);
-        $userIds = [];
-        foreach ($users as $user) {
-            $userIds[] = $user['id'];
-        }
+        $result = $query->execute();
+        $userIds = $result->fetchAll(PDO::FETCH_COLUMN);
+        $result->closeCursor();
 
         $query = $this->getQueryBuilder();
         $query->select('p.demo_id')
@@ -51,11 +61,15 @@ class DemoListProvider extends BaseProvider {
 
         $result = $query->execute();
         $demoIds = $result->fetchAll(PDO::FETCH_COLUMN);
+        $result->closeCursor();
 
-        $demos = $this->db->demo()->where('id', $demoIds)
+        $query = $this->getQueryBuilder();
+        $query->select('*')
+            ->from('demos')
+            ->where($query->expr()->in('id', $query->createNamedParameter($demoIds, Connection::PARAM_INT_ARRAY)))
             ->orderBy('id', 'DESC');
 
-        return $this->formatList($demos->fetchAll());
+        return $this->formatList($query->execute()->fetchAll());
     }
 
     private function addWhere(QueryBuilder $query, array $where = []) {
