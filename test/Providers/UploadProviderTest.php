@@ -13,6 +13,7 @@ use Demostf\API\Demo\Header;
 use Demostf\API\Demo\HeaderParser;
 use Demostf\API\Demo\Parser;
 use Demostf\API\Demo\RawParser;
+use Demostf\API\Error\InvalidKeyException;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoProvider;
 use Demostf\API\Providers\KillProvider;
@@ -214,10 +215,8 @@ class UploadProviderTest extends TestCase {
     }
 
     public function testUploadInvalidKey() {
-        $this->assertEquals(
-            'Invalid key',
-            $this->uploadProvider->upload('dummy', 'RED', 'BLU', 'dummy', 'dummy')
-        );
+        $this->expectException(InvalidKeyException::class);
+        $this->uploadProvider->upload('dummy', 'RED', 'BLU', 'dummy', 'dummy');
     }
 
     public function testUploadNonDemo() {
@@ -315,46 +314,5 @@ class UploadProviderTest extends TestCase {
         $this->assertEquals('koth_product_rc8', $demo->getMap());
         $this->assertEquals(0, $demo->getBlueScore());
         $this->assertEquals(3, $demo->getRedScore());
-    }
-
-    public function testUploadKey() {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Not an HL2 demo');
-
-        $uploadProvider = new UploadProvider(
-            $this->getDatabaseConnection(),
-            'http://example.com',
-            $this->headerParser,
-            $this->parser,
-            $this->demoStore,
-            $this->userProvider,
-            $this->demoProvider,
-            $this->demoSaver,
-            'foo'
-        );
-
-        $steamId = $this->getSteamId('123', 'a');
-        $token = $this->userProvider->store($steamId);
-
-        $this->assertEquals(
-            'Invalid key',
-            $uploadProvider->upload($token, 'RED', 'BLU', 'dummy', 'dummy')
-        );
-
-        $uploadProvider = new UploadProvider(
-            $this->getDatabaseConnection(),
-            'http://example.com',
-            $this->headerParser,
-            $this->parser,
-            $this->demoStore,
-            $this->userProvider,
-            $this->demoProvider,
-            $this->demoSaver,
-            $token
-        );
-
-        file_put_contents($this->tmpDir . '/foo.dem', 'asd');
-
-        $uploadProvider->upload($token, 'RED', 'BLU', 'dummy', $this->tmpDir . '/foo.dem');
     }
 }

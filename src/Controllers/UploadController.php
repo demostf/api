@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Demostf\API\Controllers;
 
+use Demostf\API\Error\InvalidKeyException;
 use Demostf\API\Providers\UploadProvider;
 use Exception;
 use Flight;
@@ -31,18 +32,6 @@ class UploadController extends BaseController {
         }
         $demoFile = $demo['tmp_name'];
 
-        try {
-            $result = $this->uploadProvider->upload($key, $red, $blu, $name, $demoFile);
-            if ('Invalid key' === $result) {
-                Flight::response()->status(401)->write($result)->send();
-            } else {
-                echo $result;
-            }
-        } catch (Exception $e) {
-            Flight::response()
-                ->status(500)
-                ->write($e->getMessage())
-                ->send();
-        }
+        echo $this->uploadProvider->upload($key, $red, $blu, $name, $demoFile);
     }
 }

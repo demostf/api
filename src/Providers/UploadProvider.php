@@ -11,6 +11,7 @@ use Demostf\API\Demo\DemoStore;
 use Demostf\API\Demo\Header;
 use Demostf\API\Demo\HeaderParser;
 use Demostf\API\Demo\Parser;
+use Demostf\API\Error\InvalidKeyException;
 use Doctrine\DBAL\Connection;
 use RandomLib\Generator;
 
@@ -57,7 +58,7 @@ class UploadProvider extends BaseProvider {
     public function upload(string $key, string $red, string $blu, string $name, string $demoFile): string {
         $user = $this->userProvider->byKey($key);
         if (!$user || ('' !== $this->uploadKey && $this->uploadKey !== $key)) {
-            return 'Invalid key';
+            throw new InvalidKeyException('Invalid key');
         }
 
         if (!mb_check_encoding($red, 'UTF-8')) {
