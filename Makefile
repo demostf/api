@@ -4,7 +4,7 @@ docker:
 
 .PHONY: testdb
 testdb:
-	docker run -d --name api-test -p 5433:5432 -e POSTGRES_PASSWORD=test demostf/db
+	docker run -d --name api-test-db -p 5433:5432 -e POSTGRES_PASSWORD=test demostf/db
 
 node_modules: package.json
 	npm install

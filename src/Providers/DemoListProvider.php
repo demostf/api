@@ -30,14 +30,21 @@ class DemoListProvider extends BaseProvider {
         $query = $this->getQueryBuilder();
         $query->select('p.demo_id')
             ->from('players', 'p')
-            ->where($query->expr()->in('user_id', $query->createNamedParameter($userIds, Connection::PARAM_INT_ARRAY)))
-            ->innerJoin('p', 'demos', 'd', $query->expr()->eq('demo_id', 'd.id'))
-            ->groupBy('demo_id')
-            ->having($query->expr()->eq(
-                'COUNT(user_id)',
-                $query->createNamedParameter(count($userIds, PDO::PARAM_INT))
-            ))
-            ->orderBy('demo_id', 'desc')
+            ->innerJoin('p', 'demos', 'd', $query->expr()->eq('demo_id', 'd.id'));
+
+        if (count($userIds) > 1) {
+            $query->where($query->expr()->in('user_id',
+                $query->createNamedParameter($userIds, Connection::PARAM_INT_ARRAY)))
+                ->groupBy('demo_id')
+                ->having($query->expr()->eq(
+                    'COUNT(user_id)',
+                    $query->createNamedParameter(count($userIds, PDO::PARAM_INT))
+                ));
+        } else {
+            $query->where($query->expr()->eq('user_id',
+                $query->createNamedParameter($userIds[0], PDO::PARAM_INT)));
+        }
+        $query->orderBy('demo_id', 'desc')
             ->setMaxResults(50)
             ->setFirstResult(((int) $page - 1) * 50);
 
