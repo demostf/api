@@ -179,6 +179,10 @@ class DemoListProviderTest extends TestCase {
             ['players' => [$steamId2->getSteamId64(), $steamId3->getSteamId64()]]);
 
         $this->assertCount(0, $list);
+
+        $list = $this->demoListProvider->listDemos(1, ['players' => [$steamId1->getSteamId64()], 'map' => 'map1']);
+        $this->assertCount(1, $list);
+        $this->assertEquals($id1, $list[0]->getId());
     }
 
     public function testByUploaderFilterBackend() {

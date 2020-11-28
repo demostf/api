@@ -57,7 +57,10 @@ class DemoListProvider extends BaseProvider {
             ->setMaxResults(50)
             ->setFirstResult(((int) $page - 1) * 50);
 
-        $this->addWhere($query, $where);
+        if (count($where)) {
+            $query->innerJoin('p', 'demos', 'd', $query->expr()->eq('demo_id', 'd.id'));
+            $this->addWhere($query, $where);
+        }
 
         $result = $query->execute();
         $demoIds = $result->fetchAll(PDO::FETCH_COLUMN);
