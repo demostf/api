@@ -132,7 +132,6 @@ class UserProvider extends BaseProvider {
         $nameParameter = $query->createNamedParameter($search, PDO::PARAM_STR, ':query');
         $query->select('user_id', 'name', 'count', 'steamid', "1 - (name <-> $nameParameter) AS sim")
             ->from('name_list')
-            ->where($query->expr()->comparison('name', '%', $nameParameter))
             ->orWhere($query->expr()->comparison('name', '~*', $nameParameter))
             ->orderBy('count', 'DESC')
             ->setMaxResults(100);
