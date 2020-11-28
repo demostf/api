@@ -12,8 +12,6 @@ use Demostf\API\Providers\DemoListProvider;
 use Demostf\API\Providers\DemoProvider;
 use flight\net\Request;
 use flight\net\Response;
-use function intval;
-use function is_array;
 
 class DemoController extends BaseController {
     /** @var DemoProvider */
@@ -49,7 +47,7 @@ class DemoController extends BaseController {
      * @param string $id
      */
     public function get($id) {
-        $this->json($this->demoProvider->get(intval($id, 10)));
+        $this->json($this->demoProvider->get(\intval($id, 10)));
     }
 
     protected function getFilter() {
@@ -67,7 +65,7 @@ class DemoController extends BaseController {
             $filter['backend'] = $backend;
         }
         if ($players) {
-            if (!is_array($players)) {
+            if (!\is_array($players)) {
                 $players = explode(',', $players);
             }
             $players = array_filter($players);

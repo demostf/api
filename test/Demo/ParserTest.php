@@ -23,11 +23,11 @@ class ParserTest extends TestCase {
 
         $this->rawParser->expects($this->any())
             ->method('parse')
-            ->will($this->returnCallback(function ($path) {
+            ->willReturnCallback(function ($path) {
                 $jsonPath = str_replace('.dem', '-raw.json', $path);
 
                 return json_decode(file_get_contents($jsonPath), true);
-            }));
+            });
     }
 
     public function testAnalyse() {

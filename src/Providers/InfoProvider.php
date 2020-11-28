@@ -20,6 +20,7 @@ class InfoProvider extends BaseProvider {
         $query = $this->getQueryBuilder();
         $query->select('count(*)')
             ->from($table);
+
         return $query->execute()->fetch(PDO::FETCH_COLUMN);
     }
 

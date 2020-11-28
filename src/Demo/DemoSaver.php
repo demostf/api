@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Demostf\API\Demo;
 
-use function count;
 use DateTime;
 use Demostf\API\Data\Kill;
 use Demostf\API\Data\ParsedDemo;
@@ -66,7 +65,7 @@ class DemoSaver {
             $upload->getBlue(),
             $demo->getRedScore(),
             $demo->getBlueScore(),
-            count($demo->getPlayers()),
+            \count($demo->getPlayers()),
             $upload->getUploaderId(),
             $upload->getHash(),
             $storedDemo->getBackend(),

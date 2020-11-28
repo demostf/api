@@ -7,7 +7,6 @@ namespace Demostf\API\Providers;
 use Demostf\API\Data\SteamUser;
 use Demostf\API\Data\User;
 use Doctrine\DBAL\Connection;
-use function is_array;
 use PDO;
 use RandomLib\Generator;
 use SteamId;
@@ -108,7 +107,7 @@ class UserProvider extends BaseProvider {
             ->setMaxResults(1);
 
         $result = $query->execute()->fetch();
-        if (is_array($result)) {
+        if (\is_array($result)) {
             return $result;
         } else {
             return null;
@@ -116,8 +115,6 @@ class UserProvider extends BaseProvider {
     }
 
     /**
-     * @param string $search
-     *
      * @return SteamUser[]
      */
     public function search(string $search): array {

@@ -9,7 +9,6 @@ use Demostf\API\Data\ParsedKill;
 use Demostf\API\Data\ParsedPlayer;
 use Exception;
 use InvalidArgumentException;
-use function is_array;
 
 /**
  * Higher level parser.
@@ -38,7 +37,7 @@ class Parser {
 
     public function analyse(string $path): ParsedDemo {
         $data = $this->rawParser->parse($path);
-        if (is_array($data) && isset($data['intervalPerTick'])) {
+        if (\is_array($data) && isset($data['intervalPerTick'])) {
             return $this->handleData($data);
         } else {
             throw new InvalidArgumentException('Error parsing demo');
@@ -150,7 +149,7 @@ class Parser {
      *                        <var>STEAM_0:0:12345</var>
      *
      * @throws InvalidArgumentException if the SteamID doesn't have the correct
-     *                                   format
+     *                                  format
      *
      * @return string The converted 64bit numeric SteamID
      */

@@ -21,8 +21,6 @@ class ParsedDemo {
     /**
      * ParsedDemo constructor.
      *
-     * @param int            $redScore
-     * @param int            $blueScore
      * @param ChatMessage[]  $chat
      * @param ParsedPlayer[] $players
      * @param ParsedKill[]   $kills

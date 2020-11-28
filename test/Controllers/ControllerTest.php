@@ -10,7 +10,7 @@ use flight\net\Response;
 use flight\util\Collection;
 
 abstract class ControllerTest extends TestCase {
-    /** @var string $responseData */
+    /** @var string */
     private $responseData;
 
     protected function getRequest(array $get = [], array $post = [], array $files = []): Request {

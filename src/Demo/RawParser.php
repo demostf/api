@@ -21,8 +21,6 @@ class RawParser {
     }
 
     /**
-     * @param string $path
-     * @return array|null
      * @throws Exception
      */
     public function parse(string $path): ?array {

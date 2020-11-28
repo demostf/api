@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Demostf\API\Providers;
 
-use Doctrine\DBAL\Connection;
 use const DATE_ATOM;
 use Demostf\API\Data\DemoPlayer;
 use Demostf\API\Demo\Demo;
+use Doctrine\DBAL\Connection;
 use PDO;
 
 class DemoProvider extends BaseProvider {
@@ -43,7 +43,7 @@ class DemoProvider extends BaseProvider {
 		WHERE demo_id = ?';
 
         $demo = $this->fetchDemo($id);
-        if ($demo === null) {
+        if (null === $demo) {
             return null;
         }
 

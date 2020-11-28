@@ -11,8 +11,6 @@ class HeaderParser {
      * @param string $head string containing the demo header binary data
      *
      * @throws InvalidArgumentException
-     *
-     * @return Header
      */
     public function parseString(string $head): Header {
         $info = @unpack(
@@ -32,8 +30,6 @@ class HeaderParser {
      * @param resource $stream
      *
      * @throws InvalidArgumentException
-     *
-     * @return Header
      */
     public function parseStream($stream): Header {
         $head = fread($stream, 2048);
@@ -44,11 +40,7 @@ class HeaderParser {
     /**
      * Parse demo info from a local file.
      *
-     * @param string $path
-     *
      * @throws InvalidArgumentException
-     *
-     * @return Header
      */
     public function parseHeader(string $path): Header {
         if (!is_readable($path)) {

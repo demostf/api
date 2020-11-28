@@ -13,17 +13,16 @@ use Demostf\API\Error\InvalidKeyException;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoListProvider;
 use Demostf\API\Providers\DemoProvider;
-use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class DemoControllerTest extends ControllerTest {
-    /** @var DemoStore|MockObject $demoStore */
+    /** @var DemoStore|MockObject */
     private $demoStore;
-    /** @var DemoProvider|MockObject $demoProvider */
+    /** @var DemoProvider|MockObject */
     private $demoProvider;
-    /** @var ChatProvider|MockObject $chatProvider */
+    /** @var ChatProvider|MockObject */
     private $chatProvider;
-    /** @var DemoListProvider|MockObject $demoListProvider */
+    /** @var DemoListProvider|MockObject */
     private $demoListProvider;
 
     public function setUp(): void {
@@ -208,7 +207,7 @@ class DemoControllerTest extends ControllerTest {
             ->method('listDemos')
             ->with(1, [
                 'before' => \DateTime::createFromFormat('U', '500'),
-                'after' => \DateTime::createFromFormat('U', '100')
+                'after' => \DateTime::createFromFormat('U', '100'),
             ], 'DESC')
             ->willReturn(['dummy']);
 
@@ -222,7 +221,7 @@ class DemoControllerTest extends ControllerTest {
         $this->demoListProvider->expects($this->once())
             ->method('listDemos')
             ->with(1, [
-                'before' => \DateTime::createFromFormat('U', '500')
+                'before' => \DateTime::createFromFormat('U', '500'),
             ], 'DESC')
             ->willReturn(['dummy']);
 

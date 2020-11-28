@@ -32,7 +32,7 @@ class DemoListProviderTest extends TestCase {
     }
 
     private function getDemo(int $uploaderId, $map = 'map', $playerCount = 18, int $time = null) {
-        $time = is_null($time) ? new \DateTime() : \DateTime::createFromFormat('U', (string) $time);
+        $time = null === $time ? new \DateTime() : \DateTime::createFromFormat('U', (string) $time);
 
         return new Demo(
             0,

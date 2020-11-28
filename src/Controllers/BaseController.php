@@ -17,7 +17,7 @@ class BaseController {
     }
 
     protected function query($name, $default) {
-        return isset($this->request->query[$name]) ? $this->request->query[$name] : $default;
+        return $this->request->query[$name] ?? $default;
     }
 
     protected function file($name) {
@@ -25,7 +25,7 @@ class BaseController {
     }
 
     protected function post($name, $default = null) {
-        return isset($this->request->data[$name]) ? $this->request->data[$name] : $default;
+        return $this->request->data[$name] ?? $default;
     }
 
     protected function json($data, $code = 200, $encode = true, $charset = 'utf-8', $option = 0) {

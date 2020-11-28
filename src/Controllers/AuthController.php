@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Demostf\API\Controllers;
 
-use Ehesp\SteamLogin\SteamLogin;
 use Demostf\API\Providers\AuthProvider;
 use Demostf\API\Providers\UserProvider;
+use Ehesp\SteamLogin\SteamLogin;
 use Flight;
 use flight\net\Request;
 use flight\net\Response;

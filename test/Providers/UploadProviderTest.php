@@ -25,7 +25,6 @@ use InvalidArgumentException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use ReflectionException;
-use function strlen;
 
 class UploadProviderTest extends TestCase {
     /** @var RawParser */
@@ -59,11 +58,11 @@ class UploadProviderTest extends TestCase {
 
         $this->rawParser->expects($this->any())
             ->method('parse')
-            ->will($this->returnCallback(function ($path) {
+            ->willReturnCallback(function ($path) {
                 $jsonPath = str_replace('.dem', '-raw.json', $path);
 
                 return json_decode(file_get_contents($jsonPath), true);
-            }));
+            });
 
         $targetDir = tempnam(sys_get_temp_dir(), 'dummy_target_');
         unlink($targetDir);
@@ -307,7 +306,7 @@ class UploadProviderTest extends TestCase {
         $result = $this->uploadProvider->upload($token, 'RED', 'BLU', 'foodemo', $this->tmpDir . '/foo.dem');
         $this->assertStringStartsWith('STV available at: http://example.com/', $result);
 
-        $demoId = (int) substr($result, strlen('STV available at: http://example.com/'));
+        $demoId = (int) substr($result, \strlen('STV available at: http://example.com/'));
 
         $demo = $this->demoProvider->get($demoId, true);
 

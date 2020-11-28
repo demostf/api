@@ -18,10 +18,6 @@ class ChatMessage implements JsonSerializable {
 
     /**
      * ChatMessage constructor.
-     *
-     * @param string $user
-     * @param int    $time
-     * @param string $message
      */
     public function __construct(string $user, int $time, string $message) {
         $this->user = $user;
@@ -29,23 +25,14 @@ class ChatMessage implements JsonSerializable {
         $this->message = $message;
     }
 
-    /**
-     * @return string
-     */
     public function getUser(): string {
         return $this->user;
     }
 
-    /**
-     * @return int
-     */
     public function getTime(): int {
         return $this->time;
     }
 
-    /**
-     * @return string
-     */
     public function getMessage(): string {
         return $this->message;
     }

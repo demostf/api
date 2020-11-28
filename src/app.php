@@ -68,11 +68,11 @@ Flight::route('/auth/handle/@token', [$authController, 'handle']);
 Flight::route('/auth/login/@token', [$authController, 'login']);
 Flight::route('/auth/logout/@token', [$authController, 'logout']);
 
-Flight::map('error', function(\Exception $ex){
+Flight::map('error', function (\Exception $ex) {
     $code = 500;
     if ($ex instanceof InvalidKeyException) {
         $code = 401;
-    } else if ($ex instanceof InvalidHashException) {
+    } elseif ($ex instanceof InvalidHashException) {
         $code = 412;
     }
     Flight::response()->status($code)->write($ex->getMessage())->send();

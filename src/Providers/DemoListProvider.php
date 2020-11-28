@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace Demostf\API\Providers;
 
-use Doctrine\DBAL\Query\QueryBuilder;
-use function count;
 use Demostf\API\Demo\Demo;
 use Doctrine\DBAL\Connection;
-use function is_array;
+use Doctrine\DBAL\Query\QueryBuilder;
 use PDO;
 
 class DemoListProvider extends BaseProvider {
@@ -41,13 +39,13 @@ class DemoListProvider extends BaseProvider {
         $query->select('p.demo_id')
             ->from('players', 'p');
 
-        if (count($userIds) > 1) {
+        if (\count($userIds) > 1) {
             $query->where($query->expr()->in('user_id',
                 $query->createNamedParameter($userIds, Connection::PARAM_INT_ARRAY)))
                 ->groupBy('demo_id')
                 ->having($query->expr()->eq(
                     'COUNT(user_id)',
-                    $query->createNamedParameter(count($userIds), PDO::PARAM_INT)
+                    $query->createNamedParameter(\count($userIds), PDO::PARAM_INT)
                 ));
         } else {
             $query->where($query->expr()->eq('user_id',
@@ -57,7 +55,7 @@ class DemoListProvider extends BaseProvider {
             ->setMaxResults(50)
             ->setFirstResult(((int) $page - 1) * 50);
 
-        if (count($where)) {
+        if (\count($where)) {
             $query->innerJoin('p', 'demos', 'd', $query->expr()->eq('demo_id', 'd.id'));
             $this->addWhere($query, $where);
         }
@@ -105,14 +103,10 @@ class DemoListProvider extends BaseProvider {
     }
 
     /**
-     * @param int    $page
-     * @param array  $where
-     * @param string $order
-     *
      * @return Demo[]
      */
     public function listDemos(int $page, array $where = [], string $order = 'DESC') {
-        if (isset($where['players']) and is_array($where['players']) and count($where['players']) > 0) {
+        if (isset($where['players']) and \is_array($where['players']) and \count($where['players']) > 0) {
             return $this->listProfile($page, $where);
         }
 
