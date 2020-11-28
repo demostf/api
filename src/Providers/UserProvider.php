@@ -96,7 +96,7 @@ class UserProvider extends BaseProvider {
         return $row ? User::fromRow($row) : null;
     }
 
-    private function searchBySteamId(string $steamId): ?array {
+    private function searchBySteamId(string $steamId): ?SteamUser {
         $query = $this->getQueryBuilder();
         $query->select('u.id', 'p.name', 'count(demo_id) as count', 'steamid')
             ->from('players', 'p')
@@ -106,9 +106,9 @@ class UserProvider extends BaseProvider {
             ->orderBy('count(demo_id)', 'DESC')
             ->setMaxResults(1);
 
-        $result = $query->execute()->fetch();
-        if (\is_array($result)) {
-            return $result;
+        $row = $query->execute()->fetch();
+        if ($row) {
+            return new SteamUser($row['id'], $row['steamid'], $row['name']);
         } else {
             return null;
         }
