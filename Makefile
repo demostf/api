@@ -11,12 +11,12 @@ node_modules: package.json
 
 .PHONY: mocha
 mocha: node_modules
-	DEMO_ROOT=/tmp/demos DB_PORT=5433 DB_TYPE=pgsql DB_HOST=localhost DB_USERNAME=postgres DB_USERNAME=postgres DB_PASSWORD=test DB_DATABASE=postgres\
+	DEMO_ROOT=/tmp/demos DB_PORT=5433 DB_TYPE=pgsql DB_HOST=localhost DB_USERNAME=postgres DB_PASSWORD=test DB_DATABASE=postgres\
 	 PARSER_PATH=/home/robin/Projects/demostf/tf-demo-parser/target/release/parse_demo node node_modules/.bin/mocha --recursive
 
 .PHONY: phpunit
 phpunit:
-	cd test; DB_PORT=5433 DB_TYPE=pgsql DB_HOST=localhost DB_USERNAME=postgres DB_USERNAME=postgres DB_PASSWORD=test DB_DATABASE=postgres ../vendor/bin/phpunit
+	DB_PORT=5433 DB_TYPE=pgsql DB_HOST=localhost DB_USERNAME=postgres DB_USERNAME=postgres DB_PASSWORD=test DB_DATABASE=postgres ./vendor/bin/phpunit test
 
 .PHONY: test
 tests: phpunit mocha

@@ -1,0 +1,55 @@
+on: [push, pull_request]
+
+name: CI
+
+jobs:
+  php-cs-fixer:
+    name: PHP-CS-Fixer
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: PHP-CS-Fixer
+        uses: OskarStark/php-cs-fixer-ga@2.16.7
+        with:
+          args: --diff --dry-run --allow-risky yes --stop-on-violation --using-cache=no --path-mode=intersection
+
+  phpstan:
+    name: PHPStan Static Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: php-actions/composer@v2
+      - uses: php-actions/phpstan@v1
+        with:
+          error_format: github
+          args: src
+
+  phpunit:
+    runs-on: ubuntu-latest
+    name: Unit tests
+
+    services:
+      db:
+        image: demostf/db
+        env:
+          POSTGRES_PASSWORD: test
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: php-actions/composer@v2
+      - name: PHPUnit Tests
+        uses: docker://icewind1991/php-alpine-apcu
+        env:
+          DB_PORT: 5432
+          DB_TYPE: pgsql
+          DB_HOST: db
+          DB_USERNAME: postgres
+          DB_PASSWORD: test
+          DB_DATABASE: postgres
+        with:
+          entrypoint: php
+          args: ./vendor/bin/phpunit test
