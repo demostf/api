@@ -37,7 +37,7 @@ class DemoListProvider extends BaseProvider {
                 ->groupBy('demo_id')
                 ->having($query->expr()->eq(
                     'COUNT(user_id)',
-                    $query->createNamedParameter(count($userIds, PDO::PARAM_INT))
+                    $query->createNamedParameter(count($userIds), PDO::PARAM_INT)
                 ));
         } else {
             $query->where($query->expr()->eq('user_id',
