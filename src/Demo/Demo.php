@@ -68,6 +68,7 @@ class Demo implements JsonSerializable {
         $this->backend = $backend;
         $this->path = $path;
         $this->players = [];
+        $this->uploaderUser = null;
     }
 
     public function getId(): int {
