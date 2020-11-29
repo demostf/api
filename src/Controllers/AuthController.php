@@ -71,7 +71,7 @@ class AuthController extends BaseController {
         $steamId = $steam->validate();
         if ($steamId) {
             $steamIdObject = new SteamId($steamId);
-            $key = $this->userProvider->store($steamIdObject);
+            $key = $this->userProvider->store($steamIdObject, $steamIdObject->getNickname());
             $this->authProvider->setUser($token, $steamIdObject, $key);
         }
         Flight::redirect($return);

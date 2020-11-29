@@ -10,14 +10,12 @@ class User implements JsonSerializable {
     private int $id;
     private string $steamId;
     private string $name;
-    private string $avatar;
     private string $token;
 
-    public function __construct(int $id, string $steamId, string $name, string $avatar, string $token) {
+    public function __construct(int $id, string $steamId, string $name, string $token) {
         $this->id = $id;
         $this->steamId = $steamId;
         $this->name = $name;
-        $this->avatar = $avatar;
         $this->token = $token;
     }
 
@@ -33,10 +31,6 @@ class User implements JsonSerializable {
         return $this->name;
     }
 
-    public function getAvatar(): string {
-        return $this->avatar;
-    }
-
     public function getToken(): string {
         return $this->token;
     }
@@ -46,7 +40,6 @@ class User implements JsonSerializable {
             'id' => $this->getId(),
             'steamid' => $this->getSteamId(),
             'name' => $this->getName(),
-            'avatar' => $this->getAvatar(),
         ];
     }
 
@@ -60,7 +53,6 @@ class User implements JsonSerializable {
             (int) $row['id'],
             $row['steamid'],
             $row['name'],
-            $row['avatar'],
             $row['token'] ?? ''
         );
     }

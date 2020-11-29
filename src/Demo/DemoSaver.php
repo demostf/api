@@ -68,7 +68,7 @@ class DemoSaver {
         ), $storedDemo->getBackend(), $storedDemo->getPath());
 
         foreach ($demo->getPlayers() as $player) {
-            $userId = $this->userProvider->getUserId($player->getSteamId());
+            $userId = $this->userProvider->getUserId($player->getSteamId(), $player->getName());
             $userMap[$player->getDemoUserId()] = $userId;
 
             $this->playerProvider->store(new Player(

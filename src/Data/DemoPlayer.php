@@ -13,19 +13,17 @@ class DemoPlayer implements JsonSerializable {
     private string $team;
     private string $class;
     private string $steamId;
-    private string $avatar;
     private int $kills;
     private int $assists;
     private int $deaths;
 
-    public function __construct(int $id, int $userId, string $name, string $team, string $class, string $steamId, string $avatar, int $kills, int $assists, int $deaths) {
+    public function __construct(int $id, int $userId, string $name, string $team, string $class, string $steamId, int $kills, int $assists, int $deaths) {
         $this->id = $id;
         $this->userId = $userId;
         $this->name = $name;
         $this->team = $team;
         $this->class = $class;
         $this->steamId = $steamId;
-        $this->avatar = $avatar;
         $this->kills = $kills;
         $this->assists = $assists;
         $this->deaths = $deaths;
@@ -55,10 +53,6 @@ class DemoPlayer implements JsonSerializable {
         return $this->steamId;
     }
 
-    public function getAvatar(): string {
-        return $this->avatar;
-    }
-
     public function getKills(): int {
         return $this->kills;
     }
@@ -84,7 +78,6 @@ class DemoPlayer implements JsonSerializable {
             $row['team'],
             $row['class'],
             $row['steamid'],
-            $row['avatar'],
             $row['kills'],
             $row['assists'],
             $row['deaths']
@@ -99,7 +92,6 @@ class DemoPlayer implements JsonSerializable {
             'team' => $this->getTeam(),
             'class' => $this->getClass(),
             'steamid' => $this->getSteamId(),
-            'avatar' => $this->getAvatar(),
             'kills' => $this->getKills(),
             'assists' => $this->getAssists(),
             'deaths' => $this->getDeaths(),

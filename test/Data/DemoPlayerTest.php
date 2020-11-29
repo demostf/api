@@ -16,7 +16,6 @@ class DemoPlayerTest extends TestCase {
             'team' => 'red',
             'class' => 'sniper',
             'steamid' => 'asd',
-            'avatar' => 'asd.png',
             'kills' => 5,
             'assists' => 3,
             'deaths' => 7,

@@ -22,7 +22,7 @@ class UserProvider extends BaseProvider {
         $this->generator = $generator;
     }
 
-    public function store(SteamId $steamId): string {
+    public function store(SteamId $steamId, string $name): string {
         $token = $this->generator->generateString(64, Generator::EASY_TO_READ);
 
         $user = $this->get($steamId->getSteamId64());
@@ -34,8 +34,8 @@ class UserProvider extends BaseProvider {
         $query->insert('users')
             ->values([
                 'steamid' => $query->createNamedParameter($steamId->getSteamId64()),
-                'name' => $query->createNamedParameter($steamId->getNickname()),
-                'avatar' => $query->createNamedParameter($steamId->getMediumAvatarUrl()),
+                'name' => $query->createNamedParameter($name),
+                'avatar' => $query->createNamedParameter(''),
                 'token' => $query->createNamedParameter($token),
             ])->add('orderBy', 'ON CONFLICT DO NOTHING')// hack to append arbitrary string to sql
             ->execute();
@@ -49,7 +49,7 @@ class UserProvider extends BaseProvider {
         // first search in the view which contains the most used name for the users
 
         $query = $this->getQueryBuilder();
-        $query->select(['id', 'steamid', 'name', 'avatar', 'token'])
+        $query->select(['id', 'steamid', 'name', 'token'])
             ->from('users_named')
             ->where($query->expr()->eq('steamid', $query->createNamedParameter($steamid)));
 
@@ -59,7 +59,7 @@ class UserProvider extends BaseProvider {
             // if the user is newly inserted it wont be in our view yet
 
             $query = $this->getQueryBuilder();
-            $query->select(['id', 'steamid', 'name', 'avatar', 'token'])
+            $query->select(['id', 'steamid', 'name', 'token'])
                 ->from('users')
                 ->where($query->expr()->eq('steamid', $query->createNamedParameter($steamid)));
 
@@ -76,7 +76,7 @@ class UserProvider extends BaseProvider {
         // first search in the view which contains the most used name for the users
 
         $query = $this->getQueryBuilder();
-        $query->select(['id', 'steamid', 'name', 'avatar', 'token'])
+        $query->select(['id', 'steamid', 'name', 'token'])
             ->from('users_named')
             ->where($query->expr()->eq('id', $query->createNamedParameter($userId, \PDO::PARAM_INT)));
 
@@ -86,7 +86,7 @@ class UserProvider extends BaseProvider {
             // if the user is newly inserted it wont be in our view yet
 
             $query = $this->getQueryBuilder();
-            $query->select(['id', 'steamid', 'name', 'avatar', 'token'])
+            $query->select(['id', 'steamid', 'name', 'token'])
                 ->from('users')
                 ->where($query->expr()->eq('id', $query->createNamedParameter($userId, \PDO::PARAM_INT)));
 
@@ -162,7 +162,7 @@ class UserProvider extends BaseProvider {
 
     public function byKey(string $key): ?User {
         $query = $this->getQueryBuilder();
-        $query->select(['id', 'steamid', 'name', 'avatar', 'token'])
+        $query->select(['id', 'steamid', 'name', 'token'])
             ->from('users')
             ->where($query->expr()->eq('token', $query->createNamedParameter($key)));
 
@@ -171,13 +171,13 @@ class UserProvider extends BaseProvider {
         return $row ? User::fromRow($row) : null;
     }
 
-    public function getUserId(string $steamId): int {
+    public function getUserId(string $steamId, string $name): int {
         $existing = $this->get($steamId);
         if ($existing) {
             return $existing->getId();
         }
 
-        $this->store(new SteamId($steamId));
+        $this->store(new SteamId($steamId, false), $name);
 
         return $this->get($steamId)->getId();
     }

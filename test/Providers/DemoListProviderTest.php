@@ -112,7 +112,7 @@ class DemoListProviderTest extends TestCase {
 
     public function testByUploader() {
         $steamId = $this->getSteamId('12345', 'bar');
-        $this->userProvider->store($steamId);
+        $this->userProvider->store($steamId, 'bar');
         $userId = $this->userProvider->get($steamId->getSteamId64())->getId();
         $id1 = $this->demoProvider->storeDemo($this->getDemo($userId, 'map1', 17), 'foo', 'bar');
         $id2 = $this->demoProvider->storeDemo($this->getDemo($userId, 'map2', 18), 'foo', 'bar');
@@ -126,7 +126,7 @@ class DemoListProviderTest extends TestCase {
 
     public function testByUploaderFilter() {
         $steamId = $this->getSteamId('12345', 'bar');
-        $this->userProvider->store($steamId);
+        $this->userProvider->store($steamId, 'bar');
         $userId = $this->userProvider->get($steamId->getSteamId64())->getId();
         $id1 = $this->demoProvider->storeDemo($this->getDemo($userId, 'map1', 12), 'foo', 'bar');
         $id2 = $this->demoProvider->storeDemo($this->getDemo($userId, 'map2', 18), 'foo', 'bar');
@@ -146,9 +146,9 @@ class DemoListProviderTest extends TestCase {
         $steamId1 = $this->getSteamId('12345', 'bar1');
         $steamId2 = $this->getSteamId('22345', 'bar2');
         $steamId3 = $this->getSteamId('32345', 'bar3');
-        $this->userProvider->store($steamId1);
-        $this->userProvider->store($steamId2);
-        $this->userProvider->store($steamId3);
+        $this->userProvider->store($steamId1, 'bar1');
+        $this->userProvider->store($steamId2, 'bar2');
+        $this->userProvider->store($steamId3, 'bar3');
         $userId1 = $this->userProvider->get($steamId1->getSteamId64())->getId();
         $userId2 = $this->userProvider->get($steamId2->getSteamId64())->getId();
         $userId3 = $this->userProvider->get($steamId3->getSteamId64())->getId();
@@ -187,7 +187,7 @@ class DemoListProviderTest extends TestCase {
 
     public function testByUploaderFilterBackend() {
         $steamId = $this->getSteamId('12345', 'bar');
-        $this->userProvider->store($steamId);
+        $this->userProvider->store($steamId, 'bar');
         $userId = $this->userProvider->get($steamId->getSteamId64())->getId();
         $id1 = $this->demoProvider->storeDemo($this->getDemo($userId, 'map1', 12), 'foo1', 'bar');
         $id2 = $this->demoProvider->storeDemo($this->getDemo($userId, 'map2', 18), 'foo2', 'bar');

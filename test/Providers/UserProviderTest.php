@@ -31,30 +31,30 @@ class UserProviderTest extends TestCase {
     }
 
     public function testStoreRetrieve() {
-        $this->provider->store($this->steamId);
+        $this->provider->store($this->steamId, 'Icewind');
 
         $user = $this->provider->get('76561198024494988');
 
-        $this->assertEquals($this->steamId->getNickname(), $user->getName());
+        $this->assertEquals('Icewind', $user->getName());
         $this->assertEquals($this->steamId->getSteamId64(), $user->getSteamId());
     }
 
     public function returnTokenExisting() {
-        $token1 = $this->provider->store($this->steamId);
-        $token2 = $this->provider->store($this->steamId);
+        $token1 = $this->provider->store($this->steamId, 'Icewind');
+        $token2 = $this->provider->store($this->steamId, 'Icewind');
 
         $this->assertEquals($token1, $token2);
     }
 
     public function testDoubleInsert() {
-        $this->provider->store($this->steamId);
-        $this->provider->store($this->steamId);
+        $this->provider->store($this->steamId, 'Icewind');
+        $this->provider->store($this->steamId, 'Icewind');
 
         $this->assertTrue(true);
     }
 
     public function testByKey() {
-        $token = $this->provider->store($this->steamId);
+        $token = $this->provider->store($this->steamId, 'Icewind');
 
         $byKey = $this->provider->byKey($token);
         $this->assertEquals('76561198024494988', $byKey->getSteamId());
@@ -65,7 +65,7 @@ class UserProviderTest extends TestCase {
 
         $this->assertCount(0, $result);
 
-        $this->provider->store($this->steamId);
+        $this->provider->store($this->steamId, 'Icewind');
         $user = $this->provider->get($this->steamId->getSteamId64());
         $this->playerProvider->store(new Player(
             0,
@@ -85,15 +85,15 @@ class UserProviderTest extends TestCase {
     }
 
     public function testGetIdExisting() {
-        $this->provider->store($this->steamId);
+        $this->provider->store($this->steamId, 'Icewind');
 
         $user = $this->provider->get($this->steamId->getSteamId64());
 
-        $this->assertEquals($user->getId(), $this->provider->getUserId($this->steamId->getSteamId64()));
+        $this->assertEquals($user->getId(), $this->provider->getUserId($this->steamId->getSteamId64(), 'Icewind'));
     }
 
     public function testGetIdNew() {
-        $id = $this->provider->getUserId($this->steamId->getSteamId64());
+        $id = $this->provider->getUserId($this->steamId->getSteamId64(), 'Icewind');
 
         $user = $this->provider->get($this->steamId->getSteamId64());
 

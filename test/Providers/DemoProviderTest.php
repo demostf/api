@@ -42,7 +42,7 @@ class DemoProviderTest extends TestCase {
 
     public function testStoreRetrieve() {
         $uploaderSteamId = $this->getSteamId('12345', 'test');
-        $this->userProvider->store($uploaderSteamId);
+        $this->userProvider->store($uploaderSteamId, 'test');
 
         $uploader = $this->userProvider->get($uploaderSteamId->getSteamId64());
 
@@ -82,17 +82,17 @@ class DemoProviderTest extends TestCase {
 
     public function testRetrieveWithPlayers() {
         $uploaderSteamId = $this->getSteamId('12345', 'test');
-        $this->userProvider->store($uploaderSteamId);
+        $this->userProvider->store($uploaderSteamId, 'test');
 
         $steamId1 = $this->getSteamId('1', 'u1');
         $steamId2 = $this->getSteamId('2', 'u2');
         $steamId3 = $this->getSteamId('3', 'u3');
         $steamId4 = $this->getSteamId('4', 'u4');
 
-        $this->userProvider->store($steamId1);
-        $this->userProvider->store($steamId2);
-        $this->userProvider->store($steamId3);
-        $this->userProvider->store($steamId4);
+        $this->userProvider->store($steamId1, 'u1');
+        $this->userProvider->store($steamId2, 'u2');
+        $this->userProvider->store($steamId3, 'u3');
+        $this->userProvider->store($steamId4, 'u4');
 
         $user1 = $this->userProvider->get($steamId1->getSteamId64());
         $user2 = $this->userProvider->get($steamId2->getSteamId64());
@@ -142,10 +142,10 @@ class DemoProviderTest extends TestCase {
             return $a->getUserId() - $b->getUserId();
         });
         $this->assertEquals([
-            new DemoPlayer($player1, $user1->getId(), 'user_' . $user1->getId(), 'red', 'scout', '1', 'foo_medium.jpg', 2, 0, 1),
-            new DemoPlayer($player2, $user2->getId(), 'user_' . $user2->getId(), 'red', 'soldier', '2', 'foo_medium.jpg', 0, 1, 0),
-            new DemoPlayer($player3, $user3->getId(), 'user_' . $user3->getId(), 'blue', 'engineer', '3', 'foo_medium.jpg', 0, 0, 2),
-            new DemoPlayer($player4, $user4->getId(), 'user_' . $user4->getId(), 'blue', 'spy', '4', 'foo_medium.jpg', 1, 0, 0),
+            new DemoPlayer($player1, $user1->getId(), 'user_' . $user1->getId(), 'red', 'scout', '1', 2, 0, 1),
+            new DemoPlayer($player2, $user2->getId(), 'user_' . $user2->getId(), 'red', 'soldier', '2', 0, 1, 0),
+            new DemoPlayer($player3, $user3->getId(), 'user_' . $user3->getId(), 'blue', 'engineer', '3', 0, 0, 2),
+            new DemoPlayer($player4, $user4->getId(), 'user_' . $user4->getId(), 'blue', 'spy', '4', 1, 0, 0),
         ], $players);
     }
 
@@ -163,7 +163,7 @@ class DemoProviderTest extends TestCase {
 
     public function testSetDemoUrl() {
         $uploaderSteamId = $this->getSteamId('12345', 'test');
-        $this->userProvider->store($uploaderSteamId);
+        $this->userProvider->store($uploaderSteamId, 'test');
 
         $uploader = $this->userProvider->get($uploaderSteamId->getSteamId64());
 

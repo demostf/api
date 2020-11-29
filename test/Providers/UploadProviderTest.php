@@ -226,7 +226,7 @@ class UploadProviderTest extends TestCase {
         file_put_contents($this->tmpDir . '/foo.dem', 'asd');
 
         $steamId = $this->getSteamId('123', 'a');
-        $token = $this->userProvider->store($steamId);
+        $token = $this->userProvider->store($steamId, 'a');
 
         $this->uploadProvider->upload($token, 'RED', 'BLU', 'dummy', $this->tmpDir . '/foo.dem');
     }
@@ -262,7 +262,7 @@ class UploadProviderTest extends TestCase {
         );
 
         $steamId = $this->getSteamId('123', 'a');
-        $token = $this->userProvider->store($steamId);
+        $token = $this->userProvider->store($steamId, 'a');
 
         $this->assertEquals(
             'STV available at: http://example.com/' . $id,
@@ -272,7 +272,7 @@ class UploadProviderTest extends TestCase {
 
     private function saveSteamId($steamId, $name) {
         $steamId = $this->getSteamId(Parser::convertSteamIdToCommunityId($steamId), $name);
-        $this->userProvider->store($steamId);
+        $this->userProvider->store($steamId, $name);
     }
 
     public function testUpload() {
@@ -280,7 +280,7 @@ class UploadProviderTest extends TestCase {
         copy(__DIR__ . '/../data/product-raw.json', $this->tmpDir . '/foo-raw.json');
 
         $steamId = $this->getSteamId('123', 'a');
-        $token = $this->userProvider->store($steamId);
+        $token = $this->userProvider->store($steamId, 'a');
 
         // pre-save the names so we dont have to get them from steam
         $this->saveSteamId('[U:1:64229260]', 'Icewind');

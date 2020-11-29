@@ -29,14 +29,14 @@ class DemoSaverTest extends TestCase {
         $demoProvider = new DemoProvider($this->getDatabaseConnection(), $userProvider);
         $chatProvider = new ChatProvider($this->getDatabaseConnection());
 
-        $userProvider->store($steamId1);
-        $userProvider->store($steamId2);
+        $userProvider->store($steamId1, 'user1');
+        $userProvider->store($steamId2, 'user2');
 
         $upload = new Upload(
             'foodemo',
             'DER',
             'ULB',
-            $userProvider->getUserId('2345678'),
+            $userProvider->getUserId('2345678', 'user2'),
             'securehash'
         );
 
