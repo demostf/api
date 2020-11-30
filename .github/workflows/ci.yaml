@@ -53,3 +53,49 @@ jobs:
         with:
           entrypoint: php
           args: ./vendor/bin/phpunit test
+
+  api:
+    runs-on: ubuntu-20.04
+    name: Integration tests
+
+    services:
+      db:
+        image: demostf/db
+        env:
+          POSTGRES_PASSWORD: test
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 5432:5432
+      api:
+        image: demostf/api
+        env:
+          BASE_HOST: localhost
+          DEMO_ROOT: /tmp
+          DEMO_HOST: localhost
+          DB_TYPE: pgsql
+          DB_HOST: db
+          DB_PORT: 5432
+          DB_DATABASE: postgres
+          DB_USERNAME: postgres
+          DB_PASSWORD: test
+          APP_ROOT: https://localhost
+          EDIT_SECRET: edit
+        volumes:
+          - src:/app/src
+      nginx:
+        image: demostf/api-nginx-test
+        ports:
+          - 80:80
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: copy code
+        run: |
+          docker run -v src:/data --name helper busybox true
+          docker cp src/ helper:/data
+          docker rm helper
+      - env:
+          DB_URL: postgres://postgres:test@db:5432/postgres
+          BASE_URL: http://nginx
+          EDIT_KEY: edit
+        uses: docker://demostf/api-test
