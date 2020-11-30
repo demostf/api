@@ -1,7 +1,6 @@
 # demos.tf api
 
-[![Build Status](https://travis-ci.org/demostf/api.svg?branch=master)](https://travis-ci.org/demostf/api)
-[![codecov](https://codecov.io/gh/demostf/api/branch/master/graph/badge.svg)](https://codecov.io/gh/demostf/api)
+![Build Status](https://github.com/demostf/api/workflows/CI/badge.svg)
 
 Backend code for [demos.tf](https://demos.tf)
 
