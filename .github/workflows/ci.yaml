@@ -81,7 +81,7 @@ jobs:
           APP_ROOT: https://localhost
           EDIT_SECRET: edit
         volumes:
-          - src:/app/src
+          - src:/app
       nginx:
         image: demostf/api-nginx-test
         ports:
@@ -92,7 +92,7 @@ jobs:
       - name: copy code
         run: |
           docker run -v src:/data --name helper busybox true
-          docker cp src/ helper:/data
+          docker cp src helper:/data/
           docker rm helper
       - env:
           DB_URL: postgres://postgres:test@db:5432/postgres
