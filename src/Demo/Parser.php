@@ -72,6 +72,11 @@ class Parser {
         if (!isset($data['chat'])) {
             throw new Exception('Error while parsing demo, no chat field found');
         }
+
+        usort($data['chat'], function ($a, $b) {
+            return $a['tick'] <=> $b['tick'];
+        });
+
         foreach ($data['chat'] as $message) {
             if (isset($message['from'])) {
                 $chat[] = new ChatMessage($message['from'],
