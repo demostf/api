@@ -7,6 +7,7 @@ namespace Demostf\API\Controllers;
 use Demostf\API\Demo\DemoStore;
 use Demostf\API\Error\InvalidHashException;
 use Demostf\API\Error\InvalidKeyException;
+use Demostf\API\Error\NotFoundException;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoListProvider;
 use Demostf\API\Providers\DemoProvider;
@@ -38,7 +39,12 @@ class DemoController extends BaseController {
     }
 
     public function get(string $id): void {
-        $this->json($this->demoProvider->get(\intval($id, 10)));
+        $demo = $this->demoProvider->get(\intval($id, 10));
+        if ($demo === null) {
+            throw new NotFoundException("requested demo not found");
+        } else {
+            $this->json($demo);
+        }
     }
 
     /**

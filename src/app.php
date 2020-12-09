@@ -71,10 +71,8 @@ Flight::route('/auth/logout/@token', [$authController, 'logout']);
 
 Flight::map('error', function (\Throwable $ex) {
     $code = 500;
-    if ($ex instanceof InvalidKeyException) {
-        $code = 401;
-    } elseif ($ex instanceof InvalidHashException) {
-        $code = 412;
+    if ($ex->getCode()) {
+        $code = $ex->getCode();
     }
     /** @var Response $response */
     $response = Flight::response()->status($code);

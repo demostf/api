@@ -10,6 +10,7 @@ use Demostf\API\Demo\Demo;
 use Demostf\API\Demo\DemoStore;
 use Demostf\API\Error\InvalidHashException;
 use Demostf\API\Error\InvalidKeyException;
+use Demostf\API\Error\NotFoundException;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoListProvider;
 use Demostf\API\Providers\DemoProvider;
@@ -227,5 +228,18 @@ class DemoControllerTest extends ControllerTest {
 
         $controller->listDemos();
         $this->assertResponseData(['dummy']);
+    }
+
+    public function testGetNotFound() {
+        $controller = $this->getController();
+
+        $this->demoProvider->expects($this->once())
+            ->method('get')
+            ->with(1)
+            ->willReturn(null);
+
+        $this->expectException(NotFoundException::class);
+
+        $controller->get('1');
     }
 }
