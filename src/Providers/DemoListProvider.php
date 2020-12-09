@@ -17,7 +17,7 @@ class DemoListProvider extends BaseProvider {
      *
      * @return Demo[]
      */
-    public function listUploads(string $steamId, int $page, array $where = []) {
+    public function listUploads(string $steamId, int $page, array $where = [], string $order = 'DESC') {
         $query = $this->getQueryBuilder();
         $query->select('id')
             ->from('users')
@@ -29,7 +29,7 @@ class DemoListProvider extends BaseProvider {
 
         $where['uploader'] = $userId;
 
-        return $this->listDemos($page, $where);
+        return $this->listDemos($page, $where, $order);
     }
 
     /**
@@ -39,7 +39,7 @@ class DemoListProvider extends BaseProvider {
      *
      * @return Demo[]
      */
-    public function listProfile(int $page, array $where = []): array {
+    public function listProfile(int $page, array $where = [], string $order = 'DESC'): array {
         $query = $this->getQueryBuilder();
         $query->select('id')
             ->from('users')
@@ -66,7 +66,7 @@ class DemoListProvider extends BaseProvider {
             $query->where($query->expr()->eq('user_id',
                 $query->createNamedParameter($userIds[0], PDO::PARAM_INT)));
         }
-        $query->orderBy('demo_id', 'desc')
+        $query->orderBy('demo_id', $order)
             ->setMaxResults(50)
             ->setFirstResult(((int) $page - 1) * 50);
 

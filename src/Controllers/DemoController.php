@@ -120,12 +120,14 @@ class DemoController extends BaseController {
         $page = (int) $this->query('page', '1');
         $where = $this->getFilter();
         $where['players'][] = $steamId;
-        $this->json($this->demoListProvider->listProfile((int) $page, $where));
+        $order = 'ASC' === $this->query('order', 'DESC') ? 'ASC' : 'DESC';
+        $this->json($this->demoListProvider->listProfile((int) $page, $where, $order));
     }
 
     public function listUploads(string $steamId): void {
         $page = (int) $this->query('page', '1');
-        $this->json($this->demoListProvider->listUploads($steamId, (int) $page, $this->getFilter()));
+        $order = 'ASC' === $this->query('order', 'DESC') ? 'ASC' : 'DESC';
+        $this->json($this->demoListProvider->listUploads($steamId, (int) $page, $this->getFilter(), $order));
     }
 
     public function chat(string $demoId): void {
