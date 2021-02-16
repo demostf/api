@@ -29,8 +29,9 @@ jobs:
         with:
           php-version: '8.0'
           extensions: apcu
-      - uses: php-actions/composer@v5
-      - uses: php-actions/phpstan@v2
+      - name: Composer
+        run: composer install
+      - uses: php-actions/phpstan@v1
         with:
           error_format: github
           args: --level 6 src
@@ -55,7 +56,8 @@ jobs:
         with:
           php-version: '8.0'
           extensions: apcu
-      - uses: php-actions/composer@v5
+      - name: Composer
+        run: composer install
       - name: PHPUnit Tests
         uses: docker://icewind1991/php-alpine-apcu
         env:

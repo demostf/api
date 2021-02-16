@@ -22,7 +22,6 @@ $connectionParams = [
 if ('pgsql' === $connectionParams['driver']) {
     $connectionParams['driver'] = 'pdo_pgsql';
 }
-/** @phpstan-ignore-next-line */
 $db = DriverManager::getConnection($connectionParams);
 $host = getenv('BASE_HOST') ?: '';
 $storeRoot = getenv('DEMO_ROOT') ?: '';
