@@ -9,7 +9,7 @@ use Demostf\API\Data\User;
 use Doctrine\DBAL\Connection;
 use PDO;
 use RandomLib\Generator;
-use SteamId;
+use SteamCondenser\Community\SteamId;
 
 class UserProvider extends BaseProvider {
     /**
@@ -177,7 +177,7 @@ class UserProvider extends BaseProvider {
             return $existing->getId();
         }
 
-        $this->store(new SteamId($steamId, false), $name);
+        $this->store(new SteamId($steamId), $name);
 
         return $this->get($steamId)->getId();
     }

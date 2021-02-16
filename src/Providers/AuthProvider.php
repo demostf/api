@@ -6,7 +6,7 @@ namespace Demostf\API\Providers;
 
 use Doctrine\DBAL\Connection;
 use RandomLib\Generator;
-use SteamId;
+use SteamCondenser\Community\SteamId;
 
 class AuthProvider extends BaseProvider {
     /**

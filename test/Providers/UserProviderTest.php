@@ -8,6 +8,7 @@ use Demostf\API\Data\Player;
 use Demostf\API\Providers\PlayerProvider;
 use Demostf\API\Providers\UserProvider;
 use Demostf\API\Test\TestCase;
+use SteamCondenser\Community\SteamId;
 
 class UserProviderTest extends TestCase {
     /** @var UserProvider */
@@ -15,7 +16,7 @@ class UserProviderTest extends TestCase {
     /** @var PlayerProvider */
     private $playerProvider;
 
-    /** @var \SteamId */
+    /** @var SteamId */
     private $steamId;
 
     public function setUp(): void {

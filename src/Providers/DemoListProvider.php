@@ -25,7 +25,7 @@ class DemoListProvider extends BaseProvider {
 
         $result = $query->execute();
         $userId = $result->fetch(PDO::FETCH_COLUMN);
-        $result->closeCursor();
+        $result->free();
 
         $where['uploader'] = $userId;
 
@@ -48,7 +48,7 @@ class DemoListProvider extends BaseProvider {
         unset($where['players']);
         $result = $query->execute();
         $userIds = $result->fetchAll(PDO::FETCH_COLUMN);
-        $result->closeCursor();
+        $result->free();
 
         $query = $this->getQueryBuilder();
         $query->select('p.demo_id')
@@ -77,7 +77,7 @@ class DemoListProvider extends BaseProvider {
 
         $result = $query->execute();
         $demoIds = $result->fetchAll(PDO::FETCH_COLUMN);
-        $result->closeCursor();
+        $result->free();
 
         $query = $this->getQueryBuilder();
         $query->select('*')

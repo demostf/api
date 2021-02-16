@@ -74,7 +74,7 @@ class DemoProvider extends BaseProvider {
             ->from('demos')
             ->where($query->expr()->eq('hash', $query->createNamedParameter($hash)));
 
-        return (int) $query->execute()->fetchColumn();
+        return (int) $query->execute()->fetchOne();
     }
 
     public function storeDemo(Demo $demo, string $backend, string $path): int {

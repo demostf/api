@@ -4,17 +4,20 @@
 	"vlucas/phpdotenv": "^1.1",
 	"ircmaxell/random-lib": "^1.1",
 	"ehesp/steam-login": "^1.2",
-	"koraktor/steam-condenser": "^1.3",
+	"koraktor/steam-condenser": "dev-master#92dde9e3b462e93cc498fe795a712c61eec7051e",
 	"guzzlehttp/guzzle": "^6.5",
-	"doctrine/dbal": "^2.12",
+	"doctrine/dbal": "^3.0",
 	"ext-pdo": "*",
 	"ext-json": "*",
 	"ext-apcu": "*"
   },
+  "repositories": [
+	{
+	  "type": "git",
+	  "url": "https://github.com/koraktor/steam-condenser-php"
+	}
+  ],
   "autoload": {
-	"files": [
-	  "vendor/koraktor/steam-condenser/lib/steam-condenser.php"
-	],
 	"psr-4": {
 	  "Demostf\\API\\": "src/",
 	  "Demostf\\API\\Test\\": "test/"

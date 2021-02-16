@@ -6,6 +6,7 @@ namespace Demostf\API\Test;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
+use SteamCondenser\Community\SteamId;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase {
     /** @var Connection */
@@ -60,6 +61,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase {
     }
 
     protected function getSteamId($steamId, $_name) {
-        return new \SteamId($steamId, false);
+        return new SteamId($steamId);
     }
 }

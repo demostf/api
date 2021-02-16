@@ -10,7 +10,7 @@ use Ehesp\SteamLogin\SteamLogin;
 use Flight;
 use flight\net\Request;
 use flight\net\Response;
-use SteamId;
+use SteamCondenser\Community\SteamId;
 
 class AuthController extends BaseController {
     private UserProvider $userProvider;
