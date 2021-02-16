@@ -11,9 +11,11 @@ FROM icewind1991/php-alpine-apcu
 COPY --from=build /root/build/parser/target/x86_64-unknown-linux-musl/release/parse_demo /app/parse_demo
 COPY composer.json composer.lock /app/
 
-RUN wget https://getcomposer.org/composer.phar \
+RUN apk add --no-cache git \
+    && wget https://getcomposer.org/composer.phar \
     && php composer.phar --working-dir=/app install --no-dev --no-interaction --ignore-platform-reqs \
-    && rm composer.phar
+    && rm composer.phar \
+    && apk del git
 
 COPY src /app/src
 
