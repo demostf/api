@@ -74,8 +74,12 @@ Flight::map('error', function (\Throwable $ex) {
     if ($ex->getCode()) {
         $code = $ex->getCode();
     }
-    /** @var Response $response */
-    $response = Flight::response()->status($code);
+    $response = Flight::response();
+    if (array_key_exists($code, Response::$codes)) {
+        $response->status($code);
+    } else {
+        $response->status(500);
+    }
     $response->write($ex->getMessage())->send();
 });
 
