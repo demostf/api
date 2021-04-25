@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Demostf\API\Container;
 use Doctrine\DBAL\DriverManager;
 
-function get_magic_quotes_gpc() {
+function get_magic_quotes_gpc(): bool {
     return false;
 }
 
