@@ -66,9 +66,9 @@ class DemoSaverTest extends TestCase {
                 new ParsedPlayer('user2', 2, '2345678', 'blue', 'soldier'),
             ],
             [
-                new ParsedKill(1, 0, 2, 'pan'),
-                new ParsedKill(1, 2, 2, 'pan'),
-                new ParsedKill(2, 0, 1, 'pan'),
+                new ParsedKill(1, 0, 2),
+                new ParsedKill(1, 2, 2),
+                new ParsedKill(2, 0, 1),
             ]
         );
 

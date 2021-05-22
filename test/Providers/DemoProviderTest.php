@@ -129,9 +129,9 @@ class DemoProviderTest extends TestCase {
         $player3 = $this->addPlayer($id, 103, $user3->getId(), 'blue', 'engineer');
         $player4 = $this->addPlayer($id, 104, $user4->getId(), 'blue', 'spy');
 
-        $this->addKill($id, $user1->getId(), 0, $user3->getId(), 'pan');
-        $this->addKill($id, $user1->getId(), $user2->getId(), $user3->getId(), 'pan');
-        $this->addKill($id, $user4->getId(), 0, $user1->getId(), 'pan');
+        $this->addKill($id, $user1->getId(), 0, $user3->getId());
+        $this->addKill($id, $user1->getId(), $user2->getId(), $user3->getId());
+        $this->addKill($id, $user4->getId(), 0, $user1->getId());
 
         $retrieved = $this->provider->get($id, true);
         $this->assertInstanceOf(Demo::class, $retrieved);
@@ -155,8 +155,8 @@ class DemoProviderTest extends TestCase {
         return $this->playerProvider->store($player);
     }
 
-    private function addKill(int $demoId, int $attackerId, int $assisterId, int $victimId, string $weapon): int {
-        $kill = new Kill(0, $demoId, $attackerId, $assisterId, $victimId, $weapon);
+    private function addKill(int $demoId, int $attackerId, int $assisterId, int $victimId): int {
+        $kill = new Kill(0, $demoId, $attackerId, $assisterId, $victimId);
 
         return $this->killProvider->store($kill);
     }

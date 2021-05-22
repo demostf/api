@@ -8,13 +8,11 @@ class ParsedKill {
     private int $attackerDemoId;
     private int $assisterDemoId;
     private int $victimDemoId;
-    private string $weapon;
 
-    public function __construct(int $attackerDemoId, int $assisterDemoId, int $victimDemoId, string $weapon) {
+    public function __construct(int $attackerDemoId, int $assisterDemoId, int $victimDemoId) {
         $this->attackerDemoId = $attackerDemoId;
         $this->assisterDemoId = $assisterDemoId;
         $this->victimDemoId = $victimDemoId;
-        $this->weapon = $weapon;
     }
 
     public function getAttackerDemoId(): int {
@@ -27,9 +25,5 @@ class ParsedKill {
 
     public function getVictimDemoId(): int {
         return $this->victimDemoId;
-    }
-
-    public function getWeapon(): string {
-        return $this->weapon;
     }
 }

@@ -88,8 +88,7 @@ class DemoSaver {
                 $demoId,
                 $userMap[$kill->getAttackerDemoId()] ?? 0,
                 $userMap[$kill->getAssisterDemoId()] ?? 0,
-                $userMap[$kill->getVictimDemoId()] ?? 0,
-                $kill->getWeapon()
+                $userMap[$kill->getVictimDemoId()] ?? 0
             ));
         }
 

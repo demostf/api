@@ -59,7 +59,6 @@ class ParserTest extends TestCase {
         $this->assertEquals((int) $expectedKills[0]['killer'], $result->getKills()[0]->getAttackerDemoId());
         $this->assertEquals((int) $expectedKills[0]['assister'], $result->getKills()[0]->getAssisterDemoId());
         $this->assertEquals((int) $expectedKills[0]['victim'], $result->getKills()[0]->getVictimDemoId());
-        $this->assertEquals($expectedKills[0]['weapon'], $result->getKills()[0]->getWeapon());
     }
 
     public function testFailedParse() {

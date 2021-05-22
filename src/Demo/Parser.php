@@ -93,8 +93,7 @@ class Parser {
         });
         /** @var ParsedKill[] $kills */
         $kills = array_map(function (array $death) {
-            return new ParsedKill($death['killer'] ?? 0, $death['assister'] ?? 0, $death['victim'] ?? 0,
-                $death['weapon']);
+            return new ParsedKill($death['killer'] ?? 0, $death['assister'] ?? 0, $death['victim'] ?? 0);
         }, $deaths);
         $activityMap = [];
         foreach ($kills as $kill) {
