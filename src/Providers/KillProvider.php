@@ -15,8 +15,6 @@ class KillProvider extends BaseProvider {
                 'attacker_id' => $query->createNamedParameter($kill->getAttackerId()),
                 'assister_id' => $query->createNamedParameter($kill->getAssisterId()),
                 'victim_id' => $query->createNamedParameter($kill->getVictimId()),
-                'created_at' => 'now()',
-                'updated_at' => 'now()',
             ]);
         $query->execute();
 

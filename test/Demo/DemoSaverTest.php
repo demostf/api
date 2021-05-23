@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Demostf\API\Test\Demo;
 
+use Demostf\API\Data\DemoPlayer;
 use Demostf\API\Data\ParsedDemo;
 use Demostf\API\Data\ParsedKill;
 use Demostf\API\Data\ParsedPlayer;
@@ -95,19 +96,24 @@ class DemoSaverTest extends TestCase {
 
         $this->assertEquals('user2', $retrievedDemo->getUploaderUser()->getName());
 
-        $this->assertEquals('user2', $retrievedDemo->getPlayers()[0]->getName());
-        $this->assertEquals(1, $retrievedDemo->getPlayers()[0]->getKills());
-        $this->assertEquals(1, $retrievedDemo->getPlayers()[0]->getAssists());
-        $this->assertEquals(2, $retrievedDemo->getPlayers()[0]->getDeaths());
-        $this->assertEquals('blue', $retrievedDemo->getPlayers()[0]->getTeam());
-        $this->assertEquals('soldier', $retrievedDemo->getPlayers()[0]->getClass());
+        $players = $retrievedDemo->getPlayers();
+        usort($players, function(DemoPlayer $a, DemoPlayer $b) {
+            return $a->getName() <=> $b->getName();
+        });
 
-        $this->assertEquals('user1', $retrievedDemo->getPlayers()[1]->getName());
-        $this->assertEquals(2, $retrievedDemo->getPlayers()[1]->getKills());
-        $this->assertEquals(0, $retrievedDemo->getPlayers()[1]->getAssists());
-        $this->assertEquals(1, $retrievedDemo->getPlayers()[1]->getDeaths());
-        $this->assertEquals('red', $retrievedDemo->getPlayers()[1]->getTeam());
-        $this->assertEquals('scout', $retrievedDemo->getPlayers()[1]->getClass());
+        $this->assertEquals('user1', $players[0]->getName());
+        $this->assertEquals(2, $players[0]->getKills());
+        $this->assertEquals(0, $players[0]->getAssists());
+        $this->assertEquals(1, $players[0]->getDeaths());
+        $this->assertEquals('red', $players[0]->getTeam());
+        $this->assertEquals('scout', $players[0]->getClass());
+
+        $this->assertEquals('user2', $players[1]->getName());
+        $this->assertEquals(1, $players[1]->getKills());
+        $this->assertEquals(1, $players[1]->getAssists());
+        $this->assertEquals(2, $players[1]->getDeaths());
+        $this->assertEquals('blue', $players[1]->getTeam());
+        $this->assertEquals('soldier', $players[1]->getClass());
 
         $this->assertEquals([
             new ChatMessage('user1', 12, 'msg1'),

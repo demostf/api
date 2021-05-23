@@ -17,8 +17,6 @@ class PlayerProvider extends BaseProvider {
                 'name' => $query->createNamedParameter($player->getName()),
                 'team' => $query->createNamedParameter($player->getTeam()),
                 'class' => $query->createNamedParameter($player->getClass()),
-                'created_at' => 'now()',
-                'updated_at' => 'now()',
             ]);
         $query->execute();
 

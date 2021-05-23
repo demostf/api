@@ -38,8 +38,6 @@ class ChatProvider extends BaseProvider {
                 'text' => $query->createNamedParameter($message->getMessage()),
                 '"from"' => $query->createNamedParameter($message->getUser()),
                 'time' => $query->createNamedParameter($message->getTime(), PDO::PARAM_INT),
-                'created_at' => 'now()',
-                'updated_at' => 'now()',
             ]);
         $query->execute();
     }
