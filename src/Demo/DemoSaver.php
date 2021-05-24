@@ -5,20 +5,17 @@ declare(strict_types=1);
 namespace Demostf\API\Demo;
 
 use DateTime;
-use Demostf\API\Data\Kill;
 use Demostf\API\Data\ParsedDemo;
 use Demostf\API\Data\Player;
 use Demostf\API\Data\StoredDemo;
 use Demostf\API\Data\Upload;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoProvider;
-use Demostf\API\Providers\KillProvider;
 use Demostf\API\Providers\PlayerProvider;
 use Demostf\API\Providers\UserProvider;
 use Doctrine\DBAL\Connection;
 
 class DemoSaver {
-    private KillProvider $killProvider;
     private PlayerProvider $playerProvider;
     private ChatProvider $chatProvider;
     private UserProvider $userProvider;
@@ -26,14 +23,12 @@ class DemoSaver {
     private Connection $connection;
 
     public function __construct(
-        KillProvider $killProvider,
         PlayerProvider $playerProvider,
         ChatProvider $chatProvider,
         UserProvider $userProvider,
         DemoProvider $demoProvider,
         Connection $connection
     ) {
-        $this->killProvider = $killProvider;
         $this->playerProvider = $playerProvider;
         $this->chatProvider = $chatProvider;
         $this->userProvider = $userProvider;
@@ -42,9 +37,6 @@ class DemoSaver {
     }
 
     public function saveDemo(ParsedDemo $demo, Header $header, StoredDemo $storedDemo, Upload $upload): int {
-        /** @var int[] $userMap [$demoUserId => $dbUserId] */
-        $userMap = [0 => 0];
-
         $this->connection->beginTransaction();
 
         $demoId = $this->demoProvider->storeDemo(new Demo(
@@ -67,9 +59,30 @@ class DemoSaver {
             $storedDemo->getPath()
         ), $storedDemo->getBackend(), $storedDemo->getPath());
 
+        $kills = [];
+        $assists = [];
+        $deaths = [];
+
+        foreach ($demo->getPlayers() as $player) {
+            $kills[$player->getDemoUserId()] = 0;
+            $assists[$player->getDemoUserId()] = 0;
+            $deaths[$player->getDemoUserId()] = 0;
+        }
+
+        foreach ($demo->getKills() as $kill) {
+            if ($kill->getAttackerDemoId()) {
+                $kills[$kill->getAttackerDemoId()]++;
+            }
+            if ($kill->getAssisterDemoId()) {
+                $assists[$kill->getAssisterDemoId()]++;
+            }
+            if ($kill->getVictimDemoId()) {
+                $deaths[$kill->getVictimDemoId()]++;
+            }
+        }
+
         foreach ($demo->getPlayers() as $player) {
             $userId = $this->userProvider->getUserId($player->getSteamId(), $player->getName());
-            $userMap[$player->getDemoUserId()] = $userId;
 
             $this->playerProvider->store(new Player(
                 0,
@@ -78,17 +91,10 @@ class DemoSaver {
                 $userId,
                 $player->getName(),
                 $player->getTeam(),
-                $player->getClass()
-            ));
-        }
-
-        foreach ($demo->getKills() as $kill) {
-            $this->killProvider->store(new Kill(
-                0,
-                $demoId,
-                $userMap[$kill->getAttackerDemoId()] ?? 0,
-                $userMap[$kill->getAssisterDemoId()] ?? 0,
-                $userMap[$kill->getVictimDemoId()] ?? 0
+                $player->getClass(),
+                $kills[$player->getDemoUserId()],
+                $assists[$player->getDemoUserId()],
+                $deaths[$player->getDemoUserId()]
             ));
         }
 

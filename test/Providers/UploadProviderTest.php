@@ -16,7 +16,6 @@ use Demostf\API\Demo\RawParser;
 use Demostf\API\Error\InvalidKeyException;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoProvider;
-use Demostf\API\Providers\KillProvider;
 use Demostf\API\Providers\PlayerProvider;
 use Demostf\API\Providers\UploadProvider;
 use Demostf\API\Providers\UserProvider;
@@ -76,7 +75,6 @@ class UploadProviderTest extends TestCase {
         $this->userProvider = new UserProvider($this->getDatabaseConnection(), $this->getRandomGenerator());
         $this->demoProvider = new DemoProvider($this->getDatabaseConnection(), $this->userProvider);
         $this->demoSaver = new DemoSaver(
-            new KillProvider($this->getDatabaseConnection()),
             new PlayerProvider($this->getDatabaseConnection()),
             new ChatProvider($this->getDatabaseConnection()),
             $this->userProvider,

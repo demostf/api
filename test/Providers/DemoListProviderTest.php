@@ -138,7 +138,7 @@ class DemoListProviderTest extends TestCase {
     }
 
     private function addPlayer($demoId, $userId) {
-        $player = new Player(0, $demoId, 0, $userId, 'foo', 'red', 'scout');
+        $player = new Player(0, $demoId, 0, $userId, 'foo', 'red', 'scout', 1, 2, 3);
         $this->playerProvider->store($player);
     }
 

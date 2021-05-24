@@ -15,7 +15,6 @@ use Demostf\API\Demo\DemoSaver;
 use Demostf\API\Demo\Header;
 use Demostf\API\Providers\ChatProvider;
 use Demostf\API\Providers\DemoProvider;
-use Demostf\API\Providers\KillProvider;
 use Demostf\API\Providers\PlayerProvider;
 use Demostf\API\Providers\UserProvider;
 use Demostf\API\Test\TestCase;
@@ -74,7 +73,6 @@ class DemoSaverTest extends TestCase {
         );
 
         $saver = new DemoSaver(
-            new KillProvider($this->getDatabaseConnection()),
             new PlayerProvider($this->getDatabaseConnection()),
             $chatProvider,
             $userProvider,

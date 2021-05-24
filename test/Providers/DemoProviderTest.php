@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Demostf\API\Test\Providers;
 
 use Demostf\API\Data\DemoPlayer;
-use Demostf\API\Data\Kill;
 use Demostf\API\Data\Player;
 use Demostf\API\Demo\Demo;
 use Demostf\API\Providers\DemoProvider;
-use Demostf\API\Providers\KillProvider;
 use Demostf\API\Providers\PlayerProvider;
 use Demostf\API\Providers\UserProvider;
 use Demostf\API\Test\TestCase;
@@ -24,16 +22,12 @@ class DemoProviderTest extends TestCase {
     /** @var PlayerProvider */
     private $playerProvider;
 
-    /** @var KillProvider */
-    private $killProvider;
-
     public function setUp(): void {
         parent::setUp();
 
         $this->userProvider = new UserProvider($this->getDatabaseConnection(), $this->getRandomGenerator());
         $this->provider = new DemoProvider($this->getDatabaseConnection(), $this->userProvider);
         $this->playerProvider = new PlayerProvider($this->getDatabaseConnection());
-        $this->killProvider = new KillProvider($this->getDatabaseConnection());
     }
 
     public function testGetNonExisting() {
@@ -124,14 +118,10 @@ class DemoProviderTest extends TestCase {
         );
 
         $id = $this->provider->storeDemo($demo, 'dummy', 'path');
-        $player1 = $this->addPlayer($id, 101, $user1->getId(), 'red', 'scout');
-        $player2 = $this->addPlayer($id, 102, $user2->getId(), 'red', 'soldier');
-        $player3 = $this->addPlayer($id, 103, $user3->getId(), 'blue', 'engineer');
-        $player4 = $this->addPlayer($id, 104, $user4->getId(), 'blue', 'spy');
-
-        $this->addKill($id, $user1->getId(), 0, $user3->getId());
-        $this->addKill($id, $user1->getId(), $user2->getId(), $user3->getId());
-        $this->addKill($id, $user4->getId(), 0, $user1->getId());
+        $player1 = $this->addPlayer($id, 101, $user1->getId(), 'red', 'scout', 2, 0, 1);
+        $player2 = $this->addPlayer($id, 102, $user2->getId(), 'red', 'soldier', 0, 1, 0);
+        $player3 = $this->addPlayer($id, 103, $user3->getId(), 'blue', 'engineer', 0, 0, 2);
+        $player4 = $this->addPlayer($id, 104, $user4->getId(), 'blue', 'spy', 1, 0, 0);
 
         $retrieved = $this->provider->get($id, true);
         $this->assertInstanceOf(Demo::class, $retrieved);
@@ -149,16 +139,20 @@ class DemoProviderTest extends TestCase {
         ], $players);
     }
 
-    private function addPlayer(int $demoId, int $demoUserId, int $userId, string $team, string $class): int {
-        $player = new Player(0, $demoId, $demoUserId, $userId, 'user_' . $userId, $team, $class);
+    private function addPlayer(
+        int $demoId,
+        int $demoUserId,
+        int $userId,
+        string $team,
+        string $class,
+        int $kills,
+        int $assist,
+        int $deaths
+    ): int {
+        $player = new Player(0, $demoId, $demoUserId, $userId, 'user_' . $userId, $team, $class, $kills, $assist,
+            $deaths);
 
         return $this->playerProvider->store($player);
-    }
-
-    private function addKill(int $demoId, int $attackerId, int $assisterId, int $victimId): int {
-        $kill = new Kill(0, $demoId, $attackerId, $assisterId, $victimId);
-
-        return $this->killProvider->store($kill);
     }
 
     public function testSetDemoUrl() {

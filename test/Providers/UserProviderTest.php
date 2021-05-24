@@ -75,7 +75,10 @@ class UserProviderTest extends TestCase {
             $user->getId(),
             $user->getName(),
             'red',
-            'scout'
+            'scout',
+            1,
+            1,
+            1
         ));
 
         $this->getDatabaseConnection()->query('REFRESH MATERIALIZED VIEW name_list');

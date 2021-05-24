@@ -33,11 +33,8 @@ class DemoProvider extends BaseProvider {
 
     public function get(int $id, bool $fetchDetails = true): ?Demo {
         // sql magic
-        $sql = 'WITH demokills AS (SELECT attacker_id, assister_id, victim_id FROM kills WHERE demo_id = ?)
-		SELECT players.id, user_id, players.name, team, class, users.steamid, users.avatar,
-		(SELECT COUNT(*) FROM demokills WHERE attacker_id=players.user_id) AS kills,
-		(SELECT COUNT(*) FROM demokills WHERE assister_id=players.user_id) AS assists,
-		(SELECT COUNT(*) FROM demokills WHERE victim_id=players.user_id) AS deaths
+        $sql = '
+		SELECT players.id, user_id, players.name, team, class, users.steamid, users.avatar, players.kills, players.assists, players.deaths
 		FROM players
 		INNER JOIN users ON players.user_id = users.id
 		WHERE demo_id = ?';
@@ -49,7 +46,7 @@ class DemoProvider extends BaseProvider {
 
         if ($fetchDetails) {
             $uploader = $this->userProvider->getById($demo->getUploader());
-            $playerQuery = $this->connection->executeQuery($sql, [$demo->getId(), $demo->getId()]);
+            $playerQuery = $this->connection->executeQuery($sql, [$demo->getId()]);
             $players = $playerQuery->fetchAll(PDO::FETCH_ASSOC);
 
             $demo->setUploaderUser($uploader);

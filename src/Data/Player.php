@@ -12,8 +12,22 @@ class Player {
     private string $name;
     private string $team;
     private string $class;
+    private int $kills;
+    private int $assists;
+    private int $deaths;
 
-    public function __construct(int $id, int $demoId, int $demoUserId, int $userId, string $name, string $team, string $class) {
+    public function __construct(
+        int $id,
+        int $demoId,
+        int $demoUserId,
+        int $userId,
+        string $name,
+        string $team,
+        string $class,
+        int $kills,
+        int $assists,
+        int $deaths
+    ) {
         $this->id = $id;
         $this->demoId = $demoId;
         $this->demoUserId = $demoUserId;
@@ -21,6 +35,9 @@ class Player {
         $this->name = $name;
         $this->team = $team;
         $this->class = $class;
+        $this->kills = $kills;
+        $this->assists = $assists;
+        $this->deaths = $deaths;
     }
 
     public function getId(): int {
@@ -49,5 +66,17 @@ class Player {
 
     public function getClass(): string {
         return $this->class;
+    }
+
+    public function getKills(): int {
+        return $this->kills;
+    }
+
+    public function getAssists(): int {
+        return $this->assists;
+    }
+
+    public function getDeaths(): int {
+        return $this->deaths;
     }
 }
