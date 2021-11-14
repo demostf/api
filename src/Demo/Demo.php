@@ -26,7 +26,7 @@ class Demo implements JsonSerializable {
     private int $uploader;
     private ?User $uploaderUser;
     /** @var DemoPlayer[] */
-    private array $players;
+    private ?array $players;
     private string $hash;
     private string $backend;
     private string $path;
@@ -67,7 +67,7 @@ class Demo implements JsonSerializable {
         $this->hash = $hash;
         $this->backend = $backend;
         $this->path = $path;
-        $this->players = [];
+        $this->players = null;
         $this->uploaderUser = null;
     }
 
@@ -163,9 +163,9 @@ class Demo implements JsonSerializable {
     }
 
     /**
-     * @return DemoPlayer[]
+     * @return DemoPlayer[]|null
      */
-    public function getPlayers(): array {
+    public function getPlayers(): ?array {
         return $this->players;
     }
 
@@ -208,7 +208,7 @@ class Demo implements JsonSerializable {
             'backend' => $this->getBackend(),
             'path' => $this->getPath(),
         ];
-        if ($this->players) {
+        if (is_array($this->players)) {
             $data['players'] = $this->getPlayers();
         }
 

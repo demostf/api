@@ -68,6 +68,7 @@ class DemoProviderTest extends TestCase {
 
         $storedData = $demo->jsonSerialize();
         $storedData['id'] = $id;
+        $storedData['players'] = [];
 
         $this->assertEquals($storedData, $retrieved->jsonSerialize());
 
