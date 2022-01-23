@@ -7,12 +7,9 @@ namespace Demostf\API\Data;
 use JsonSerializable;
 
 class SteamUser implements JsonSerializable {
-    /** @var int */
-    private $id;
-    /** @var string */
-    private $steamId;
-    /** @var string */
-    private $name;
+    private int $id;
+    private string $steamId;
+    private string $name;
 
     public function __construct(int $id, string $steamId, string $name) {
         $this->id = $id;
@@ -31,7 +28,10 @@ class SteamUser implements JsonSerializable {
     public function getName(): string {
         return $this->name;
     }
-
+    /**
+     * @return array{'id': int, 'name': string, 'steamid': string}
+     */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return [
             'id' => $this->getId(),

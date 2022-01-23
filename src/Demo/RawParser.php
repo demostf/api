@@ -13,8 +13,7 @@ use GuzzleHttp\Exception\RequestException;
  * Doesn't do any post-processing on the result
  */
 class RawParser {
-    /** @var string */
-    private $parserPath;
+    private string $parserPath;
 
     public function __construct(string $parserPath) {
         $this->parserPath = $parserPath;

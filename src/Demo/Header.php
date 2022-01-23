@@ -8,60 +8,17 @@ namespace Demostf\API\Demo;
  * HL2 demo metadata.
  */
 class Header {
-    /**
-     * @var string
-     */
-    protected $type;
-
-    /**
-     * @var int
-     */
-    protected $version;
-
-    /**
-     * @var int
-     */
-    protected $protocol;
-
-    /**
-     * @var string
-     */
-    protected $server;
-
-    /**
-     * @var string
-     */
-    protected $nick;
-
-    /**
-     * @var string
-     */
-    protected $map;
-
-    /**
-     * @var string
-     */
-    protected $game;
-
-    /**
-     * @var float
-     */
-    protected $duration;
-
-    /**
-     * @var int
-     */
-    protected $ticks;
-
-    /**
-     * @var int
-     */
-    protected $frames;
-
-    /**
-     * @var int
-     */
-    protected $sigon;
+    protected string $type;
+    protected int $version;
+    protected int $protocol;
+    protected string $server;
+    protected string $nick;
+    protected string $map;
+    protected string $game;
+    protected float $duration;
+    protected int $ticks;
+    protected int $frames;
+    protected int $sigon;
 
     public function __construct(
         string $type,

@@ -28,8 +28,7 @@ class Parser {
         9 => 'engineer',
     ];
 
-    /** @var RawParser */
-    private $rawParser;
+    private RawParser $rawParser;
 
     public function __construct(RawParser $rawParser) {
         $this->rawParser = $rawParser;

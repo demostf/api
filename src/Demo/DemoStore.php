@@ -7,10 +7,8 @@ namespace Demostf\API\Demo;
 use Demostf\API\Data\StoredDemo;
 
 class DemoStore {
-    /** @var string */
-    private $root;
-    /** @var string */
-    private $webRoot;
+    private string $root;
+    private string $webRoot;
 
     public function __construct(string $root, string $webRoot) {
         $this->root = $root;

@@ -188,6 +188,16 @@ class Demo implements JsonSerializable {
         return $this->path;
     }
 
+    /**
+     * @return array{
+     *     'id': int, 'url': string, 'name': string,
+     *     'server': string, 'duration': float, 'nick': string,
+     *     'map': string, 'time': int, 'red': string, 'blue': string,
+     *     'redScore': int, 'blueScore': int, 'playerCount': int,
+     *     'uploader': array, 'hash': string, 'backend': string, 'path': string
+     * }
+     */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize() {
         $data = [
             'id' => $this->getId(),

@@ -34,7 +34,10 @@ class User implements JsonSerializable {
     public function getToken(): string {
         return $this->token;
     }
-
+    /**
+     * @return array{'id': int, 'name': string, 'steamid': string}
+     */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return [
             'id' => $this->getId(),
