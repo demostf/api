@@ -1,6 +1,6 @@
 FROM icewind1991/php-alpine-apcu
 
-RUN wget -q https://github.com/demostf/parser/releases/download/v0.3.3/parse_demo -O /app/parse_demo && \
+RUN wget -q https://github.com/demostf/parser/releases/download/v0.4.0/parse_demo -O /app/parse_demo && \
     chmod +x /app/parse_demo
 COPY composer.json composer.lock /app/
 
