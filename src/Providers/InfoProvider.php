@@ -12,8 +12,9 @@ class InfoProvider extends BaseProvider {
      */
     public function listMaps(): array {
         $query = $this->getQueryBuilder();
-        $query->select('map', 'count')
-            ->from('map_list');
+        $query->select('map')
+            ->from('map_list')
+            ->orderBy('count', 'DESC');
         $result = $query->execute();
 
         return $result->fetchAll(PDO::FETCH_COLUMN);
