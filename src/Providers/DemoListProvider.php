@@ -40,12 +40,14 @@ class DemoListProvider extends BaseProvider {
      * @return Demo[]
      */
     public function listProfile(int $page, array $where = [], string $order = 'DESC'): array {
+        $players = $where['players'];
+        unset($where['players']);
+
         $query = $this->getQueryBuilder();
         $query->select('id')
             ->from('users')
             ->where($query->expr()->in('steamid',
-                $query->createNamedParameter($where['players'], Connection::PARAM_STR_ARRAY)));
-        unset($where['players']);
+                $query->createNamedParameter($players, Connection::PARAM_STR_ARRAY)));
         $result = $query->execute();
         $userIds = $result->fetchAll(PDO::FETCH_COLUMN);
         $result->free();
@@ -54,7 +56,10 @@ class DemoListProvider extends BaseProvider {
         $query->select('p.demo_id')
             ->from('players', 'p');
 
-        if (\count($userIds) > 1) {
+        if (\count($userIds) != count($players)) {
+            // one of more user ids don't have any demos
+            return [];
+        } else if (\count($userIds) > 1) {
             $query->where($query->expr()->in('user_id',
                 $query->createNamedParameter($userIds, Connection::PARAM_INT_ARRAY)))
                 ->groupBy('demo_id')
