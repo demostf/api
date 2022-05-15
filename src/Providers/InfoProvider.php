@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Demostf\API\Providers;
 
-use PDO;
-
 class InfoProvider extends BaseProvider {
     /**
      * @return string[]

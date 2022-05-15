@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Demostf\API\Demo;
 
 use Exception;
-use GuzzleHttp\Exception\RequestException;
+use JsonException;
 
 /**
  * Wrapper around demo.js parser.
@@ -28,13 +28,13 @@ class RawParser {
         try {
             $command = $this->parserPath . ' ' . escapeshellarg($path);
             $output = shell_exec($command);
-            $result = \GuzzleHttp\json_decode($output, true);
+            $result = json_decode($output, true, 512, \JSON_THROW_ON_ERROR);
             if (null === $result) {
                 throw new Exception('Failed to parse demo, unexpected result from parser');
             } else {
                 return $result;
             }
-        } catch (RequestException $e) {
+        } catch (JsonException $e) {
             throw new Exception('Failed to parse demo, ' . $e->getMessage());
         }
     }

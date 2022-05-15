@@ -11,7 +11,7 @@ use Doctrine\DBAL\Connection;
 use PDO;
 
 class DemoProvider extends BaseProvider {
-    const VERSION = 4;
+    public const VERSION = 4;
 
     private UserProvider $userProvider;
 

@@ -16,7 +16,7 @@ use InvalidArgumentException;
  * Processes the raw demo.js output to something more suitable for our purpose
  */
 class Parser {
-    const CLASSES = [
+    public const CLASSES = [
         1 => 'scout',
         2 => 'sniper',
         3 => 'soldier',
@@ -123,7 +123,7 @@ class Parser {
                     $class = $classId;
                 }
             }
-            if ($player['steamId'] && 'BOT' !== $player['steamId']) {//skip spectators
+            if ($player['steamId'] && 'BOT' !== $player['steamId']) {// skip spectators
                 $players[] = new ParsedPlayer(
                     $player['name'],
                     $player['userId'],

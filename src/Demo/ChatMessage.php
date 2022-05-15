@@ -35,8 +35,7 @@ class ChatMessage implements JsonSerializable {
     /**
      * @return array{'user': string, 'time': int, 'message': string}
      */
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         return [
             'user' => $this->user,
             'time' => $this->time,
@@ -44,8 +43,11 @@ class ChatMessage implements JsonSerializable {
         ];
     }
 
-    public static function fromRow(array $row): ChatMessage {
-        return new ChatMessage(
+    /**
+     * @param array{'from': string, 'time': string, 'text': string} $row
+     */
+    public static function fromRow(array $row): self {
+        return new self(
             $row['from'],
             (int) $row['time'],
             $row['text']

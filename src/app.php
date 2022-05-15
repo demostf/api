@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Demostf\API;
 
-use Demostf\API\Error\InvalidHashException;
-use Demostf\API\Error\InvalidKeyException;
 use Flight;
 use flight\net\Response;
 
@@ -75,7 +73,7 @@ Flight::map('error', function (\Throwable $ex) {
         $code = $ex->getCode();
     }
     $response = Flight::response();
-    if (array_key_exists($code, Response::$codes)) {
+    if (\array_key_exists($code, Response::$codes)) {
         $response->status($code);
     } else {
         $response->status(500);

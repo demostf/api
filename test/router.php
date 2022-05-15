@@ -32,14 +32,14 @@ if ('/upload' === $_SERVER['REQUEST_URI']) {
     require __DIR__ . '/../src/public/index.php';
 }
 
-function clearDatabase(\Doctrine\DBAL\Connection $connection) {
+function clearDatabase(Doctrine\DBAL\Connection $connection) {
     $tables = $connection->getSchemaManager()->listTables();
     foreach ($tables as $table) {
         truncateTable($connection, $table->getName());
     }
 }
 
-function truncateTable(\Doctrine\DBAL\Connection $connection, string $tableName) {
+function truncateTable(Doctrine\DBAL\Connection $connection, string $tableName) {
     $sql = sprintf('TRUNCATE TABLE %s;', $tableName);
     $connection->query($sql);
 }

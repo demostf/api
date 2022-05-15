@@ -31,11 +31,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase {
         return $this->database;
     }
 
-    public function setUp(): void {
+    protected function setUp(): void {
         parent::setUp();
     }
 
-    public function tearDown(): void {
+    protected function tearDown(): void {
         $this->clearDatabase();
         parent::tearDown();
     }

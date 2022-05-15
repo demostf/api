@@ -136,7 +136,25 @@ class Demo implements JsonSerializable {
     }
 
     /**
-     * @param mixed[] $row
+     * @param array{
+     *     'id': string,
+     *     'url': string,
+     *     'name': string,
+     *     'server': string,
+     *     'duration': string,
+     *     'nick': string,
+     *     'map': string,
+     *     'created_at': string,
+     *     'red': string,
+     *     'blu': string,
+     *     'scoreRed': string,
+     *     'scoreBlue': string,
+     *     'playerCount': string,
+     *     'uploader': string,
+     *     'hash': string,
+     *     'backend': string,
+     *     'path': string,
+     * } $row
      *
      * @return Demo
      */
@@ -190,15 +208,27 @@ class Demo implements JsonSerializable {
 
     /**
      * @return array{
-     *     'id': int, 'url': string, 'name': string,
-     *     'server': string, 'duration': float, 'nick': string,
-     *     'map': string, 'time': int, 'red': string, 'blue': string,
-     *     'redScore': int, 'blueScore': int, 'playerCount': int,
-     *     'uploader': array, 'hash': string, 'backend': string, 'path': string
+     *     'id': int,
+     *     'url': string,
+     *     'name': string,
+     *     'server': string,
+     *     'duration': float,
+     *     'nick': string,
+     *     'map': string,
+     *     'time': int,
+     *     'red': string,
+     *     'blue': string,
+     *     'redScore': int,
+     *     'blueScore': int,
+     *     'playerCount': int,
+     *     'uploader': User|int,
+     *     'hash': string,
+     *     'backend': string,
+     *     'path': string,
+     *     'players': ?DemoPlayer
      * }
      */
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize() {
+    public function jsonSerialize(): array {
         $data = [
             'id' => $this->getId(),
             'url' => $this->getUrl(),
@@ -218,7 +248,7 @@ class Demo implements JsonSerializable {
             'backend' => $this->getBackend(),
             'path' => $this->getPath(),
         ];
-        if (is_array($this->players)) {
+        if (\is_array($this->players)) {
             $data['players'] = $this->getPlayers();
         }
 

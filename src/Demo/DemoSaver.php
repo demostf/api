@@ -71,13 +71,13 @@ class DemoSaver {
 
         foreach ($demo->getKills() as $kill) {
             if ($kill->getAttackerDemoId()) {
-                $kills[$kill->getAttackerDemoId()]++;
+                ++$kills[$kill->getAttackerDemoId()];
             }
             if ($kill->getAssisterDemoId()) {
-                $assists[$kill->getAssisterDemoId()]++;
+                ++$assists[$kill->getAssisterDemoId()];
             }
             if ($kill->getVictimDemoId()) {
-                $deaths[$kill->getVictimDemoId()]++;
+                ++$deaths[$kill->getVictimDemoId()];
             }
         }
 

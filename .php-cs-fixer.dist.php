@@ -4,8 +4,9 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('vendor')
     ->in(__DIR__);
 
-return PhpCsFixer\Config::create()
-    ->setRules([
+
+$config = new PhpCsFixer\Config();
+return $config->setRules([
         '@PSR2' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,

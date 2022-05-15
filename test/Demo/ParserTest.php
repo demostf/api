@@ -14,7 +14,7 @@ class ParserTest extends TestCase {
     /** @var RawParser|MockObject */
     private $rawParser;
 
-    public function setUp(): void {
+    protected function setUp(): void {
         parent::setUp();
 
         $this->rawParser = $this->getMockBuilder(RawParser::class)

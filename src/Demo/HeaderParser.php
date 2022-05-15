@@ -14,7 +14,7 @@ class HeaderParser {
      */
     public function parseString(string $head): Header {
         $info = @unpack(
-            'A8type/Iversion/Iprotocol/A260server/A260nick/A260map/A260game/fduration/Vticks/Vframes/Vsigon',
+            'A8type/Iversion/Iprotocol/A260server/A260nick/A260map/A260game/fduration/Vticks/Vframes/Vsingon',
             $head
         );
         if (!isset($info['type']) || 'HL2DEMO' !== $info['type']) {

@@ -40,8 +40,8 @@ class DemoController extends BaseController {
 
     public function get(string $id): void {
         $demo = $this->demoProvider->get(\intval($id, 10));
-        if ($demo === null) {
-            throw new NotFoundException("requested demo not found");
+        if (null === $demo) {
+            throw new NotFoundException('requested demo not found');
         } else {
             $this->json($demo);
         }
@@ -146,7 +146,7 @@ class DemoController extends BaseController {
 
         $demo = $this->demoProvider->get((int) $id);
         if (!$demo) {
-            throw new NotFoundException("Demo not found");
+            throw new NotFoundException('Demo not found');
         }
 
         $existingHash = $demo->getHash();

@@ -87,8 +87,7 @@ class DemoPlayer implements JsonSerializable {
     /**
      * @return array{'id': int, 'user_id': int, 'name': string, 'team': string, 'class': string, 'steamid': string, 'kills': int, 'assists': int, 'deaths': int}
      */
-    #[\ReturnTypeWillChange]
-    public function jsonSerialize():array {
+    public function jsonSerialize(): array {
         return [
             'id' => $this->getId(),
             'user_id' => $this->getUserId(),

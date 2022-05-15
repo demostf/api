@@ -49,7 +49,7 @@ class UploadProviderTest extends TestCase {
     /**
      * @throws ReflectionException
      */
-    public function setUp(): void {
+    protected function setUp(): void {
         parent::setUp();
 
         $this->rawParser = $this->getMockBuilder(RawParser::class)
@@ -111,7 +111,7 @@ class UploadProviderTest extends TestCase {
         rmdir($dir);
     }
 
-    public function tearDown(): void {
+    protected function tearDown(): void {
         $this->rmdirr($this->tmpDir);
 
         parent::tearDown();

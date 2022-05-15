@@ -34,13 +34,8 @@ class BaseController {
         return $this->request->data[$name] ?? $default;
     }
 
-    /**
-     * @param mixed $data
-     *
-     * @throws \Exception
-     */
     protected function json(
-        $data,
+        mixed $data,
         int $code = 200,
         bool $encode = true,
         string $charset = 'utf-8',

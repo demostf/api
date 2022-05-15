@@ -32,7 +32,7 @@ Flight::map('error', function (\Throwable $ex) {
     }
     /** @var Response $response */
     $response = Flight::response();
-    if (array_key_exists($code, Response::$codes)) {
+    if (\array_key_exists($code, Response::$codes)) {
         $response->status($code);
     } else {
         $response->status(500);

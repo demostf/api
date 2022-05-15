@@ -70,7 +70,7 @@ class UserProvider extends BaseProvider {
     }
 
     public function getById(int $userId): ?User {
-        if ($userId > pow(2, 31)) {
+        if ($userId > 2 ** 31) {
             return null;
         }
         // first search in the view which contains the most used name for the users

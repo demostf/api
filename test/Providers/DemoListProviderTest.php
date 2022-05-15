@@ -22,7 +22,7 @@ class DemoListProviderTest extends TestCase {
     /** @var UserProvider */
     private $userProvider;
 
-    public function setUp(): void {
+    protected function setUp(): void {
         parent::setUp();
 
         $this->demoListProvider = new DemoListProvider($this->getDatabaseConnection());

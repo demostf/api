@@ -26,7 +26,7 @@ class DemoControllerTest extends ControllerTest {
     /** @var DemoListProvider|MockObject */
     private $demoListProvider;
 
-    public function setUp(): void {
+    protected function setUp(): void {
         parent::setUp();
 
         $this->demoStore = $this->createMock(DemoStore::class);

@@ -18,7 +18,7 @@ class Header {
     protected float $duration;
     protected int $ticks;
     protected int $frames;
-    protected int $sigon;
+    protected int $singOn;
 
     public function __construct(
         string $type,
@@ -43,7 +43,7 @@ class Header {
         $this->duration = $duration;
         $this->ticks = $ticks;
         $this->frames = $frames;
-        $this->sigon = $sigon;
+        $this->singOn = $sigon;
     }
 
     public function getDuration(): float {
@@ -74,8 +74,8 @@ class Header {
         return $this->server;
     }
 
-    public function getSigon(): int {
-        return $this->sigon;
+    public function getSingOn(): int {
+        return $this->singOn;
     }
 
     public function getTicks(): int {
@@ -91,7 +91,19 @@ class Header {
     }
 
     /**
-     * @param mixed[] $info
+     * @param array{
+     *     'type': string,
+     *     'version': int,
+     *     'protocol': int,
+     *     'server': string,
+     *     'nick': string,
+     *     'map': string,
+     *     'game': string,
+     *     'duration': float,
+     *     'ticks': int,
+     *     'frames': int,
+     *     'singon': int,
+     * } $info
      *
      * @return Header
      */
@@ -107,7 +119,7 @@ class Header {
             $info['duration'],
             $info['ticks'],
             $info['frames'],
-            $info['sigon']
+            $info['singon']
         );
     }
 }

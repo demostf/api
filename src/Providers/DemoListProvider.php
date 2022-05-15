@@ -56,10 +56,10 @@ class DemoListProvider extends BaseProvider {
         $query->select('p.demo_id')
             ->from('players', 'p');
 
-        if (\count($userIds) != count($players)) {
+        if (\count($userIds) != \count($players)) {
             // one of more user ids don't have any demos
             return [];
-        } else if (\count($userIds) > 1) {
+        } elseif (\count($userIds) > 1) {
             $query->where($query->expr()->in('user_id',
                 $query->createNamedParameter($userIds, Connection::PARAM_INT_ARRAY)))
                 ->groupBy('demo_id')
@@ -117,11 +117,11 @@ class DemoListProvider extends BaseProvider {
         }
         if (isset($where['before'])) {
             $query->andWhere($query->expr()->lt('created_at',
-                $query->createNamedParameter($where['before']->format(DATE_ATOM))));
+                $query->createNamedParameter($where['before']->format(\DATE_ATOM))));
         }
         if (isset($where['after'])) {
             $query->andWhere($query->expr()->gt('created_at',
-                $query->createNamedParameter($where['after']->format(DATE_ATOM))));
+                $query->createNamedParameter($where['after']->format(\DATE_ATOM))));
         }
     }
 
@@ -133,7 +133,7 @@ class DemoListProvider extends BaseProvider {
      * @return Demo[]
      */
     public function listDemos(int $page, array $where = [], string $order = 'DESC'): array {
-        if (isset($where['players']) and \is_array($where['players']) and \count($where['players']) > 0) {
+        if (isset($where['players']) && \is_array($where['players']) && \count($where['players']) > 0) {
             return $this->listProfile($page, $where);
         }
 
@@ -155,7 +155,25 @@ class DemoListProvider extends BaseProvider {
     }
 
     /**
-     * @param array[] $rows
+     * @param array{
+     *     'id': string,
+     *     'url': string,
+     *     'name': string,
+     *     'server': string,
+     *     'duration': string,
+     *     'nick': string,
+     *     'map': string,
+     *     'created_at': string,
+     *     'red': string,
+     *     'blu': string,
+     *     'scoreRed': string,
+     *     'scoreBlue': string,
+     *     'playerCount': string,
+     *     'uploader': string,
+     *     'hash': string,
+     *     'backend': string,
+     *     'path': string,
+     * }[] $rows
      *
      * @return Demo[]
      */

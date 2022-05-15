@@ -95,7 +95,7 @@ class DemoSaverTest extends TestCase {
         $this->assertEquals('user2', $retrievedDemo->getUploaderUser()->getName());
 
         $players = $retrievedDemo->getPlayers();
-        usort($players, function(DemoPlayer $a, DemoPlayer $b) {
+        usort($players, function (DemoPlayer $a, DemoPlayer $b) {
             return $a->getName() <=> $b->getName();
         });
 

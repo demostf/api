@@ -28,6 +28,7 @@ class SteamUser implements JsonSerializable {
     public function getName(): string {
         return $this->name;
     }
+
     /**
      * @return array{'id': int, 'name': string, 'steamid': string}
      */
