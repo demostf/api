@@ -135,11 +135,11 @@ class DemoController extends BaseController {
     }
 
     public function setDemoUrl(string $id): void {
-        $hash = (string) $this->post('hash', '');
-        $backend = (string) $this->post('backend', '');
-        $path = (string) $this->post('path', '');
-        $url = (string) $this->post('url', '');
-        $editKey = (string) $this->post('key', '');
+        $hash = $this->post('hash', '');
+        $backend = $this->post('backend', '');
+        $path = $this->post('path', '');
+        $url = $this->post('url', '');
+        $editKey = $this->post('key', '');
         if ($editKey !== $this->editKey || '' === $editKey) {
             throw new InvalidKeyException('Invalid key');
         }
