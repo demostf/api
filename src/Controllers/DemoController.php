@@ -145,6 +145,10 @@ class DemoController extends BaseController {
         }
 
         $demo = $this->demoProvider->get((int) $id);
+        if (!$demo) {
+            throw new NotFoundException("Demo not found");
+        }
+
         $existingHash = $demo->getHash();
         if ('' === $existingHash || $existingHash === $hash) {
             $this->demoProvider->setDemoUrl((int) $id, $backend, $url, $path);
