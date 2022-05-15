@@ -21,7 +21,7 @@ class PlayerProvider extends BaseProvider {
                 'assists' => $query->createNamedParameter($player->getAssists()),
                 'deaths' => $query->createNamedParameter($player->getDeaths()),
             ]);
-        $query->execute();
+        $query->executeStatement();
 
         return (int) $this->connection->lastInsertId();
     }

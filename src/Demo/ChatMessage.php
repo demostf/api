@@ -43,4 +43,12 @@ class ChatMessage implements JsonSerializable {
             'message' => $this->message,
         ];
     }
+
+    public static function fromRow(array $row): ChatMessage {
+        return new ChatMessage(
+            $row['from'],
+            (int) $row['time'],
+            $row['text']
+        );
+    }
 }

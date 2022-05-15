@@ -26,7 +26,7 @@ class DemoProvider extends BaseProvider {
         $query->select('*')
             ->from('demos')
             ->where($query->expr()->eq('id', $query->createNamedParameter($id, PDO::PARAM_INT)));
-        $row = $query->execute()->fetch();
+        $row = $query->executeQuery()->fetchAssociative();
 
         return $row ? Demo::fromRow($row) : null;
     }
@@ -47,7 +47,7 @@ class DemoProvider extends BaseProvider {
         if ($fetchDetails) {
             $uploader = $this->userProvider->getById($demo->getUploader());
             $playerQuery = $this->connection->executeQuery($sql, [$demo->getId()]);
-            $players = $playerQuery->fetchAll(PDO::FETCH_ASSOC);
+            $players = $playerQuery->fetchAllAssociative();
 
             $demo->setUploaderUser($uploader);
             $uniquePlayers = [];
@@ -71,7 +71,7 @@ class DemoProvider extends BaseProvider {
             ->from('demos')
             ->where($query->expr()->eq('hash', $query->createNamedParameter($hash)));
 
-        return (int) $query->execute()->fetchOne();
+        return (int) $query->executeQuery()->fetchOne();
     }
 
     public function storeDemo(Demo $demo, string $backend, string $path): int {
@@ -97,7 +97,7 @@ class DemoProvider extends BaseProvider {
                 '"playerCount"' => $query->createNamedParameter($demo->getPlayerCount(), PDO::PARAM_INT),
                 'hash' => $query->createNamedParameter($demo->getHash()),
             ])
-            ->execute();
+            ->executeStatement();
 
         return (int) $this->connection->lastInsertId();
     }
@@ -109,6 +109,6 @@ class DemoProvider extends BaseProvider {
             ->set('url', $query->createNamedParameter($url))
             ->set('path', $query->createNamedParameter($path))
             ->where($query->expr()->eq('id', $query->createNamedParameter($id, PDO::PARAM_INT)))
-            ->execute();
+            ->executeStatement();
     }
 }

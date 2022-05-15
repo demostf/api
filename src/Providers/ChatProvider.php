@@ -19,15 +19,11 @@ class ChatProvider extends BaseProvider {
             ->orderBy('time', 'ASC')
             ->addOrderBy('id', 'ASC');
 
-        $result = $query->execute();
+        $result = $query->executeQuery();
 
         return array_map(function (array $row) {
-            return new ChatMessage(
-                $row['from'],
-                (int) $row['time'],
-                $row['text']
-            );
-        }, $result->fetchAll());
+            return ChatMessage::fromRow($row);
+        }, $result->fetchAllAssociative());
     }
 
     public function storeChatMessage(int $demoId, ChatMessage $message): void {
@@ -39,6 +35,6 @@ class ChatProvider extends BaseProvider {
                 '"from"' => $query->createNamedParameter($message->getUser()),
                 'time' => $query->createNamedParameter($message->getTime(), PDO::PARAM_INT),
             ]);
-        $query->execute();
+        $query->executeStatement();
     }
 }

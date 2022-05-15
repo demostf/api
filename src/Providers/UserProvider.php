@@ -38,7 +38,7 @@ class UserProvider extends BaseProvider {
                 'avatar' => $query->createNamedParameter(''),
                 'token' => $query->createNamedParameter($token),
             ])->add('orderBy', 'ON CONFLICT DO NOTHING')// hack to append arbitrary string to sql
-            ->execute();
+            ->executeStatement();
 
         $user = $this->get($steamId->getSteamId64());
 
@@ -53,7 +53,7 @@ class UserProvider extends BaseProvider {
             ->from('users_named')
             ->where($query->expr()->eq('steamid', $query->createNamedParameter($steamid)));
 
-        $row = $query->execute()->fetch();
+        $row = $query->executeQuery()->fetchAssociative();
 
         if (!$row) {
             // if the user is newly inserted it wont be in our view yet
@@ -63,7 +63,7 @@ class UserProvider extends BaseProvider {
                 ->from('users')
                 ->where($query->expr()->eq('steamid', $query->createNamedParameter($steamid)));
 
-            $row = $query->execute()->fetch();
+            $row = $query->executeQuery()->fetchAssociative();
         }
 
         return $row ? User::fromRow($row) : null;
@@ -80,7 +80,7 @@ class UserProvider extends BaseProvider {
             ->from('users_named')
             ->where($query->expr()->eq('id', $query->createNamedParameter($userId, \PDO::PARAM_INT)));
 
-        $row = $query->execute()->fetch();
+        $row = $query->executeQuery()->fetchAssociative();
 
         if (!$row) {
             // if the user is newly inserted it wont be in our view yet
@@ -90,7 +90,7 @@ class UserProvider extends BaseProvider {
                 ->from('users')
                 ->where($query->expr()->eq('id', $query->createNamedParameter($userId, \PDO::PARAM_INT)));
 
-            $row = $query->execute()->fetch();
+            $row = $query->executeQuery()->fetchAssociative();
         }
 
         return $row ? User::fromRow($row) : null;
@@ -106,7 +106,7 @@ class UserProvider extends BaseProvider {
             ->orderBy('count(demo_id)', 'DESC')
             ->setMaxResults(1);
 
-        $row = $query->execute()->fetch();
+        $row = $query->executeQuery()->fetchAssociative();
         if ($row) {
             return new SteamUser($row['id'], $row['steamid'], $row['name']);
         } else {
@@ -132,8 +132,8 @@ class UserProvider extends BaseProvider {
             ->orWhere($query->expr()->comparison('name', '~*', $nameParameter))
             ->orderBy('count', 'DESC')
             ->setMaxResults(100);
-        $result = $query->execute();
-        $players = $result->fetchAll(PDO::FETCH_ASSOC);
+        $result = $query->executeQuery();
+        $players = $result->fetchAllAssociative();
 
         usort($players, function ($b, $a) use ($query) {
             if ($a['steamid'] === $query && $a['steamid'] !== $query) {
@@ -166,7 +166,7 @@ class UserProvider extends BaseProvider {
             ->from('users')
             ->where($query->expr()->eq('token', $query->createNamedParameter($key)));
 
-        $row = $query->execute()->fetch();
+        $row = $query->executeQuery()->fetchAssociative();
 
         return $row ? User::fromRow($row) : null;
     }

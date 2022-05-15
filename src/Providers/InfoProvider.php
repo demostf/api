@@ -15,9 +15,9 @@ class InfoProvider extends BaseProvider {
         $query->select('map')
             ->from('map_list')
             ->orderBy('count', 'DESC');
-        $result = $query->execute();
+        $result = $query->executeQuery();
 
-        return $result->fetchAll(PDO::FETCH_COLUMN);
+        return $result->fetchFirstColumn();
     }
 
     private function count(string $table): int {
@@ -25,7 +25,7 @@ class InfoProvider extends BaseProvider {
         $query->select('count(*)')
             ->from($table);
 
-        return $query->execute()->fetch(PDO::FETCH_COLUMN);
+        return $query->executeQuery()->fetchOne();
     }
 
     /**

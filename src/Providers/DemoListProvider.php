@@ -17,14 +17,14 @@ class DemoListProvider extends BaseProvider {
      *
      * @return Demo[]
      */
-    public function listUploads(string $steamId, int $page, array $where = [], string $order = 'DESC') {
+    public function listUploads(string $steamId, int $page, array $where = [], string $order = 'DESC'): array {
         $query = $this->getQueryBuilder();
         $query->select('id')
             ->from('users')
             ->where($query->expr()->eq('steamid', $query->createNamedParameter($steamId, PDO::PARAM_STR)));
 
-        $result = $query->execute();
-        $userId = $result->fetch(PDO::FETCH_COLUMN);
+        $result = $query->executeQuery();
+        $userId = $result->fetchOne();
         $result->free();
 
         $where['uploader'] = $userId;
@@ -48,8 +48,8 @@ class DemoListProvider extends BaseProvider {
             ->from('users')
             ->where($query->expr()->in('steamid',
                 $query->createNamedParameter($players, Connection::PARAM_STR_ARRAY)));
-        $result = $query->execute();
-        $userIds = $result->fetchAll(PDO::FETCH_COLUMN);
+        $result = $query->executeQuery();
+        $userIds = $result->fetchFirstColumn();
         $result->free();
 
         $query = $this->getQueryBuilder();
@@ -80,8 +80,8 @@ class DemoListProvider extends BaseProvider {
             $this->addWhere($query, $where);
         }
 
-        $result = $query->execute();
-        $demoIds = $result->fetchAll(PDO::FETCH_COLUMN);
+        $result = $query->executeQuery();
+        $demoIds = $result->fetchFirstColumn();
         $result->free();
 
         $query = $this->getQueryBuilder();
@@ -149,7 +149,7 @@ class DemoListProvider extends BaseProvider {
             ->setMaxResults(50)
             ->setFirstResult($offset);
 
-        $demos = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $demos = $query->executeQuery()->fetchAllAssociative();
 
         return $this->formatList($demos);
     }
