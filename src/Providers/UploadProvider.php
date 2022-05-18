@@ -83,10 +83,15 @@ class UploadProvider extends BaseProvider {
             return $error;
         }
 
-        $storedDemo = $this->store->store($demoFile, $hash . '_' . $name);
-        $upload = new Upload($name, $red, $blu, $user->getId(), $hash);
+        try {
+            $storedDemo = $this->store->store($demoFile, $hash . '_' . $name);
+            $upload = new Upload($name, $red, $blu, $user->getId(), $hash);
 
-        $id = $this->demoSaver->saveDemo($parsed, $header, $storedDemo, $upload);
+            $id = $this->demoSaver->saveDemo($parsed, $header, $storedDemo, $upload);
+        } catch (\Exception $e) {
+            $this->store->removeByName($name);
+            return 'Error while saving demo: ' . $e->getMessage();
+        }
 
         return 'STV available at: ' . $this->baseUrl . '/' . $id;
     }

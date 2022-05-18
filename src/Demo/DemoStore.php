@@ -43,4 +43,11 @@ class DemoStore {
             unlink($demo->getPath());
         }
     }
+
+    public function removeByName(string $name): void {
+        $path = $this->generatePath($name);
+        if (file_exists($path)) {
+            unlink($path);
+        }
+    }
 }

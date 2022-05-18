@@ -20,6 +20,8 @@ class DemoStoreTest extends TestCase {
 
         $storedDemo = $demoStore->store($file, 'foodemo.dem');
 
+        $this->assertTrue(file_exists($storedDemo->getPath()));
+
         $this->assertStringEndsWith('/foodemo.dem', $storedDemo->getUrl());
         $this->assertStringStartsWith('https://static.example.com/', $storedDemo->getUrl());
         $this->assertEquals('static', $storedDemo->getBackend());
@@ -29,5 +31,24 @@ class DemoStoreTest extends TestCase {
         rmdir(\dirname($storedDemo->getPath()));
         rmdir(\dirname($storedDemo->getPath(), 2));
         rmdir($targetDir);
+    }
+
+    public function testRemoveByName() {
+        $targetDir = tempnam(sys_get_temp_dir(), 'dummy_target_');
+        unlink($targetDir);
+        mkdir($targetDir);
+
+        $demoStore = new DemoStore($targetDir, 'static.example.com');
+
+        $file = tempnam(sys_get_temp_dir(), 'dummy_');
+        file_put_contents($file, 'foobar');
+
+        $storedDemo = $demoStore->store($file, 'foodemo.dem');
+
+        $this->assertTrue(file_exists($storedDemo->getPath()));
+
+        $demoStore->removeByName('foodemo.dem');
+
+        $this->assertFalse(file_exists($storedDemo->getPath()));
     }
 }
