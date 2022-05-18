@@ -31,10 +31,9 @@ jobs:
           extensions: apcu
       - name: Composer
         run: composer install
-      - uses: php-actions/phpstan@v1
-        with:
-          error_format: github
-          args: --level 6 src
+      - name: phpstan
+        run: |
+          ./vendor/bin/phpstan analyse --level 6 src
 
   phpunit:
     runs-on: ubuntu-20.04
