@@ -36,7 +36,7 @@ class HeaderParserTest extends TestCase {
         $this->assertEquals($expected->getMap(), $parsed->getMap());
         $this->assertEquals($expected->getNick(), $parsed->getNick());
         $this->assertEquals($expected->getProtocol(), $parsed->getProtocol());
-        $this->assertEquals($expected->getSingOn(), $parsed->getSingOn());
+        $this->assertEquals($expected->getSignOn(), $parsed->getSignOn());
         $this->assertEquals($expected->getType(), $parsed->getType());
         $this->assertEquals($expected->getVersion(), $parsed->getVersion());
     }

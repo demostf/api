@@ -18,7 +18,7 @@ class Header {
     protected float $duration;
     protected int $ticks;
     protected int $frames;
-    protected int $singOn;
+    protected int $signOn;
 
     public function __construct(
         string $type,
@@ -31,8 +31,24 @@ class Header {
         float $duration,
         int $ticks,
         int $frames,
-        int $sigon
+        int $signOn
     ) {
+        if (!mb_check_encoding($type, 'UTF-8')) {
+            $type = '--';
+        }
+        if (!mb_check_encoding($server, 'UTF-8')) {
+            $server = '--';
+        }
+        if (!mb_check_encoding($nick, 'UTF-8')) {
+            $nick = '--';
+        }
+        if (!mb_check_encoding($map, 'UTF-8')) {
+            $map = '--';
+        }
+        if (!mb_check_encoding($game, 'UTF-8')) {
+            $game = '--';
+        }
+
         $this->type = $type;
         $this->version = $version;
         $this->protocol = $protocol;
@@ -43,7 +59,7 @@ class Header {
         $this->duration = $duration;
         $this->ticks = $ticks;
         $this->frames = $frames;
-        $this->singOn = $sigon;
+        $this->signOn = $signOn;
     }
 
     public function getDuration(): float {
@@ -74,8 +90,8 @@ class Header {
         return $this->server;
     }
 
-    public function getSingOn(): int {
-        return $this->singOn;
+    public function getSignOn(): int {
+        return $this->signOn;
     }
 
     public function getTicks(): int {
