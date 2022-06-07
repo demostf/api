@@ -41,6 +41,7 @@ class DemoListProvider extends BaseProvider {
      */
     public function listProfile(int $page, array $where = [], string $order = 'DESC'): array {
         $players = $where['players'];
+        $players = array_unique($players);
         unset($where['players']);
 
         $query = $this->getQueryBuilder();
