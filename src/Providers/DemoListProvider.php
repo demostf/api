@@ -65,7 +65,7 @@ class DemoListProvider extends BaseProvider {
                 $query->createNamedParameter($userIds, Connection::PARAM_INT_ARRAY)))
                 ->groupBy('demo_id')
                 ->having($query->expr()->eq(
-                    'COUNT(user_id)',
+                    'COUNT(DISTINCT(user_id))',
                     $query->createNamedParameter(\count($userIds), PDO::PARAM_INT)
                 ));
         } else {
