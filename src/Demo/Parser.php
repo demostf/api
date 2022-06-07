@@ -124,15 +124,20 @@ class Parser {
                 }
             }
             if ($player['steamId'] && 'BOT' !== $player['steamId']) {// skip spectators
-                $players[] = new ParsedPlayer(
-                    $player['name'],
-                    $player['userId'],
-                    self::convertSteamIdToCommunityId($player['steamId']),
-                    $player['team'] ?? '',
-                    $this->getClassName((int) $class)
-                );
+                $steamId = self::convertSteamIdToCommunityId($player['steamId']);
+                if (!isset($players[$steamId])) {
+                    $players[$steamId] = new ParsedPlayer(
+                        $player['name'],
+                        $steamId,
+                        $player['team'] ?? '',
+                        $this->getClassName((int) $class)
+                    );
+                }
+                $players[$steamId]->addDemoUserId($player['userId']);
             }
         }
+
+        $players = array_values($players);
 
         return new ParsedDemo(
             $red,
@@ -156,10 +161,10 @@ class Parser {
      * @param string $steamId The SteamID string as used on servers, like
      *                        <var>STEAM_0:0:12345</var>
      *
+     * @return string The converted 64bit numeric SteamID
      * @throws InvalidArgumentException if the SteamID doesn't have the correct
      *                                  format
      *
-     * @return string The converted 64bit numeric SteamID
      */
     public static function convertSteamIdToCommunityId(string $steamId): string {
         if ('STEAM_ID_LAN' === $steamId || 'BOT' === $steamId) {

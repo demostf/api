@@ -62,8 +62,8 @@ class DemoSaverTest extends TestCase {
                 new ChatMessage('user2', 13, 'msg2'),
             ],
             [
-                new ParsedPlayer('user1', 1, '1234567', 'red', 'scout'),
-                new ParsedPlayer('user2', 2, '2345678', 'blue', 'soldier'),
+                (new ParsedPlayer('user1', '1234567', 'red', 'scout'))->addDemoUserId(1),
+                (new ParsedPlayer('user2', '2345678', 'blue', 'soldier'))->addDemoUserId(2),
             ],
             [
                 new ParsedKill(1, 0, 2),
@@ -80,11 +80,11 @@ class DemoSaverTest extends TestCase {
             $this->createMock(Connection::class)
         );
 
-        $storedDemo = new StoredDemo('http://example.com/foo', 'foo', 'example');
+        $storedDemo = new StoredDemo('https://example.com/foo', 'foo', 'example');
 
         $demoId = $saver->saveDemo($parsed, $header, $storedDemo, $upload);
 
-        $retrievedDemo = $demoProvider->get($demoId, true);
+        $retrievedDemo = $demoProvider->get($demoId);
 
         $this->assertEquals(2, $retrievedDemo->getPlayerCount());
         $this->assertEquals(2, $retrievedDemo->getRedScore());

@@ -49,7 +49,7 @@ class ParserTest extends TestCase {
         $expectedPlayers = $expectedRaw['players'];
         $this->assertCount(\count($expectedPlayers), $result->getPlayers());
         $this->assertEquals($expectedPlayers[0]['name'], $result->getPlayers()[0]->getName());
-        $this->assertEquals($expectedPlayers[0]['demo_user_id'], $result->getPlayers()[0]->getDemoUserId());
+        $this->assertEquals([$expectedPlayers[0]['demo_user_id']], $result->getPlayers()[0]->getDemoUserIds());
         $this->assertEquals($expectedPlayers[0]['team'], $result->getPlayers()[0]->getTeam());
         $this->assertEquals($expectedPlayers[0]['class'], $result->getPlayers()[0]->getClass());
         $this->assertEquals(Parser::convertSteamIdToCommunityId($expectedPlayers[0]['steam_id']), $result->getPlayers()[0]->getSteamId());

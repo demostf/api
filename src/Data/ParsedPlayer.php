@@ -6,14 +6,16 @@ namespace Demostf\API\Data;
 
 class ParsedPlayer {
     private string $name;
-    private int $demoUserId;
+    /** @var int[] */
+    private array $demoUserIds;
     private string $steamId;
     private string $team;
     private string $class;
 
-    public function __construct(string $name, int $demoUserId, string $steamId, string $team, string $class) {
+
+    public function __construct(string $name, string $steamId, string $team, string $class) {
         $this->name = $name;
-        $this->demoUserId = $demoUserId;
+        $this->demoUserIds = [];
         $this->steamId = $steamId;
         $this->team = $team;
         $this->class = $class;
@@ -23,8 +25,16 @@ class ParsedPlayer {
         return $this->name;
     }
 
-    public function getDemoUserId(): int {
-        return $this->demoUserId;
+    public function addDemoUserId(int $userId): ParsedPlayer {
+        $this->demoUserIds[] = $userId;
+        return $this;
+    }
+
+    /**
+     * @return int[]
+     */
+    public function getDemoUserIds(): array {
+        return $this->demoUserIds;
     }
 
     public function getSteamId(): string {

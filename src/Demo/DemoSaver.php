@@ -64,9 +64,11 @@ class DemoSaver {
         $deaths = [];
 
         foreach ($demo->getPlayers() as $player) {
-            $kills[$player->getDemoUserId()] = 0;
-            $assists[$player->getDemoUserId()] = 0;
-            $deaths[$player->getDemoUserId()] = 0;
+            foreach ($player->getDemoUserIds() as $demoUserId) {
+                $kills[$demoUserId] = 0;
+                $assists[$demoUserId] = 0;
+                $deaths[$demoUserId] = 0;
+            }
         }
 
         foreach ($demo->getKills() as $kill) {
@@ -84,17 +86,26 @@ class DemoSaver {
         foreach ($demo->getPlayers() as $player) {
             $userId = $this->userProvider->getUserId($player->getSteamId(), $player->getName());
 
+            $playerKills = 0;
+            $playerAssists = 0;
+            $playerDeaths = 0;
+            foreach ($player->getDemoUserIds() as $demoUserId) {
+                $playerKills += $kills[$demoUserId];
+                $playerAssists += $assists[$demoUserId];
+                $playerDeaths += $deaths[$demoUserId];
+            }
+
             $this->playerProvider->store(new Player(
                 0,
                 $demoId,
-                $player->getDemoUserId(),
+                $player->getDemoUserIds()[0],
                 $userId,
                 $player->getName(),
                 $player->getTeam(),
                 $player->getClass(),
-                $kills[$player->getDemoUserId()],
-                $assists[$player->getDemoUserId()],
-                $deaths[$player->getDemoUserId()]
+                $playerKills,
+                $playerAssists,
+                $playerDeaths
             ));
         }
 
