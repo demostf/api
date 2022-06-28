@@ -120,7 +120,7 @@ class DemoController extends BaseController {
 
     public function listDemos(): void {
         $page = (int) $this->query('page', '1');
-        $order = 'ASC' === $this->query('order', 'DESC') ? 'ASC' : 'DESC';
+        $order = 'ASC' === strtoupper($this->query('order', 'DESC')) ? 'ASC' : 'DESC';
         $this->json($this->demoListProvider->listDemos((int) $page, $this->getFilter(), $order));
     }
 
