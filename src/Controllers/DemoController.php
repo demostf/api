@@ -57,6 +57,8 @@ class DemoController extends BaseController {
         $backend = $this->query('backend', '');
         $before = $this->query('before', '');
         $after = $this->query('after', '');
+        $afterId = $this->query('after_id', '');
+        $beforeId = $this->query('before_id', '');
         $filter = [];
         if ($map) {
             $filter['map'] = $map;
@@ -105,6 +107,12 @@ class DemoController extends BaseController {
             if ($date) {
                 $filter['after'] = $date;
             }
+        }
+        if ($afterId) {
+            $filter['after_id'] = $afterId;
+        }
+        if ($beforeId) {
+            $filter['before_id'] = $beforeId;
         }
 
         return $filter;

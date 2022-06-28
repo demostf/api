@@ -124,6 +124,14 @@ class DemoListProvider extends BaseProvider {
             $query->andWhere($query->expr()->gt('created_at',
                 $query->createNamedParameter($where['after']->format(\DATE_ATOM))));
         }
+        if (isset($where['before_id'])) {
+            $query->andWhere($query->expr()->lt('id',
+                $query->createNamedParameter($where['before_id'], PDO::PARAM_INT)));
+        }
+        if (isset($where['after_id'])) {
+            $query->andWhere($query->expr()->gt('id',
+                $query->createNamedParameter($where['after_id'], PDO::PARAM_INT)));
+        }
     }
 
     /**
