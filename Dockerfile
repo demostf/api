@@ -14,6 +14,7 @@ COPY src /app/src
 
 ENV PARSER_PATH /app/parse_demo
 
-RUN echo "clear_env = no" >> /usr/local/etc/php/php-fpm.conf \
-    && echo "post_max_size = 150M" >> /usr/local/etc/php/php.ini \
+COPY php-fpm.conf /usr/local/etc/php/php-fpm.conf
+
+RUN echo "post_max_size = 150M" >> /usr/local/etc/php/php.ini \
     && echo "upload_max_filesize = 150M" >> /usr/local/etc/php/php.ini
