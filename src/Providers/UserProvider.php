@@ -127,9 +127,10 @@ class UserProvider extends BaseProvider {
 
         $query = $this->getQueryBuilder();
         $nameParameter = $query->createNamedParameter($search, PDO::PARAM_STR, ':query');
-        $query->select('user_id', 'name', 'count', 'steamid', "1 - (name <-> $nameParameter) AS sim")
-            ->from('name_list')
-            ->orWhere($query->expr()->comparison('name', '~*', $nameParameter))
+        $query->select('n.user_id', 'n.name', 'count', 'n.steamid', "1 - (n.name <-> $nameParameter) AS sim", "u.name AS name_canonical")
+            ->from('name_list', 'n')
+            ->leftJoin('n', 'users_named', 'u', $query->expr()->eq('n.steamid', 'u.steamid'))
+            ->orWhere($query->expr()->comparison('n.name', '~*', $nameParameter))
             ->orderBy('count', 'DESC')
             ->setMaxResults(100);
         $result = $query->executeQuery();
@@ -153,7 +154,11 @@ class UserProvider extends BaseProvider {
         foreach ($players as $player) {
             $id = $player['user_id'];
             if (!isset($result[$id])) {
-                $result[$id] = new SteamUser($id, $player['steamid'], $player['name']);
+                if ($player['name_canonical'] && $player['name'] != $player['name_canonical']) {
+                    $result[$id] = new SteamUser($id, $player['steamid'], $player['name'] . ' (' . $player['name_canonical'] . ')');
+                } else {
+                    $result[$id] = new SteamUser($id, $player['steamid'], $player['name']);
+                }
             }
         }
 
