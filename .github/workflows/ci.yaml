@@ -103,10 +103,18 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: apcu
+      - name: Composer
+        run: composer install
       - name: copy code
         run: |
           docker run -v src:/data --name helper busybox true
           docker cp src helper:/data/
+          docker cp vendor helper:/data/
           docker rm helper
       - env:
           DB_URL: postgres://postgres:test@db:5432/postgres
