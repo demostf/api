@@ -5,29 +5,29 @@ name: CI
 jobs:
   php-cs-fixer:
     name: PHP-CS-Fixer
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@master
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.2'
           extensions: apcu
       - name: PHP-CS-Fixer
-        uses: OskarStark/php-cs-fixer-ga@2.16.7
+        uses: OskarStark/php-cs-fixer-ga@3.25.0
         with:
           args: --diff --dry-run --allow-risky yes --stop-on-violation --using-cache=no --path-mode=intersection
 
   phpstan:
     name: PHPStan Static Analysis
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.2'
           extensions: apcu
       - name: Composer
         run: composer install
@@ -36,7 +36,7 @@ jobs:
           ./vendor/bin/phpstan analyse --level 6 src
 
   phpunit:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     name: Unit tests
 
     services:
@@ -49,29 +49,27 @@ jobs:
           - 5432:5432
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.0'
+          php-version: '8.2'
           extensions: apcu
       - name: Composer
         run: composer install
       - name: PHPUnit Tests
-        uses: docker://icewind1991/php-alpine-apcu
         env:
           DB_PORT: 5432
           DB_TYPE: pgsql
-          DB_HOST: db
+          DB_HOST: localhost
           DB_USERNAME: postgres
           DB_PASSWORD: test
           DB_DATABASE: postgres
-        with:
-          entrypoint: php
-          args: ./vendor/bin/phpunit test
+        run: |
+          php ./vendor/bin/phpunit test
 
   api:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     name: Integration tests
 
     services:
@@ -104,7 +102,7 @@ jobs:
           - 80:80
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: copy code
         run: |
           docker run -v src:/data --name helper busybox true
@@ -119,8 +117,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v25
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v26
       - uses: icewind1991/attic-action@v1
         with:
           name: ci
@@ -133,8 +131,8 @@ jobs:
     needs: [build, api, phpunit]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v25
+        uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v26
       - uses: icewind1991/attic-action@v1
         with:
           name: ci
@@ -144,4 +142,4 @@ jobs:
       - name: Push image
         if: github.ref == 'refs/heads/master'
         run: |
-          skopeo copy --dest-creds="${{ secrets.DOCKERHUB_USERNAME }}:${{ secrets.DOCKERHUB_TOKEN }}" "docker-archive:$(nix build .#docker --print-out-paths)" "docker://demostf/proxy"
+          skopeo copy --dest-creds="${{ secrets.DOCKERHUB_USERNAME }}:${{ secrets.DOCKERHUB_TOKEN }}" "docker-archive:$(nix build .#docker --print-out-paths)" "docker://demostf/api"
