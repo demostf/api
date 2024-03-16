@@ -32,6 +32,7 @@
         nativeBuildInputs = with pkgs; [
           gnumake
           php
+          phpPackages.composer
           npmLd
           nodeLd
         ];

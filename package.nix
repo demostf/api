@@ -12,7 +12,7 @@ in
 
     src = sourceByRegex ./. ["composer.*" "(src|test)(/.*)?"];
 
-    vendorHash = "sha256-ympq8XIdABkdjshYX7hJIO6XfFdYm0RA9s3f/n7om3I=";
+    vendorHash = "sha256-EYWCR2aJAoyWvEX+SML4Fb3F3KGcUtwCgqhAGT6ZjZ4=";
 
     composerStrictValidation = false;
 

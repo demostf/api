@@ -32,6 +32,8 @@ $userController = new Controllers\UserController($container->getRequest(), $cont
 $infoController = new Controllers\InfoController($container->getRequest(), $container->getResponse(),
     $container->getInfoProvider());
 
+Flight::set('flight.v2.output_buffering', true);
+
 Flight::route('/*', function () {
     header('Access-Control-Allow-Origin: *');
 

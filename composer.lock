@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "094bfec81f03e13792962cc1c6ace48f",
+    "content-hash": "2c8e8023cc115681b5a10a72c32961ac",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -628,29 +628,39 @@
         },
         {
             "name": "mikecao/flight",
-            "version": "v1.3.8",
+            "version": "v3.6.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mikecao/flight.git",
-                "reference": "b3120f8db2ae3b358c1c7a412a92d7aa008a57b4"
+                "url": "https://github.com/flightphp/core.git",
+                "reference": "735dafefb9b49ef46f26a511efe224d575c28cc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mikecao/flight/zipball/b3120f8db2ae3b358c1c7a412a92d7aa008a57b4",
-                "reference": "b3120f8db2ae3b358c1c7a412a92d7aa008a57b4",
+                "url": "https://api.github.com/repos/flightphp/core/zipball/735dafefb9b49ef46f26a511efe224d575c28cc7",
+                "reference": "735dafefb9b49ef46f26a511efe224d575c28cc7",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "ext-json": "*",
+                "php": "^7.4|^8.0|^8.1|^8.2|^8.3"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.6"
+                "ext-pdo_sqlite": "*",
+                "phpstan/extension-installer": "^1.3",
+                "phpstan/phpstan": "^1.10",
+                "phpunit/phpunit": "^9.5",
+                "rregeer/phpunit-coverage-check": "^0.3.1",
+                "squizlabs/php_codesniffer": "^3.8"
+            },
+            "suggest": {
+                "latte/latte": "Latte template engine",
+                "phpstan/phpstan": "PHP Static Analyzer",
+                "tracy/tracy": "Tracy debugger"
             },
             "type": "library",
             "autoload": {
                 "files": [
-                    "flight/autoload.php",
-                    "flight/Flight.php"
+                    "flight/autoload.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -663,15 +673,26 @@
                     "email": "mike@mikecao.com",
                     "homepage": "http://www.mikecao.com/",
                     "role": "Original Developer"
+                },
+                {
+                    "name": "Franyer Sánchez",
+                    "email": "franyeradriansanchez@gmail.com",
+                    "homepage": "https://faslatam.000webhostapp.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "n0nag0n",
+                    "email": "n0nag0n@sky-9.com",
+                    "role": "Maintainer"
                 }
             ],
-            "description": "Flight is a fast, simple, extensible framework for PHP. Flight enables you to quickly and easily build RESTful web applications.",
+            "description": "Flight is a fast, simple, extensible framework for PHP. Flight enables you to quickly and easily build RESTful web applications. This is the maintained fork of mikecao/flight",
             "homepage": "http://flightphp.com",
             "support": {
-                "issues": "https://github.com/mikecao/flight/issues",
-                "source": "https://github.com/mikecao/flight/tree/master"
+                "issues": "https://github.com/flightphp/core/issues",
+                "source": "https://github.com/flightphp/core/tree/v3.6.0"
             },
-            "time": "2020-01-23T05:33:11+00:00"
+            "time": "2024-03-02T21:06:28+00:00"
         },
         {
             "name": "monolog/monolog",
