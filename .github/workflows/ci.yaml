@@ -166,9 +166,33 @@ jobs:
           authToken: '${{ secrets.ATTIC_TOKEN }}'
       - run: nix build --option system ${{ matrix.machine.platform }}
 
+
+  build-docker:
+    runs-on: ubuntu-latest
+    needs: [build, build-parser]
+    strategy:
+      matrix:
+        machine:
+          - platform: x86_64-linux
+          - platform: aarch64-linux
+    steps:
+      - uses: actions/checkout@v4
+      - if: matrix.machine.platform != 'x86_64-linux'
+        uses: docker/setup-qemu-action@v3
+      - uses: cachix/install-nix-action@v26
+        with:
+          extra_nix_config: |
+            extra-platforms = aarch64-linux
+      - uses: icewind1991/attic-action@v1
+        with:
+          name: ci
+          instance: https://cache.icewind.me
+          authToken: '${{ secrets.ATTIC_TOKEN }}'
+      - run: nix build --option system ${{ matrix.machine.platform }} .#demostf-api-docker
+
   docker:
     runs-on: ubuntu-latest
-    needs: [build, build-parser, api, phpunit]
+    needs: [build-docker, api, phpunit]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -177,9 +201,9 @@ jobs:
         with:
           name: ci
           instance: https://cache.icewind.me
-          authToken: '${{ secrets.ATTIC_TOKEN }}'
-      - run: nix build .#docker
-      - name: Push image
+      - run: nix run .#dockerManifest
         if: github.ref == 'refs/heads/master'
-        run: |
-          skopeo copy --dest-creds="${{ secrets.DOCKERHUB_USERNAME }}:${{ secrets.DOCKERHUB_TOKEN }}" "docker-archive:$(nix build .#docker --print-out-paths)" "docker://demostf/api"
+        env:
+          VERSION: "1.0.0"
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
