@@ -124,27 +124,47 @@ jobs:
 
   build-parser:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        machine:
+          - platform: x86_64-linux
+          - platform: aarch64-linux
     steps:
       - uses: actions/checkout@v4
+      - if: matrix.machine.platform != 'x86_64-linux'
+        uses: docker/setup-qemu-action@v3
       - uses: cachix/install-nix-action@v26
+        with:
+          extra_nix_config: |
+            extra-platforms = aarch64-linux
       - uses: icewind1991/attic-action@v1
         with:
           name: ci
           instance: https://cache.icewind.me
           authToken: '${{ secrets.ATTIC_TOKEN }}'
-      - run: nix build .#demostf-parser
+      - run: nix build --option system ${{ matrix.machine.platform }} .#demostf-parser
 
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        machine:
+          - platform: x86_64-linux
+          - platform: aarch64-linux
     steps:
       - uses: actions/checkout@v4
+      - if: matrix.machine.platform != 'x86_64-linux'
+        uses: docker/setup-qemu-action@v3
       - uses: cachix/install-nix-action@v26
+        with:
+          extra_nix_config: |
+            extra-platforms = aarch64-linux
       - uses: icewind1991/attic-action@v1
         with:
           name: ci
           instance: https://cache.icewind.me
           authToken: '${{ secrets.ATTIC_TOKEN }}'
-      - run: nix build
+      - run: nix build --option system ${{ matrix.machine.platform }}
 
   docker:
     runs-on: ubuntu-latest
