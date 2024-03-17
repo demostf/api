@@ -5,6 +5,8 @@
   runtimeShell,
   writeScriptBin,
   fakeNss,
+  coreutils,
+  bash,
   dockerTools
 }: let
   phpWithExtensions = php.buildEnv {
@@ -24,6 +26,8 @@ in dockerTools.buildLayeredImage {
       demostf-parser
       phpWithExtensions
       dockerTools.caCertificates
+      coreutils
+      bash
       fakeNss
       (writeScriptBin "start-server" ''
         #!${runtimeShell}
