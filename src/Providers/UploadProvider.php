@@ -49,6 +49,7 @@ class UploadProvider extends BaseProvider {
     public function upload(string $key, string $red, string $blu, string $name, string $demoFile): string {
         $nameParts = explode('/', $name);
         $name = array_pop($nameParts);
+        $name = str_replace('%', '_', $name);
 
         $user = $this->userProvider->byKey($key);
         if (!$user || ('' !== $this->uploadKey && $this->uploadKey !== $key)) {
