@@ -58,5 +58,7 @@
           nodeLd
         ];
       };
-    });
+    }) // {
+      overlays.default = import ./overlay.nix;
+    };
 }
