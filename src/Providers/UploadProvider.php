@@ -106,8 +106,8 @@ class UploadProvider extends BaseProvider {
             return 'Demos cant be more than 200MB in size';
         }
 
-        if ($header->getDuration() > (60 * 60)) {
-            return 'Demos cant be longer than one hour';
+        if ($header->getDuration() > (90 * 60)) {
+            return 'Demos cant be longer than one and a half hour';
         }
 
         return null;

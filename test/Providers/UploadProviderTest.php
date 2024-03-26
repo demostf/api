@@ -156,7 +156,7 @@ class UploadProviderTest extends TestCase {
     }
 
     public function testValidateHeaderToLong() {
-        $this->assertEquals('Demos cant be longer than one hour', $this->uploadProvider->validateHeader(
+        $this->assertEquals('Demos cant be longer than one and a half hour', $this->uploadProvider->validateHeader(
             9999,
             new Header(
                 'HL2DEMO',
