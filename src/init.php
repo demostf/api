@@ -12,6 +12,17 @@ function get_magic_quotes_gpc(): bool {
 
 $autoloader = require __DIR__ . '/../vendor/autoload.php';
 
+
+function getEnvVar(string $name): string {
+    $var = getenv($name) ?: '';
+    if (str_contains($var, '$CREDENTIALS_DIRECTORY')) {
+        $credentialsDirectory = getenv('CREDENTIALS_DIRECTORY') ?? '';
+        $path = str_replace('$CREDENTIALS_DIRECTORY', $credentialsDirectory, $var);
+        $var = file_get_contents($path);
+    }
+    return trim($var);
+}
+
 if (!getenv('DB_TYPE')) {
     Dotenv::createImmutable(__DIR__ . '/../')->safeLoad();
 }
@@ -27,13 +38,13 @@ if (!in_array($driver, $availableDrivers)) {
 }
 /** @var key-of<DriverManager::DRIVER_MAP> $driver */
 
-$dbPassword = getenv('DB_PASSWORD') ?: '';
+$dbPassword = getEnvVar('DB_PASSWORD');
 
 $connectionParams = [
-    'dbname' => getenv('DB_DATABASE') ?: '',
-    'user' => getenv('DB_USERNAME') ?: '',
-    'host' => getenv('DB_HOST') ?: '',
-    'port' => (int) getenv('DB_PORT'),
+    'dbname' => getEnvVar('DB_DATABASE'),
+    'user' => getEnvVar('DB_USERNAME'),
+    'host' => getEnvVar('DB_HOST'),
+    'port' => (int) getEnvVar('DB_PORT'),
     'driver' => $driver,
 ];
 
@@ -42,13 +53,13 @@ if ($dbPassword) {
 }
 
 $db = DriverManager::getConnection($connectionParams);
-$host = getenv('BASE_HOST') ?: '';
-$storeRoot = getenv('DEMO_ROOT') ?: '';
-$storeHost = getenv('DEMO_HOST') ?: '';
-$parserPath = getenv('PARSER_PATH') ?: '';
-$appRoot = getenv('APP_ROOT') ?: '';
-$editKey = getenv('EDIT_SECRET') ?: '';
-$uploadKey = getenv('UPLOAD_KEY') ?: '';
+$host = getEnvVar('BASE_HOST');
+$storeRoot = getEnvVar('DEMO_ROOT');
+$storeHost = getEnvVar('DEMO_HOST');
+$parserPath = getEnvVar('PARSER_PATH');
+$appRoot = getEnvVar('APP_ROOT');
+$editKey = getEnvVar('EDIT_SECRET');
+$uploadKey = getEnvVar('UPLOAD_KEY');
 
 $factory = new \RandomLib\Factory();
 $generator = $factory->getMediumStrengthGenerator();
