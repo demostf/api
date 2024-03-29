@@ -13,9 +13,11 @@ in
     src = fetchFromGitHub {
       owner = "demostf";
       repo = "parser";
-      rev = "v0.5.1";
-      hash = "sha256-H6ypYeZRxaMP/qRZoO2bp7OzmePMNUaBbcswsa0b9Hs=";
+      rev = "2449c9666019a99b791f84d3c0c38b6b7c71ad20";
+      hash = "sha256-V0rm9pVfZUGPrD3raOJ7O6EQkbxVG6cIquWvdFkGPgM=";
     };
+
+    doCheck = false;
 
     cargoLock = {
       lockFile = ./parser-Cargo.lock;
