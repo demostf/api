@@ -27,14 +27,19 @@ if (!in_array($driver, $availableDrivers)) {
 }
 /** @var key-of<DriverManager::DRIVER_MAP> $driver */
 
+$dbPassword = getenv('DB_PASSWORD') ?: '';
+
 $connectionParams = [
     'dbname' => getenv('DB_DATABASE') ?: '',
     'user' => getenv('DB_USERNAME') ?: '',
-    'password' => getenv('DB_PASSWORD') ?: '',
     'host' => getenv('DB_HOST') ?: '',
     'port' => (int) getenv('DB_PORT'),
     'driver' => $driver,
 ];
+
+if ($dbPassword) {
+    $connectionParams['password'] = $dbPassword;
+}
 
 $db = DriverManager::getConnection($connectionParams);
 $host = getenv('BASE_HOST') ?: '';
