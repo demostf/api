@@ -16,7 +16,7 @@ $autoloader = require __DIR__ . '/../vendor/autoload.php';
 function getEnvVar(string $name): string {
     $var = getenv($name) ?: '';
     if (str_contains($var, '$CREDENTIALS_DIRECTORY')) {
-        $credentialsDirectory = getenv('CREDENTIALS_DIRECTORY') ?? '';
+        $credentialsDirectory = getenv('CREDENTIALS_DIRECTORY') ?: '';
         $path = str_replace('$CREDENTIALS_DIRECTORY', $credentialsDirectory, $var);
         $var = file_get_contents($path);
     }
