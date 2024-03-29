@@ -17,6 +17,10 @@ in
       hash = "sha256-V0rm9pVfZUGPrD3raOJ7O6EQkbxVG6cIquWvdFkGPgM=";
     };
 
+    cargoBuildFlags = ''
+      --bin parse_demo
+    '';
+
     doCheck = false;
 
     cargoLock = {
