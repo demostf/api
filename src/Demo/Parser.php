@@ -79,7 +79,7 @@ class Parser {
         foreach ($data['chat'] as $message) {
             if (isset($message['from'])) {
                 $chat[] = new ChatMessage($message['from'],
-                    (int) floor(($message['tick'] - $data['startTick']) * $intervalPerTick), $message['text']);
+                    (int) floor($message['tick'] * $intervalPerTick), $message['text']);
             }
         }
 
