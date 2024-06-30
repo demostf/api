@@ -29,6 +29,15 @@
         LD=$CC ${pkgs.nodejs_20}/bin/node $@
       '';
       inherit (flocken.legacyPackages.${system}) mkDockerManifest;
+
+      phpVersion = "php82";
+      phpPackages = pkgs."${phpVersion}Packages";
+      phpPackage = pkgs.${phpVersion}.buildEnv {
+        extraConfig = "memory_limit = 2G";
+        extensions = ({ enabled, all }: enabled ++ (with all; [
+          xdebug smbclient
+        ]));
+      };
     in rec {
       packages = rec {
         inherit (pkgs) demostf-api demostf-api-docker demostf-parser;
@@ -52,7 +61,7 @@
       devShells.default = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [
           gnumake
-          php
+          phpPackage
           phpPackages.composer
           npmLd
           nodeLd

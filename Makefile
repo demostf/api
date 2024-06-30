@@ -16,7 +16,8 @@ mocha: node_modules
 
 .PHONY: phpunit
 phpunit:
-	DB_PORT=5434 DB_TYPE=pgsql DB_HOST=localhost DB_USERNAME=postgres DB_USERNAME=postgres DB_PASSWORD=test DB_DATABASE=postgres ./vendor/bin/phpunit test
+	XDEBUG_CONFIG="idekey=PHPSTORM" XDEBUG_MODE=debug DB_PORT=5434 DB_TYPE=pgsql DB_HOST=localhost DB_USERNAME=postgres DB_USERNAME=postgres DB_PASSWORD=test DB_DATABASE=postgres \
+ 		./vendor/bin/phpunit test
 
 .PHONY: test
 tests: phpunit mocha
