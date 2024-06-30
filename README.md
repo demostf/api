@@ -14,7 +14,7 @@ Note that the `pg_trgrm` extension in required.
 
 A prebuild docker image exists in the [docker hub](https://hub.docker.com/r/demostf/api/) which contains nginx, php and this code.
 
-A seperate PostgreSQL database is required to run the image, the database details need to be configured with the following environment variables:
+A separate PostgreSQL database is required to run the image, the database details need to be configured with the following environment variables:
 
 - DB_TYPE=pgsql
 - DB_HOST=$database_host
