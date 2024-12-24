@@ -1,73 +1,30 @@
 {
   inputs = {
-    nixpkgs.url = "nixpkgs/release-23.11";
-    utils.url = "github:numtide/flake-utils";
-    flocken = {
-      url = "github:mirkolenz/flocken/v2";
+    nixpkgs.url = "nixpkgs/nixos-24.11";
+    flakelight = {
+      url = "github:nix-community/flakelight";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
-  outputs = {
-    self,
-    nixpkgs,
-    utils,
-    flocken,
-  }:
-    utils.lib.eachDefaultSystem (system: let
-      inherit (builtins) getEnv;
-      overlays = [
-        (import ./overlay.nix)
+  outputs = {flakelight, ...}:
+    flakelight ./. {
+      withOverlays = [(import ./nix/overlay.nix)];
+      packages = {
+        api = pkgs: pkgs.demostf-api;
+        api-dev = pkgs: pkgs.demostf-api-dev;
+        api-test = pkgs: pkgs.demostf-api-test;
+      };
+      checks = {
+        integration-tests = pkgs: pkgs.nixosTest (import ./nix/integration-tests.nix);
+        unit-tests = pkgs: pkgs.nixosTest (import ./nix/unit-tests.nix);
+      };
+      formatters = pkgs: {
+        "*.nix" = pkgs.lib.getExe pkgs.alejandra;
+      };
+      devShell.packages = pkgs: [
+        pkgs.demostf-api-php.packages.composer
+        pkgs.demostf-api-php
+        pkgs.nodejs
       ];
-      pkgs = import nixpkgs {
-        inherit system overlays;
-      };
-      npmLd = pkgs.writeShellScriptBin "npm" ''
-        PATH="$PATH ${pkgs.nodejs_20}/bin" LD=$CC ${pkgs.nodejs_20}/bin/npm $@
-      '';
-      nodeLd = pkgs.writeShellScriptBin "node" ''
-        LD=$CC ${pkgs.nodejs_20}/bin/node $@
-      '';
-      inherit (flocken.legacyPackages.${system}) mkDockerManifest;
-
-      phpVersion = "php82";
-      phpPackages = pkgs."${phpVersion}Packages";
-      phpPackage = pkgs.${phpVersion}.buildEnv {
-        extraConfig = "memory_limit = 2G";
-        extensions = ({ enabled, all }: enabled ++ (with all; [
-          xdebug smbclient
-        ]));
-      };
-    in rec {
-      packages = rec {
-        inherit (pkgs) demostf-api demostf-api-docker demostf-parser;
-        docker = demostf-api-docker;
-        default = demostf-api;
-
-        dockerManifest = mkDockerManifest {
-          tags = ["latest"];
-          registries = {
-            "docker.io" = {
-              enable = true;
-              repo = "demostf/api";
-              username = "$DOCKERHUB_USERNAME";
-              password = "$DOCKERHUB_TOKEN";
-            };
-          };
-          version = "1.0.0";
-          images = with self.packages; [x86_64-linux.demostf-api-docker aarch64-linux.demostf-api-docker];
-        };
-      };
-      devShells.default = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [
-          gnumake
-          phpPackage
-          phpPackages.composer
-          npmLd
-          nodeLd
-        ];
-      };
-    }) // {
-      overlays.default = import ./overlay.nix;
     };
 }

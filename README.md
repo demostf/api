@@ -37,7 +37,7 @@ composer install
 
 ## Deploying
 
-Deploying the api requires php7.1 or later, 
+Deploying the api requires php7.1 or later,
 the webserver needs to be configured to server all requests to `public/index.php` execept
 for request to `/upload` which needs to be handled by `public/upload.php`.
 

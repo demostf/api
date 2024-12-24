@@ -5,3 +5,4 @@ node_modules
 *.cache
 .direnv
 result
+demos

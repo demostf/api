@@ -1,209 +1,32 @@
-on: [push, pull_request]
-
-name: CI
+name: "CI"
+on:
+  pull_request:
+  push:
 
 jobs:
-  php-cs-fixer:
-    name: PHP-CS-Fixer
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@master
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          extensions: apcu
-      - name: PHP-CS-Fixer
-        uses: OskarStark/php-cs-fixer-ga@3.25.0
-        with:
-          args: --diff --dry-run --allow-risky yes --stop-on-violation --using-cache=no --path-mode=intersection
-
-  phpstan:
-    name: PHPStan Static Analysis
-    runs-on: ubuntu-22.04
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          extensions: apcu
-      - name: Composer
-        run: composer install
-      - name: phpstan
-        run: |
-          ./vendor/bin/phpstan analyse --level 6 src
-
-  phpunit:
-    runs-on: ubuntu-22.04
-    name: Unit tests
-
-    services:
-      db:
-        image: demostf/db
-        env:
-          POSTGRES_PASSWORD: test
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-        ports:
-          - 5432:5432
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          extensions: apcu
-      - name: Composer
-        run: composer install
-      - name: PHPUnit Tests
-        env:
-          DB_PORT: 5432
-          DB_TYPE: pgsql
-          DB_HOST: localhost
-          DB_USERNAME: postgres
-          DB_PASSWORD: test
-          DB_DATABASE: postgres
-        run: |
-          php ./vendor/bin/phpunit test
-
-  api:
-    runs-on: ubuntu-22.04
-    name: Integration tests
-
-    services:
-      db:
-        image: demostf/db
-        env:
-          POSTGRES_PASSWORD: test
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-        ports:
-          - 5432:5432
-      api:
-        image: demostf/api
-        env:
-          BASE_HOST: localhost
-          DEMO_ROOT: /tmp
-          DEMO_HOST: localhost
-          DB_TYPE: pgsql
-          DB_HOST: db
-          DB_PORT: 5432
-          DB_DATABASE: postgres
-          DB_USERNAME: postgres
-          DB_PASSWORD: test
-          APP_ROOT: https://localhost
-          EDIT_SECRET: edit
-        volumes:
-          - src:/app
-      nginx:
-        image: demostf/api-nginx-test
-        ports:
-          - 80:80
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.2'
-          extensions: apcu
-      - name: Composer
-        run: composer install
-      - name: copy code
-        run: |
-          docker run -v src:/data --name helper busybox true
-          docker cp src helper:/data/
-          docker cp vendor helper:/data/
-          docker rm helper
-      - env:
-          DB_URL: postgres://postgres:test@db:5432/postgres
-          BASE_URL: http://nginx
-          EDIT_KEY: edit
-        uses: docker://demostf/api-test
-
-  build-parser:
+  matrix:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v27
+      - id: set-matrix
+        run: echo "matrix={\"check\":$(nix eval --json '.#checks.x86_64-linux' --apply 'builtins.attrNames')}" | tee -a $GITHUB_OUTPUT
+
+  checks:
+    runs-on: ubuntu-latest
+    needs: [matrix]
     strategy:
-      matrix:
-        machine:
-          - platform: x86_64-linux
-          - platform: aarch64-linux
+      fail-fast: false
+      matrix: ${{fromJson(needs.matrix.outputs.matrix)}}
+    name: ${{ matrix.check }}
     steps:
       - uses: actions/checkout@v4
-      - if: matrix.machine.platform != 'x86_64-linux'
-        uses: docker/setup-qemu-action@v3
-      - uses: cachix/install-nix-action@v26
-        with:
-          extra_nix_config: |
-            extra-platforms = aarch64-linux
-      - uses: icewind1991/attic-action@v1
-        with:
-          name: ci
-          instance: https://cache.icewind.me
-          authToken: '${{ secrets.ATTIC_TOKEN }}'
-      - run: nix build --option system ${{ matrix.machine.platform }} .#demostf-parser
-
-  build:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        machine:
-          - platform: x86_64-linux
-          - platform: aarch64-linux
-    steps:
-      - uses: actions/checkout@v4
-      - if: matrix.machine.platform != 'x86_64-linux'
-        uses: docker/setup-qemu-action@v3
-      - uses: cachix/install-nix-action@v26
-        with:
-          extra_nix_config: |
-            extra-platforms = aarch64-linux
-      - uses: icewind1991/attic-action@v1
-        with:
-          name: ci
-          instance: https://cache.icewind.me
-          authToken: '${{ secrets.ATTIC_TOKEN }}'
-      - run: nix build --option system ${{ matrix.machine.platform }}
-
-
-  build-docker:
-    runs-on: ubuntu-latest
-    needs: [build, build-parser]
-    strategy:
-      matrix:
-        machine:
-          - platform: x86_64-linux
-          - platform: aarch64-linux
-    steps:
-      - uses: actions/checkout@v4
-      - if: matrix.machine.platform != 'x86_64-linux'
-        uses: docker/setup-qemu-action@v3
-      - uses: cachix/install-nix-action@v26
-        with:
-          extra_nix_config: |
-            extra-platforms = aarch64-linux
-      - uses: icewind1991/attic-action@v1
-        with:
-          name: ci
-          instance: https://cache.icewind.me
-          authToken: '${{ secrets.ATTIC_TOKEN }}'
-      - run: nix build --option system ${{ matrix.machine.platform }} .#demostf-api-docker
-
-  docker:
-    runs-on: ubuntu-latest
-    needs: [build-docker, api, phpunit]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
       - uses: cachix/install-nix-action@v26
       - uses: icewind1991/attic-action@v1
         with:
           name: ci
           instance: https://cache.icewind.me
-      - run: nix run .#dockerManifest
-        if: github.ref == 'refs/heads/master'
-        env:
-          VERSION: "1.0.0"
-          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          authToken: "${{ secrets.ATTIC_TOKEN }}"
+      - run: nix build .#checks.x86_64-linux.${{ matrix.check }}

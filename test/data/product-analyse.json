@@ -1,1597 +1,1597 @@
 {
-    "score": {
-        "red": 3,
-        "blue": 0
+  "score": {
+    "red": 3,
+    "blue": 0
+  },
+  "chat": [
+    {
+      "time": 926,
+      "from": "Foz",
+      "text": "gg"
     },
-    "chat": [
-        {
-            "time": 926,
-            "from": "Foz",
-            "text": "gg"
-        },
-        {
-            "time": 769,
-            "from": "\uff2d\uff41\uff53\uff4f\uff4e\u2727",
-            "text": "gg"
-        },
-        {
-            "time": 770,
-            "from": "Kireek",
-            "text": "gg"
-        },
-        {
-            "time": 770,
-            "from": "Sketis",
-            "text": "wp"
-        },
-        {
-            "time": 771,
-            "from": "Vinegar",
-            "text": "gg"
-        },
-        {
-            "time": 771,
-            "from": "Pendulum",
-            "text": "gg in chat"
-        },
-        {
-            "time": 772,
-            "from": "Icewind | demos.tf",
-            "text": "gg"
-        },
-        {
-            "time": 773,
-            "from": "Solar",
-            "text": "gg"
-        },
-        {
-            "time": 775,
-            "from": "magikarp",
-            "text": "gg"
-        }
-    ],
-    "players": [
-        {
-            "name": "Icewind | demos.tf",
-            "demo_user_id": 30,
-            "steam_id": "[U:1:64229260]",
-            "team": "red",
-            "class": "medic"
-        },
-        {
-            "name": "Foz",
-            "demo_user_id": 32,
-            "steam_id": "[U:1:115748435]",
-            "team": "red",
-            "class": "soldier"
-        },
-        {
-            "name": "Chicken Meatballs, FOZ",
-            "demo_user_id": 36,
-            "steam_id": "[U:1:115754284]",
-            "team": "red",
-            "class": "sniper"
-        },
-        {
-            "name": "Kireek",
-            "demo_user_id": 39,
-            "steam_id": "[U:1:92428736]",
-            "team": "red",
-            "class": "engineer"
-        },
-        {
-            "name": "Vinegar",
-            "demo_user_id": 42,
-            "steam_id": "[U:1:22958903]",
-            "team": "red",
-            "class": "spy"
-        },
-        {
-            "name": "[GC]Kimo",
-            "demo_user_id": 43,
-            "steam_id": "[U:1:32061783]",
-            "team": "red",
-            "class": "scout"
-        },
-        {
-            "name": "magikarp",
-            "demo_user_id": 44,
-            "steam_id": "[U:1:67502510]",
-            "team": "blue",
-            "class": "sniper"
-        },
-        {
-            "name": "Solar",
-            "demo_user_id": 45,
-            "steam_id": "[U:1:55128465]",
-            "team": "blue",
-            "class": "demoman"
-        },
-        {
-            "name": "ztreak",
-            "demo_user_id": 46,
-            "steam_id": "[U:1:301587080]",
-            "team": "blue",
-            "class": "scout"
-        },
-        {
-            "name": "TheMasterOfDisaster",
-            "demo_user_id": 47,
-            "steam_id": "[U:1:22162172]",
-            "team": "blue",
-            "class": "pyro"
-        },
-        {
-            "name": "Sage Luke",
-            "demo_user_id": 48,
-            "steam_id": "[U:1:13559571]",
-            "team": "blue",
-            "class": "medic"
-        },
-        {
-            "name": "Sketis",
-            "demo_user_id": 50,
-            "steam_id": "[U:1:71706948]",
-            "team": "blue",
-            "class": "engineer"
-        },
-        {
-            "name": "Pyla",
-            "demo_user_id": 51,
-            "steam_id": "[U:1:157204170]",
-            "team": "blue",
-            "class": "spy"
-        },
-        {
-            "name": "\uff2d\uff41\uff53\uff4f\uff4e\u2727",
-            "demo_user_id": 52,
-            "steam_id": "[U:1:30838206]",
-            "team": "blue",
-            "class": "heavyweapons"
-        },
-        {
-            "name": "\uff52\uff41\uff4e\uff45",
-            "demo_user_id": 53,
-            "steam_id": "[U:1:174774002]",
-            "team": "blue",
-            "class": "soldier"
-        },
-        {
-            "name": "Old Billy Riley",
-            "demo_user_id": 54,
-            "steam_id": "[U:1:92096346]",
-            "team": "red",
-            "class": "demoman"
-        },
-        {
-            "name": "Pendulum",
-            "demo_user_id": 55,
-            "steam_id": "[U:1:143626373]",
-            "team": "red",
-            "class": "heavyweapons"
-        },
-        {
-            "name": "Jedi(fla)master",
-            "demo_user_id": 56,
-            "steam_id": "[U:1:30220936]",
-            "team": "red",
-            "class": "pyro"
-        }
-    ],
-    "kills": [
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 50,
-            "weapon": "sniperrifle",
-            "tick": 10651
-        },
-        {
-            "killer": 55,
-            "assister": null,
-            "victim": 44,
-            "weapon": "minigun",
-            "tick": 10687
-        },
-        {
-            "killer": 39,
-            "assister": null,
-            "victim": 46,
-            "weapon": "shotgun_primary",
-            "tick": 10711
-        },
-        {
-            "killer": 32,
-            "assister": null,
-            "victim": 45,
-            "weapon": "quake_rl",
-            "tick": 10814
-        },
-        {
-            "killer": 32,
-            "assister": null,
-            "victim": 48,
-            "weapon": "quake_rl",
-            "tick": 10814
-        },
-        {
-            "killer": 55,
-            "assister": null,
-            "victim": 53,
-            "weapon": "minigun",
-            "tick": 10834
-        },
-        {
-            "killer": 45,
-            "assister": null,
-            "victim": 42,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 12037
-        },
-        {
-            "killer": 36,
-            "assister": 43,
-            "victim": 46,
-            "weapon": "sniperrifle",
-            "tick": 12152
-        },
-        {
-            "killer": 44,
-            "assister": null,
-            "victim": 56,
-            "weapon": "machina",
-            "tick": 12428
-        },
-        {
-            "killer": 51,
-            "assister": null,
-            "victim": 55,
-            "weapon": "spy_cicle",
-            "tick": 12450
-        },
-        {
-            "killer": 32,
-            "assister": 56,
-            "victim": 53,
-            "weapon": "quake_rl",
-            "tick": 12524
-        },
-        {
-            "killer": 44,
-            "assister": null,
-            "victim": 32,
-            "weapon": "machina",
-            "tick": 12736
-        },
-        {
-            "killer": 47,
-            "assister": null,
-            "victim": 42,
-            "weapon": "degreaser",
-            "tick": 12898
-        },
-        {
-            "killer": 39,
-            "assister": null,
-            "victim": 47,
-            "weapon": "obj_minisentry",
-            "tick": 13042
-        },
-        {
-            "killer": 51,
-            "assister": 47,
-            "victim": 39,
-            "weapon": "spy_cicle",
-            "tick": 13096
-        },
-        {
-            "killer": 44,
-            "assister": null,
-            "victim": 30,
-            "weapon": "machina",
-            "tick": 13696
-        },
-        {
-            "killer": 54,
-            "assister": 43,
-            "victim": 52,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 13800
-        },
-        {
-            "killer": 46,
-            "assister": 48,
-            "victim": 42,
-            "weapon": "scattergun",
-            "tick": 13992
-        },
-        {
-            "killer": 45,
-            "assister": 48,
-            "victim": 43,
-            "weapon": "iron_bomber",
-            "tick": 14272
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 46,
-            "weapon": "sniperrifle",
-            "tick": 14529
-        },
-        {
-            "killer": 44,
-            "assister": 48,
-            "victim": 56,
-            "weapon": "machina",
-            "tick": 14830
-        },
-        {
-            "killer": 45,
-            "assister": null,
-            "victim": 54,
-            "weapon": "iron_bomber",
-            "tick": 14918
-        },
-        {
-            "killer": 39,
-            "assister": null,
-            "victim": 51,
-            "weapon": "shotgun_primary",
-            "tick": 15509
-        },
-        {
-            "killer": 42,
-            "assister": 55,
-            "victim": 44,
-            "weapon": "revolver",
-            "tick": 15738
-        },
-        {
-            "killer": 42,
-            "assister": null,
-            "victim": 47,
-            "weapon": "revolver",
-            "tick": 15900
-        },
-        {
-            "killer": 43,
-            "assister": null,
-            "victim": 45,
-            "weapon": "world",
-            "tick": 15991
-        },
-        {
-            "killer": 53,
-            "assister": 48,
-            "victim": 42,
-            "weapon": "blackbox",
-            "tick": 16105
-        },
-        {
-            "killer": 50,
-            "assister": 46,
-            "victim": 42,
-            "weapon": "rescue_ranger",
-            "tick": 16358
-        },
-        {
-            "killer": 54,
-            "assister": 39,
-            "victim": 46,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 16935
-        },
-        {
-            "killer": 43,
-            "assister": 55,
-            "victim": 52,
-            "weapon": "scattergun",
-            "tick": 17825
-        },
-        {
-            "killer": 53,
-            "assister": null,
-            "victim": 42,
-            "weapon": "blackbox",
-            "tick": 18178
-        },
-        {
-            "killer": 53,
-            "assister": 48,
-            "victim": 42,
-            "weapon": "blackbox",
-            "tick": 18791
-        },
-        {
-            "killer": 43,
-            "assister": 42,
-            "victim": 44,
-            "weapon": "scattergun",
-            "tick": 18936
-        },
-        {
-            "killer": 39,
-            "assister": 43,
-            "victim": 46,
-            "weapon": "obj_minisentry",
-            "tick": 19416
-        },
-        {
-            "killer": 36,
-            "assister": 54,
-            "victim": 52,
-            "weapon": "sniperrifle",
-            "tick": 19736
-        },
-        {
-            "killer": 43,
-            "assister": null,
-            "victim": 50,
-            "weapon": "scattergun",
-            "tick": 20060
-        },
-        {
-            "killer": 51,
-            "assister": null,
-            "victim": 42,
-            "weapon": "spy_cicle",
-            "tick": 20224
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 44,
-            "weapon": "sniperrifle",
-            "tick": 20521
-        },
-        {
-            "killer": 43,
-            "assister": 39,
-            "victim": 47,
-            "weapon": "scattergun",
-            "tick": 20730
-        },
-        {
-            "killer": 53,
-            "assister": null,
-            "victim": 42,
-            "weapon": "blackbox",
-            "tick": 20735
-        },
-        {
-            "killer": 50,
-            "assister": null,
-            "victim": 42,
-            "weapon": "obj_minisentry",
-            "tick": 21844
-        },
-        {
-            "killer": 32,
-            "assister": null,
-            "victim": 51,
-            "weapon": "quake_rl",
-            "tick": 21870
-        },
-        {
-            "killer": 45,
-            "assister": 48,
-            "victim": 56,
-            "weapon": "iron_bomber",
-            "tick": 21896
-        },
-        {
-            "killer": 47,
-            "assister": 50,
-            "victim": 42,
-            "weapon": "degreaser",
-            "tick": 22199
-        },
-        {
-            "killer": 53,
-            "assister": 52,
-            "victim": 43,
-            "weapon": "blackbox",
-            "tick": 22275
-        },
-        {
-            "killer": 39,
-            "assister": 55,
-            "victim": 53,
-            "weapon": "shotgun_primary",
-            "tick": 22464
-        },
-        {
-            "killer": 36,
-            "assister": 54,
-            "victim": 50,
-            "weapon": "sniperrifle",
-            "tick": 22520
-        },
-        {
-            "killer": 39,
-            "assister": 32,
-            "victim": 46,
-            "weapon": "obj_minisentry",
-            "tick": 22631
-        },
-        {
-            "killer": 42,
-            "assister": null,
-            "victim": 44,
-            "weapon": "world",
-            "tick": 22661
-        },
-        {
-            "killer": 39,
-            "assister": 55,
-            "victim": 47,
-            "weapon": "obj_minisentry",
-            "tick": 22835
-        },
-        {
-            "killer": 50,
-            "assister": null,
-            "victim": 42,
-            "weapon": "obj_minisentry",
-            "tick": 22855
-        },
-        {
-            "killer": 39,
-            "assister": 54,
-            "victim": 45,
-            "weapon": "shotgun_primary",
-            "tick": 23389
-        },
-        {
-            "killer": 44,
-            "assister": 46,
-            "victim": 36,
-            "weapon": "machina",
-            "tick": 24391
-        },
-        {
-            "killer": 53,
-            "assister": null,
-            "victim": 32,
-            "weapon": "blackbox",
-            "tick": 25148
-        },
-        {
-            "killer": 54,
-            "assister": 30,
-            "victim": 46,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 25196
-        },
-        {
-            "killer": 54,
-            "assister": 30,
-            "victim": 52,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 25196
-        },
-        {
-            "killer": 56,
-            "assister": 39,
-            "victim": 51,
-            "weapon": "degreaser",
-            "tick": 25264
-        },
-        {
-            "killer": 42,
-            "assister": null,
-            "victim": 53,
-            "weapon": "revolver",
-            "tick": 25358
-        },
-        {
-            "killer": 43,
-            "assister": 39,
-            "victim": 47,
-            "weapon": "scattergun",
-            "tick": 25397
-        },
-        {
-            "killer": 55,
-            "assister": 30,
-            "victim": 50,
-            "weapon": "minigun",
-            "tick": 25529
-        },
-        {
-            "killer": 42,
-            "assister": null,
-            "victim": 44,
-            "weapon": "spy_cicle",
-            "tick": 26007
-        },
-        {
-            "killer": 46,
-            "assister": 48,
-            "victim": 42,
-            "weapon": "scattergun",
-            "tick": 26411
-        },
-        {
-            "killer": 51,
-            "assister": null,
-            "victim": 55,
-            "weapon": "spy_cicle",
-            "tick": 26848
-        },
-        {
-            "killer": 42,
-            "assister": 39,
-            "victim": 50,
-            "weapon": "spy_cicle",
-            "tick": 27080
-        },
-        {
-            "killer": 46,
-            "assister": null,
-            "victim": 42,
-            "weapon": "scattergun",
-            "tick": 27450
-        },
-        {
-            "killer": 43,
-            "assister": 39,
-            "victim": 53,
-            "weapon": "scattergun",
-            "tick": 27955
-        },
-        {
-            "killer": 32,
-            "assister": 39,
-            "victim": 47,
-            "weapon": "quake_rl",
-            "tick": 28013
-        },
-        {
-            "killer": 44,
-            "assister": null,
-            "victim": 39,
-            "weapon": "machina",
-            "tick": 28049
-        },
-        {
-            "killer": 50,
-            "assister": null,
-            "victim": 42,
-            "weapon": "shotgun_primary",
-            "tick": 28311
-        },
-        {
-            "killer": 56,
-            "assister": null,
-            "victim": 51,
-            "weapon": "degreaser",
-            "tick": 28390
-        },
-        {
-            "killer": 54,
-            "assister": 32,
-            "victim": 46,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 28889
-        },
-        {
-            "killer": 32,
-            "assister": 54,
-            "victim": 48,
-            "weapon": "quake_rl",
-            "tick": 28896
-        },
-        {
-            "killer": 30,
-            "assister": null,
-            "victim": 45,
-            "weapon": "crusaders_crossbow",
-            "tick": 28970
-        },
-        {
-            "killer": 54,
-            "assister": null,
-            "victim": 52,
-            "weapon": "iron_bomber",
-            "tick": 28980
-        },
-        {
-            "killer": 50,
-            "assister": 52,
-            "victim": 32,
-            "weapon": "obj_minisentry",
-            "tick": 29040
-        },
-        {
-            "killer": 44,
-            "assister": 50,
-            "victim": 56,
-            "weapon": "machina",
-            "tick": 29090
-        },
-        {
-            "killer": 43,
-            "assister": 56,
-            "victim": 50,
-            "weapon": "scattergun",
-            "tick": 29314
-        },
-        {
-            "killer": 44,
-            "assister": null,
-            "victim": 56,
-            "weapon": "machina",
-            "tick": 31127
-        },
-        {
-            "killer": 32,
-            "assister": 43,
-            "victim": 47,
-            "weapon": "quake_rl",
-            "tick": 31559
-        },
-        {
-            "killer": 51,
-            "assister": null,
-            "victim": 55,
-            "weapon": "kunai",
-            "tick": 31673
-        },
-        {
-            "killer": 42,
-            "assister": null,
-            "victim": 52,
-            "weapon": "kunai",
-            "tick": 31675
-        },
-        {
-            "killer": 44,
-            "assister": 52,
-            "victim": 32,
-            "weapon": "machina",
-            "tick": 31717
-        },
-        {
-            "killer": 43,
-            "assister": 32,
-            "victim": 53,
-            "weapon": "scattergun",
-            "tick": 31726
-        },
-        {
-            "killer": 53,
-            "assister": null,
-            "victim": 43,
-            "weapon": "blackbox",
-            "tick": 31730
-        },
-        {
-            "killer": 54,
-            "assister": 39,
-            "victim": 50,
-            "weapon": "iron_bomber",
-            "tick": 31839
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 46,
-            "weapon": "sniperrifle",
-            "tick": 32125
-        },
-        {
-            "killer": 44,
-            "assister": 48,
-            "victim": 39,
-            "weapon": "machina",
-            "tick": 32651
-        },
-        {
-            "killer": 54,
-            "assister": null,
-            "victim": 45,
-            "weapon": "iron_bomber",
-            "tick": 32811
-        },
-        {
-            "killer": 42,
-            "assister": null,
-            "victim": 48,
-            "weapon": "letranger",
-            "tick": 33017
-        },
-        {
-            "killer": 56,
-            "assister": 43,
-            "victim": 51,
-            "weapon": "flaregun",
-            "tick": 33061
-        },
-        {
-            "killer": 54,
-            "assister": null,
-            "victim": 44,
-            "weapon": "iron_bomber",
-            "tick": 33203
-        },
-        {
-            "killer": 50,
-            "assister": 47,
-            "victim": 42,
-            "weapon": "shotgun_primary",
-            "tick": 34179
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 44,
-            "weapon": "sniperrifle",
-            "tick": 34920
-        },
-        {
-            "killer": 32,
-            "assister": null,
-            "victim": 51,
-            "weapon": "quake_rl",
-            "tick": 35322
-        },
-        {
-            "killer": 54,
-            "assister": 30,
-            "victim": 46,
-            "weapon": "iron_bomber",
-            "tick": 35465
-        },
-        {
-            "killer": 32,
-            "assister": 39,
-            "victim": 53,
-            "weapon": "quake_rl",
-            "tick": 36017
-        },
-        {
-            "killer": 39,
-            "assister": 55,
-            "victim": 47,
-            "weapon": "shotgun_primary",
-            "tick": 36265
-        },
-        {
-            "killer": 54,
-            "assister": 36,
-            "victim": 52,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 36441
-        },
-        {
-            "killer": 42,
-            "assister": null,
-            "victim": 44,
-            "weapon": "kunai",
-            "tick": 36717
-        },
-        {
-            "killer": 54,
-            "assister": 55,
-            "victim": 50,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 37567
-        },
-        {
-            "killer": 51,
-            "assister": null,
-            "victim": 32,
-            "weapon": "kunai",
-            "tick": 37571
-        },
-        {
-            "killer": 51,
-            "assister": null,
-            "victim": 30,
-            "weapon": "kunai",
-            "tick": 38117
-        },
-        {
-            "killer": 44,
-            "assister": null,
-            "victim": 42,
-            "weapon": "machina",
-            "tick": 38131
-        },
-        {
-            "killer": 54,
-            "assister": 43,
-            "victim": 51,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 38255
-        },
-        {
-            "killer": 46,
-            "assister": null,
-            "victim": 55,
-            "weapon": "scattergun",
-            "tick": 38683
-        },
-        {
-            "killer": 43,
-            "assister": 54,
-            "victim": 52,
-            "weapon": "scattergun",
-            "tick": 38703
-        },
-        {
-            "killer": 39,
-            "assister": 55,
-            "victim": 46,
-            "weapon": "obj_minisentry",
-            "tick": 38787
-        },
-        {
-            "killer": 44,
-            "assister": null,
-            "victim": 54,
-            "weapon": "machina",
-            "tick": 38797
-        },
-        {
-            "killer": 45,
-            "assister": 48,
-            "victim": 43,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 38809
-        },
-        {
-            "killer": 32,
-            "assister": null,
-            "victim": 45,
-            "weapon": "quake_rl",
-            "tick": 39291
-        },
-        {
-            "killer": 56,
-            "assister": null,
-            "victim": 44,
-            "weapon": "flaregun",
-            "tick": 39351
-        },
-        {
-            "killer": 56,
-            "assister": null,
-            "victim": 48,
-            "weapon": "flaregun",
-            "tick": 39591
-        },
-        {
-            "killer": 36,
-            "assister": 32,
-            "victim": 47,
-            "weapon": "sniperrifle",
-            "tick": 39611
-        },
-        {
-            "killer": 56,
-            "assister": null,
-            "victim": 51,
-            "weapon": "degreaser",
-            "tick": 39747
-        },
-        {
-            "killer": 53,
-            "assister": null,
-            "victim": 56,
-            "weapon": "blackbox",
-            "tick": 39753
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 50,
-            "weapon": "sniperrifle",
-            "tick": 39775
-        },
-        {
-            "killer": 53,
-            "assister": null,
-            "victim": 32,
-            "weapon": "blackbox",
-            "tick": 40053
-        },
-        {
-            "killer": 39,
-            "assister": 55,
-            "victim": 53,
-            "weapon": "shotgun_primary",
-            "tick": 40183
-        },
-        {
-            "killer": 36,
-            "assister": 30,
-            "victim": 44,
-            "weapon": "sniperrifle",
-            "tick": 41360
-        },
-        {
-            "killer": 42,
-            "assister": 39,
-            "victim": 50,
-            "weapon": "kunai",
-            "tick": 41393
-        },
-        {
-            "killer": 55,
-            "assister": null,
-            "victim": 51,
-            "weapon": "minigun",
-            "tick": 41761
-        },
-        {
-            "killer": 36,
-            "assister": 54,
-            "victim": 47,
-            "weapon": "sniperrifle",
-            "tick": 42213
-        },
-        {
-            "killer": 45,
-            "assister": 52,
-            "victim": 42,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 42481
-        },
-        {
-            "killer": 43,
-            "assister": null,
-            "victim": 53,
-            "weapon": "scattergun",
-            "tick": 42735
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 44,
-            "weapon": "sniperrifle",
-            "tick": 42884
-        },
-        {
-            "killer": 43,
-            "assister": null,
-            "victim": 46,
-            "weapon": "scattergun",
-            "tick": 42912
-        },
-        {
-            "killer": 43,
-            "assister": 32,
-            "victim": 51,
-            "weapon": "scattergun",
-            "tick": 43261
-        },
-        {
-            "killer": 42,
-            "assister": null,
-            "victim": 47,
-            "weapon": "kunai",
-            "tick": 44809
-        },
-        {
-            "killer": 36,
-            "assister": 30,
-            "victim": 52,
-            "weapon": "sniperrifle",
-            "tick": 44963
-        },
-        {
-            "killer": 54,
-            "assister": 30,
-            "victim": 48,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 45381
-        },
-        {
-            "killer": 55,
-            "assister": 36,
-            "victim": 50,
-            "weapon": "minigun",
-            "tick": 45381
-        },
-        {
-            "killer": 51,
-            "assister": 50,
-            "victim": 56,
-            "weapon": "kunai",
-            "tick": 45551
-        },
-        {
-            "killer": 53,
-            "assister": null,
-            "victim": 42,
-            "weapon": "blackbox",
-            "tick": 45651
-        },
-        {
-            "killer": 45,
-            "assister": 50,
-            "victim": 32,
-            "weapon": "iron_bomber",
-            "tick": 45665
-        },
-        {
-            "killer": 32,
-            "assister": null,
-            "victim": 45,
-            "weapon": "quake_rl",
-            "tick": 45667
-        },
-        {
-            "killer": 39,
-            "assister": 43,
-            "victim": 51,
-            "weapon": "shotgun_primary",
-            "tick": 45729
-        },
-        {
-            "killer": 39,
-            "assister": 43,
-            "victim": 53,
-            "weapon": "obj_minisentry",
-            "tick": 45865
-        },
-        {
-            "killer": 39,
-            "assister": null,
-            "victim": 46,
-            "weapon": "obj_minisentry",
-            "tick": 46049
-        },
-        {
-            "killer": 54,
-            "assister": 43,
-            "victim": 45,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 47557
-        },
-        {
-            "killer": 53,
-            "assister": null,
-            "victim": 42,
-            "weapon": "blackbox",
-            "tick": 47775
-        },
-        {
-            "killer": 48,
-            "assister": null,
-            "victim": 32,
-            "weapon": "crusaders_crossbow",
-            "tick": 47827
-        },
-        {
-            "killer": 54,
-            "assister": 55,
-            "victim": 47,
-            "weapon": "iron_bomber",
-            "tick": 47953
-        },
-        {
-            "killer": 39,
-            "assister": 56,
-            "victim": 51,
-            "weapon": "shotgun_primary",
-            "tick": 47991
-        },
-        {
-            "killer": 52,
-            "assister": null,
-            "victim": 54,
-            "weapon": "tomislav",
-            "tick": 48053
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 52,
-            "weapon": "sniperrifle",
-            "tick": 48437
-        },
-        {
-            "killer": 43,
-            "assister": null,
-            "victim": 46,
-            "weapon": "scattergun",
-            "tick": 48509
-        },
-        {
-            "killer": 39,
-            "assister": 56,
-            "victim": 50,
-            "weapon": "obj_minisentry",
-            "tick": 48527
-        },
-        {
-            "killer": 44,
-            "assister": 48,
-            "victim": 36,
-            "weapon": "machina",
-            "tick": 48607
-        },
-        {
-            "killer": 39,
-            "assister": 43,
-            "victim": 53,
-            "weapon": "obj_minisentry",
-            "tick": 48773
-        },
-        {
-            "killer": 48,
-            "assister": null,
-            "victim": 43,
-            "weapon": "crusaders_crossbow",
-            "tick": 49049
-        },
-        {
-            "killer": 44,
-            "assister": 48,
-            "victim": 39,
-            "weapon": "machina",
-            "tick": 49121
-        },
-        {
-            "killer": 42,
-            "assister": 55,
-            "victim": 47,
-            "weapon": "kunai",
-            "tick": 49923
-        },
-        {
-            "killer": 32,
-            "assister": 55,
-            "victim": 44,
-            "weapon": "quake_rl",
-            "tick": 50659
-        },
-        {
-            "killer": 51,
-            "assister": null,
-            "victim": 55,
-            "weapon": "kunai",
-            "tick": 50825
-        },
-        {
-            "killer": 42,
-            "assister": null,
-            "victim": 45,
-            "weapon": "kunai",
-            "tick": 50845
-        },
-        {
-            "killer": 46,
-            "assister": 48,
-            "victim": 42,
-            "weapon": "scattergun",
-            "tick": 51071
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 52,
-            "weapon": "sniperrifle",
-            "tick": 51293
-        },
-        {
-            "killer": 56,
-            "assister": null,
-            "victim": 51,
-            "weapon": "degreaser",
-            "tick": 51801
-        },
-        {
-            "killer": 44,
-            "assister": 50,
-            "victim": 54,
-            "weapon": "machina",
-            "tick": 52481
-        },
-        {
-            "killer": 44,
-            "assister": null,
-            "victim": 43,
-            "weapon": "machina",
-            "tick": 52817
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 46,
-            "weapon": "sniperrifle",
-            "tick": 52849
-        },
-        {
-            "killer": 55,
-            "assister": 39,
-            "victim": 47,
-            "weapon": "minigun",
-            "tick": 52921
-        },
-        {
-            "killer": 52,
-            "assister": null,
-            "victim": 42,
-            "weapon": "tomislav",
-            "tick": 53161
-        },
-        {
-            "killer": 44,
-            "assister": null,
-            "victim": 56,
-            "weapon": "machina",
-            "tick": 53266
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 48,
-            "weapon": "sniperrifle",
-            "tick": 53406
-        },
-        {
-            "killer": 55,
-            "assister": 30,
-            "victim": 45,
-            "weapon": "minigun",
-            "tick": 53410
-        },
-        {
-            "killer": 32,
-            "assister": null,
-            "victim": 50,
-            "weapon": "quake_rl",
-            "tick": 53593
-        },
-        {
-            "killer": 32,
-            "assister": null,
-            "victim": 51,
-            "weapon": "quake_rl",
-            "tick": 53717
-        },
-        {
-            "killer": 42,
-            "assister": null,
-            "victim": 44,
-            "weapon": "ambassador",
-            "tick": 53846
-        },
-        {
-            "killer": 52,
-            "assister": null,
-            "victim": 42,
-            "weapon": "tomislav",
-            "tick": 54068
-        },
-        {
-            "killer": 54,
-            "assister": 30,
-            "victim": 53,
-            "weapon": "iron_bomber",
-            "tick": 54109
-        },
-        {
-            "killer": 47,
-            "assister": 46,
-            "victim": 42,
-            "weapon": "degreaser",
-            "tick": 54366
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 52,
-            "weapon": "sniperrifle",
-            "tick": 54711
-        },
-        {
-            "killer": 56,
-            "assister": null,
-            "victim": 51,
-            "weapon": "flaregun",
-            "tick": 55863
-        },
-        {
-            "killer": 44,
-            "assister": null,
-            "victim": 42,
-            "weapon": "machina",
-            "tick": 56325
-        },
-        {
-            "killer": 44,
-            "assister": null,
-            "victim": 32,
-            "weapon": "machina",
-            "tick": 56675
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 44,
-            "weapon": "sniperrifle",
-            "tick": 56805
-        },
-        {
-            "killer": 53,
-            "assister": null,
-            "victim": 36,
-            "weapon": "blackbox",
-            "tick": 57171
-        },
-        {
-            "killer": 56,
-            "assister": null,
-            "victim": 46,
-            "weapon": "world",
-            "tick": 57371
-        },
-        {
-            "killer": 56,
-            "assister": null,
-            "victim": 47,
-            "weapon": "degreaser",
-            "tick": 57595
-        },
-        {
-            "killer": 43,
-            "assister": null,
-            "victim": 51,
-            "weapon": "scattergun",
-            "tick": 57709
-        },
-        {
-            "killer": 43,
-            "assister": 55,
-            "victim": 53,
-            "weapon": "scattergun",
-            "tick": 57913
-        },
-        {
-            "killer": 42,
-            "assister": null,
-            "victim": 50,
-            "weapon": "spy_cicle",
-            "tick": 58611
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 46,
-            "weapon": "sniperrifle",
-            "tick": 59336
-        },
-        {
-            "killer": 55,
-            "assister": 43,
-            "victim": 45,
-            "weapon": "minigun",
-            "tick": 59474
-        },
-        {
-            "killer": 44,
-            "assister": null,
-            "victim": 42,
-            "weapon": "machina",
-            "tick": 59485
-        },
-        {
-            "killer": 55,
-            "assister": 39,
-            "victim": 53,
-            "weapon": "minigun",
-            "tick": 59647
-        },
-        {
-            "killer": 43,
-            "assister": 55,
-            "victim": 47,
-            "weapon": "scattergun",
-            "tick": 59904
-        },
-        {
-            "killer": 54,
-            "assister": null,
-            "victim": 51,
-            "weapon": "iron_bomber",
-            "tick": 59982
-        },
-        {
-            "killer": 44,
-            "assister": null,
-            "victim": 32,
-            "weapon": "machina",
-            "tick": 60275
-        },
-        {
-            "killer": 52,
-            "assister": 44,
-            "victim": 55,
-            "weapon": "tomislav",
-            "tick": 60564
-        },
-        {
-            "killer": 36,
-            "assister": null,
-            "victim": 52,
-            "weapon": "sniperrifle",
-            "tick": 60564
-        },
-        {
-            "killer": 45,
-            "assister": 50,
-            "victim": 56,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 60744
-        },
-        {
-            "killer": 54,
-            "assister": 56,
-            "victim": 50,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 60888
-        },
-        {
-            "killer": 54,
-            "assister": 36,
-            "victim": 44,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 60902
-        },
-        {
-            "killer": 45,
-            "assister": 48,
-            "victim": 54,
-            "weapon": "tf_projectile_pipe_remote",
-            "tick": 61046
-        },
-        {
-            "killer": 43,
-            "assister": null,
-            "victim": 53,
-            "weapon": "scattergun",
-            "tick": 61269
-        },
-        {
-            "killer": 53,
-            "assister": null,
-            "victim": 42,
-            "weapon": "blackbox",
-            "tick": 61295
-        },
-        {
-            "killer": 43,
-            "assister": 36,
-            "victim": 45,
-            "weapon": "atomizer",
-            "tick": 61579
-        },
-        {
-            "killer": 43,
-            "assister": 39,
-            "victim": 47,
-            "weapon": "scattergun",
-            "tick": 61763
-        },
-        {
-            "killer": 36,
-            "assister": 43,
-            "victim": 48,
-            "weapon": "sniperrifle",
-            "tick": 61857
-        },
-        {
-            "killer": 39,
-            "assister": null,
-            "victim": 46,
-            "weapon": "obj_minisentry",
-            "tick": 62221
-        }
-    ]
+    {
+      "time": 769,
+      "from": "\uff2d\uff41\uff53\uff4f\uff4e\u2727",
+      "text": "gg"
+    },
+    {
+      "time": 770,
+      "from": "Kireek",
+      "text": "gg"
+    },
+    {
+      "time": 770,
+      "from": "Sketis",
+      "text": "wp"
+    },
+    {
+      "time": 771,
+      "from": "Vinegar",
+      "text": "gg"
+    },
+    {
+      "time": 771,
+      "from": "Pendulum",
+      "text": "gg in chat"
+    },
+    {
+      "time": 772,
+      "from": "Icewind | demos.tf",
+      "text": "gg"
+    },
+    {
+      "time": 773,
+      "from": "Solar",
+      "text": "gg"
+    },
+    {
+      "time": 775,
+      "from": "magikarp",
+      "text": "gg"
+    }
+  ],
+  "players": [
+    {
+      "name": "Icewind | demos.tf",
+      "demo_user_id": 30,
+      "steam_id": "[U:1:64229260]",
+      "team": "red",
+      "class": "medic"
+    },
+    {
+      "name": "Foz",
+      "demo_user_id": 32,
+      "steam_id": "[U:1:115748435]",
+      "team": "red",
+      "class": "soldier"
+    },
+    {
+      "name": "Chicken Meatballs, FOZ",
+      "demo_user_id": 36,
+      "steam_id": "[U:1:115754284]",
+      "team": "red",
+      "class": "sniper"
+    },
+    {
+      "name": "Kireek",
+      "demo_user_id": 39,
+      "steam_id": "[U:1:92428736]",
+      "team": "red",
+      "class": "engineer"
+    },
+    {
+      "name": "Vinegar",
+      "demo_user_id": 42,
+      "steam_id": "[U:1:22958903]",
+      "team": "red",
+      "class": "spy"
+    },
+    {
+      "name": "[GC]Kimo",
+      "demo_user_id": 43,
+      "steam_id": "[U:1:32061783]",
+      "team": "red",
+      "class": "scout"
+    },
+    {
+      "name": "magikarp",
+      "demo_user_id": 44,
+      "steam_id": "[U:1:67502510]",
+      "team": "blue",
+      "class": "sniper"
+    },
+    {
+      "name": "Solar",
+      "demo_user_id": 45,
+      "steam_id": "[U:1:55128465]",
+      "team": "blue",
+      "class": "demoman"
+    },
+    {
+      "name": "ztreak",
+      "demo_user_id": 46,
+      "steam_id": "[U:1:301587080]",
+      "team": "blue",
+      "class": "scout"
+    },
+    {
+      "name": "TheMasterOfDisaster",
+      "demo_user_id": 47,
+      "steam_id": "[U:1:22162172]",
+      "team": "blue",
+      "class": "pyro"
+    },
+    {
+      "name": "Sage Luke",
+      "demo_user_id": 48,
+      "steam_id": "[U:1:13559571]",
+      "team": "blue",
+      "class": "medic"
+    },
+    {
+      "name": "Sketis",
+      "demo_user_id": 50,
+      "steam_id": "[U:1:71706948]",
+      "team": "blue",
+      "class": "engineer"
+    },
+    {
+      "name": "Pyla",
+      "demo_user_id": 51,
+      "steam_id": "[U:1:157204170]",
+      "team": "blue",
+      "class": "spy"
+    },
+    {
+      "name": "\uff2d\uff41\uff53\uff4f\uff4e\u2727",
+      "demo_user_id": 52,
+      "steam_id": "[U:1:30838206]",
+      "team": "blue",
+      "class": "heavyweapons"
+    },
+    {
+      "name": "\uff52\uff41\uff4e\uff45",
+      "demo_user_id": 53,
+      "steam_id": "[U:1:174774002]",
+      "team": "blue",
+      "class": "soldier"
+    },
+    {
+      "name": "Old Billy Riley",
+      "demo_user_id": 54,
+      "steam_id": "[U:1:92096346]",
+      "team": "red",
+      "class": "demoman"
+    },
+    {
+      "name": "Pendulum",
+      "demo_user_id": 55,
+      "steam_id": "[U:1:143626373]",
+      "team": "red",
+      "class": "heavyweapons"
+    },
+    {
+      "name": "Jedi(fla)master",
+      "demo_user_id": 56,
+      "steam_id": "[U:1:30220936]",
+      "team": "red",
+      "class": "pyro"
+    }
+  ],
+  "kills": [
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 50,
+      "weapon": "sniperrifle",
+      "tick": 10651
+    },
+    {
+      "killer": 55,
+      "assister": null,
+      "victim": 44,
+      "weapon": "minigun",
+      "tick": 10687
+    },
+    {
+      "killer": 39,
+      "assister": null,
+      "victim": 46,
+      "weapon": "shotgun_primary",
+      "tick": 10711
+    },
+    {
+      "killer": 32,
+      "assister": null,
+      "victim": 45,
+      "weapon": "quake_rl",
+      "tick": 10814
+    },
+    {
+      "killer": 32,
+      "assister": null,
+      "victim": 48,
+      "weapon": "quake_rl",
+      "tick": 10814
+    },
+    {
+      "killer": 55,
+      "assister": null,
+      "victim": 53,
+      "weapon": "minigun",
+      "tick": 10834
+    },
+    {
+      "killer": 45,
+      "assister": null,
+      "victim": 42,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 12037
+    },
+    {
+      "killer": 36,
+      "assister": 43,
+      "victim": 46,
+      "weapon": "sniperrifle",
+      "tick": 12152
+    },
+    {
+      "killer": 44,
+      "assister": null,
+      "victim": 56,
+      "weapon": "machina",
+      "tick": 12428
+    },
+    {
+      "killer": 51,
+      "assister": null,
+      "victim": 55,
+      "weapon": "spy_cicle",
+      "tick": 12450
+    },
+    {
+      "killer": 32,
+      "assister": 56,
+      "victim": 53,
+      "weapon": "quake_rl",
+      "tick": 12524
+    },
+    {
+      "killer": 44,
+      "assister": null,
+      "victim": 32,
+      "weapon": "machina",
+      "tick": 12736
+    },
+    {
+      "killer": 47,
+      "assister": null,
+      "victim": 42,
+      "weapon": "degreaser",
+      "tick": 12898
+    },
+    {
+      "killer": 39,
+      "assister": null,
+      "victim": 47,
+      "weapon": "obj_minisentry",
+      "tick": 13042
+    },
+    {
+      "killer": 51,
+      "assister": 47,
+      "victim": 39,
+      "weapon": "spy_cicle",
+      "tick": 13096
+    },
+    {
+      "killer": 44,
+      "assister": null,
+      "victim": 30,
+      "weapon": "machina",
+      "tick": 13696
+    },
+    {
+      "killer": 54,
+      "assister": 43,
+      "victim": 52,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 13800
+    },
+    {
+      "killer": 46,
+      "assister": 48,
+      "victim": 42,
+      "weapon": "scattergun",
+      "tick": 13992
+    },
+    {
+      "killer": 45,
+      "assister": 48,
+      "victim": 43,
+      "weapon": "iron_bomber",
+      "tick": 14272
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 46,
+      "weapon": "sniperrifle",
+      "tick": 14529
+    },
+    {
+      "killer": 44,
+      "assister": 48,
+      "victim": 56,
+      "weapon": "machina",
+      "tick": 14830
+    },
+    {
+      "killer": 45,
+      "assister": null,
+      "victim": 54,
+      "weapon": "iron_bomber",
+      "tick": 14918
+    },
+    {
+      "killer": 39,
+      "assister": null,
+      "victim": 51,
+      "weapon": "shotgun_primary",
+      "tick": 15509
+    },
+    {
+      "killer": 42,
+      "assister": 55,
+      "victim": 44,
+      "weapon": "revolver",
+      "tick": 15738
+    },
+    {
+      "killer": 42,
+      "assister": null,
+      "victim": 47,
+      "weapon": "revolver",
+      "tick": 15900
+    },
+    {
+      "killer": 43,
+      "assister": null,
+      "victim": 45,
+      "weapon": "world",
+      "tick": 15991
+    },
+    {
+      "killer": 53,
+      "assister": 48,
+      "victim": 42,
+      "weapon": "blackbox",
+      "tick": 16105
+    },
+    {
+      "killer": 50,
+      "assister": 46,
+      "victim": 42,
+      "weapon": "rescue_ranger",
+      "tick": 16358
+    },
+    {
+      "killer": 54,
+      "assister": 39,
+      "victim": 46,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 16935
+    },
+    {
+      "killer": 43,
+      "assister": 55,
+      "victim": 52,
+      "weapon": "scattergun",
+      "tick": 17825
+    },
+    {
+      "killer": 53,
+      "assister": null,
+      "victim": 42,
+      "weapon": "blackbox",
+      "tick": 18178
+    },
+    {
+      "killer": 53,
+      "assister": 48,
+      "victim": 42,
+      "weapon": "blackbox",
+      "tick": 18791
+    },
+    {
+      "killer": 43,
+      "assister": 42,
+      "victim": 44,
+      "weapon": "scattergun",
+      "tick": 18936
+    },
+    {
+      "killer": 39,
+      "assister": 43,
+      "victim": 46,
+      "weapon": "obj_minisentry",
+      "tick": 19416
+    },
+    {
+      "killer": 36,
+      "assister": 54,
+      "victim": 52,
+      "weapon": "sniperrifle",
+      "tick": 19736
+    },
+    {
+      "killer": 43,
+      "assister": null,
+      "victim": 50,
+      "weapon": "scattergun",
+      "tick": 20060
+    },
+    {
+      "killer": 51,
+      "assister": null,
+      "victim": 42,
+      "weapon": "spy_cicle",
+      "tick": 20224
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 44,
+      "weapon": "sniperrifle",
+      "tick": 20521
+    },
+    {
+      "killer": 43,
+      "assister": 39,
+      "victim": 47,
+      "weapon": "scattergun",
+      "tick": 20730
+    },
+    {
+      "killer": 53,
+      "assister": null,
+      "victim": 42,
+      "weapon": "blackbox",
+      "tick": 20735
+    },
+    {
+      "killer": 50,
+      "assister": null,
+      "victim": 42,
+      "weapon": "obj_minisentry",
+      "tick": 21844
+    },
+    {
+      "killer": 32,
+      "assister": null,
+      "victim": 51,
+      "weapon": "quake_rl",
+      "tick": 21870
+    },
+    {
+      "killer": 45,
+      "assister": 48,
+      "victim": 56,
+      "weapon": "iron_bomber",
+      "tick": 21896
+    },
+    {
+      "killer": 47,
+      "assister": 50,
+      "victim": 42,
+      "weapon": "degreaser",
+      "tick": 22199
+    },
+    {
+      "killer": 53,
+      "assister": 52,
+      "victim": 43,
+      "weapon": "blackbox",
+      "tick": 22275
+    },
+    {
+      "killer": 39,
+      "assister": 55,
+      "victim": 53,
+      "weapon": "shotgun_primary",
+      "tick": 22464
+    },
+    {
+      "killer": 36,
+      "assister": 54,
+      "victim": 50,
+      "weapon": "sniperrifle",
+      "tick": 22520
+    },
+    {
+      "killer": 39,
+      "assister": 32,
+      "victim": 46,
+      "weapon": "obj_minisentry",
+      "tick": 22631
+    },
+    {
+      "killer": 42,
+      "assister": null,
+      "victim": 44,
+      "weapon": "world",
+      "tick": 22661
+    },
+    {
+      "killer": 39,
+      "assister": 55,
+      "victim": 47,
+      "weapon": "obj_minisentry",
+      "tick": 22835
+    },
+    {
+      "killer": 50,
+      "assister": null,
+      "victim": 42,
+      "weapon": "obj_minisentry",
+      "tick": 22855
+    },
+    {
+      "killer": 39,
+      "assister": 54,
+      "victim": 45,
+      "weapon": "shotgun_primary",
+      "tick": 23389
+    },
+    {
+      "killer": 44,
+      "assister": 46,
+      "victim": 36,
+      "weapon": "machina",
+      "tick": 24391
+    },
+    {
+      "killer": 53,
+      "assister": null,
+      "victim": 32,
+      "weapon": "blackbox",
+      "tick": 25148
+    },
+    {
+      "killer": 54,
+      "assister": 30,
+      "victim": 46,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 25196
+    },
+    {
+      "killer": 54,
+      "assister": 30,
+      "victim": 52,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 25196
+    },
+    {
+      "killer": 56,
+      "assister": 39,
+      "victim": 51,
+      "weapon": "degreaser",
+      "tick": 25264
+    },
+    {
+      "killer": 42,
+      "assister": null,
+      "victim": 53,
+      "weapon": "revolver",
+      "tick": 25358
+    },
+    {
+      "killer": 43,
+      "assister": 39,
+      "victim": 47,
+      "weapon": "scattergun",
+      "tick": 25397
+    },
+    {
+      "killer": 55,
+      "assister": 30,
+      "victim": 50,
+      "weapon": "minigun",
+      "tick": 25529
+    },
+    {
+      "killer": 42,
+      "assister": null,
+      "victim": 44,
+      "weapon": "spy_cicle",
+      "tick": 26007
+    },
+    {
+      "killer": 46,
+      "assister": 48,
+      "victim": 42,
+      "weapon": "scattergun",
+      "tick": 26411
+    },
+    {
+      "killer": 51,
+      "assister": null,
+      "victim": 55,
+      "weapon": "spy_cicle",
+      "tick": 26848
+    },
+    {
+      "killer": 42,
+      "assister": 39,
+      "victim": 50,
+      "weapon": "spy_cicle",
+      "tick": 27080
+    },
+    {
+      "killer": 46,
+      "assister": null,
+      "victim": 42,
+      "weapon": "scattergun",
+      "tick": 27450
+    },
+    {
+      "killer": 43,
+      "assister": 39,
+      "victim": 53,
+      "weapon": "scattergun",
+      "tick": 27955
+    },
+    {
+      "killer": 32,
+      "assister": 39,
+      "victim": 47,
+      "weapon": "quake_rl",
+      "tick": 28013
+    },
+    {
+      "killer": 44,
+      "assister": null,
+      "victim": 39,
+      "weapon": "machina",
+      "tick": 28049
+    },
+    {
+      "killer": 50,
+      "assister": null,
+      "victim": 42,
+      "weapon": "shotgun_primary",
+      "tick": 28311
+    },
+    {
+      "killer": 56,
+      "assister": null,
+      "victim": 51,
+      "weapon": "degreaser",
+      "tick": 28390
+    },
+    {
+      "killer": 54,
+      "assister": 32,
+      "victim": 46,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 28889
+    },
+    {
+      "killer": 32,
+      "assister": 54,
+      "victim": 48,
+      "weapon": "quake_rl",
+      "tick": 28896
+    },
+    {
+      "killer": 30,
+      "assister": null,
+      "victim": 45,
+      "weapon": "crusaders_crossbow",
+      "tick": 28970
+    },
+    {
+      "killer": 54,
+      "assister": null,
+      "victim": 52,
+      "weapon": "iron_bomber",
+      "tick": 28980
+    },
+    {
+      "killer": 50,
+      "assister": 52,
+      "victim": 32,
+      "weapon": "obj_minisentry",
+      "tick": 29040
+    },
+    {
+      "killer": 44,
+      "assister": 50,
+      "victim": 56,
+      "weapon": "machina",
+      "tick": 29090
+    },
+    {
+      "killer": 43,
+      "assister": 56,
+      "victim": 50,
+      "weapon": "scattergun",
+      "tick": 29314
+    },
+    {
+      "killer": 44,
+      "assister": null,
+      "victim": 56,
+      "weapon": "machina",
+      "tick": 31127
+    },
+    {
+      "killer": 32,
+      "assister": 43,
+      "victim": 47,
+      "weapon": "quake_rl",
+      "tick": 31559
+    },
+    {
+      "killer": 51,
+      "assister": null,
+      "victim": 55,
+      "weapon": "kunai",
+      "tick": 31673
+    },
+    {
+      "killer": 42,
+      "assister": null,
+      "victim": 52,
+      "weapon": "kunai",
+      "tick": 31675
+    },
+    {
+      "killer": 44,
+      "assister": 52,
+      "victim": 32,
+      "weapon": "machina",
+      "tick": 31717
+    },
+    {
+      "killer": 43,
+      "assister": 32,
+      "victim": 53,
+      "weapon": "scattergun",
+      "tick": 31726
+    },
+    {
+      "killer": 53,
+      "assister": null,
+      "victim": 43,
+      "weapon": "blackbox",
+      "tick": 31730
+    },
+    {
+      "killer": 54,
+      "assister": 39,
+      "victim": 50,
+      "weapon": "iron_bomber",
+      "tick": 31839
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 46,
+      "weapon": "sniperrifle",
+      "tick": 32125
+    },
+    {
+      "killer": 44,
+      "assister": 48,
+      "victim": 39,
+      "weapon": "machina",
+      "tick": 32651
+    },
+    {
+      "killer": 54,
+      "assister": null,
+      "victim": 45,
+      "weapon": "iron_bomber",
+      "tick": 32811
+    },
+    {
+      "killer": 42,
+      "assister": null,
+      "victim": 48,
+      "weapon": "letranger",
+      "tick": 33017
+    },
+    {
+      "killer": 56,
+      "assister": 43,
+      "victim": 51,
+      "weapon": "flaregun",
+      "tick": 33061
+    },
+    {
+      "killer": 54,
+      "assister": null,
+      "victim": 44,
+      "weapon": "iron_bomber",
+      "tick": 33203
+    },
+    {
+      "killer": 50,
+      "assister": 47,
+      "victim": 42,
+      "weapon": "shotgun_primary",
+      "tick": 34179
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 44,
+      "weapon": "sniperrifle",
+      "tick": 34920
+    },
+    {
+      "killer": 32,
+      "assister": null,
+      "victim": 51,
+      "weapon": "quake_rl",
+      "tick": 35322
+    },
+    {
+      "killer": 54,
+      "assister": 30,
+      "victim": 46,
+      "weapon": "iron_bomber",
+      "tick": 35465
+    },
+    {
+      "killer": 32,
+      "assister": 39,
+      "victim": 53,
+      "weapon": "quake_rl",
+      "tick": 36017
+    },
+    {
+      "killer": 39,
+      "assister": 55,
+      "victim": 47,
+      "weapon": "shotgun_primary",
+      "tick": 36265
+    },
+    {
+      "killer": 54,
+      "assister": 36,
+      "victim": 52,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 36441
+    },
+    {
+      "killer": 42,
+      "assister": null,
+      "victim": 44,
+      "weapon": "kunai",
+      "tick": 36717
+    },
+    {
+      "killer": 54,
+      "assister": 55,
+      "victim": 50,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 37567
+    },
+    {
+      "killer": 51,
+      "assister": null,
+      "victim": 32,
+      "weapon": "kunai",
+      "tick": 37571
+    },
+    {
+      "killer": 51,
+      "assister": null,
+      "victim": 30,
+      "weapon": "kunai",
+      "tick": 38117
+    },
+    {
+      "killer": 44,
+      "assister": null,
+      "victim": 42,
+      "weapon": "machina",
+      "tick": 38131
+    },
+    {
+      "killer": 54,
+      "assister": 43,
+      "victim": 51,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 38255
+    },
+    {
+      "killer": 46,
+      "assister": null,
+      "victim": 55,
+      "weapon": "scattergun",
+      "tick": 38683
+    },
+    {
+      "killer": 43,
+      "assister": 54,
+      "victim": 52,
+      "weapon": "scattergun",
+      "tick": 38703
+    },
+    {
+      "killer": 39,
+      "assister": 55,
+      "victim": 46,
+      "weapon": "obj_minisentry",
+      "tick": 38787
+    },
+    {
+      "killer": 44,
+      "assister": null,
+      "victim": 54,
+      "weapon": "machina",
+      "tick": 38797
+    },
+    {
+      "killer": 45,
+      "assister": 48,
+      "victim": 43,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 38809
+    },
+    {
+      "killer": 32,
+      "assister": null,
+      "victim": 45,
+      "weapon": "quake_rl",
+      "tick": 39291
+    },
+    {
+      "killer": 56,
+      "assister": null,
+      "victim": 44,
+      "weapon": "flaregun",
+      "tick": 39351
+    },
+    {
+      "killer": 56,
+      "assister": null,
+      "victim": 48,
+      "weapon": "flaregun",
+      "tick": 39591
+    },
+    {
+      "killer": 36,
+      "assister": 32,
+      "victim": 47,
+      "weapon": "sniperrifle",
+      "tick": 39611
+    },
+    {
+      "killer": 56,
+      "assister": null,
+      "victim": 51,
+      "weapon": "degreaser",
+      "tick": 39747
+    },
+    {
+      "killer": 53,
+      "assister": null,
+      "victim": 56,
+      "weapon": "blackbox",
+      "tick": 39753
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 50,
+      "weapon": "sniperrifle",
+      "tick": 39775
+    },
+    {
+      "killer": 53,
+      "assister": null,
+      "victim": 32,
+      "weapon": "blackbox",
+      "tick": 40053
+    },
+    {
+      "killer": 39,
+      "assister": 55,
+      "victim": 53,
+      "weapon": "shotgun_primary",
+      "tick": 40183
+    },
+    {
+      "killer": 36,
+      "assister": 30,
+      "victim": 44,
+      "weapon": "sniperrifle",
+      "tick": 41360
+    },
+    {
+      "killer": 42,
+      "assister": 39,
+      "victim": 50,
+      "weapon": "kunai",
+      "tick": 41393
+    },
+    {
+      "killer": 55,
+      "assister": null,
+      "victim": 51,
+      "weapon": "minigun",
+      "tick": 41761
+    },
+    {
+      "killer": 36,
+      "assister": 54,
+      "victim": 47,
+      "weapon": "sniperrifle",
+      "tick": 42213
+    },
+    {
+      "killer": 45,
+      "assister": 52,
+      "victim": 42,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 42481
+    },
+    {
+      "killer": 43,
+      "assister": null,
+      "victim": 53,
+      "weapon": "scattergun",
+      "tick": 42735
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 44,
+      "weapon": "sniperrifle",
+      "tick": 42884
+    },
+    {
+      "killer": 43,
+      "assister": null,
+      "victim": 46,
+      "weapon": "scattergun",
+      "tick": 42912
+    },
+    {
+      "killer": 43,
+      "assister": 32,
+      "victim": 51,
+      "weapon": "scattergun",
+      "tick": 43261
+    },
+    {
+      "killer": 42,
+      "assister": null,
+      "victim": 47,
+      "weapon": "kunai",
+      "tick": 44809
+    },
+    {
+      "killer": 36,
+      "assister": 30,
+      "victim": 52,
+      "weapon": "sniperrifle",
+      "tick": 44963
+    },
+    {
+      "killer": 54,
+      "assister": 30,
+      "victim": 48,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 45381
+    },
+    {
+      "killer": 55,
+      "assister": 36,
+      "victim": 50,
+      "weapon": "minigun",
+      "tick": 45381
+    },
+    {
+      "killer": 51,
+      "assister": 50,
+      "victim": 56,
+      "weapon": "kunai",
+      "tick": 45551
+    },
+    {
+      "killer": 53,
+      "assister": null,
+      "victim": 42,
+      "weapon": "blackbox",
+      "tick": 45651
+    },
+    {
+      "killer": 45,
+      "assister": 50,
+      "victim": 32,
+      "weapon": "iron_bomber",
+      "tick": 45665
+    },
+    {
+      "killer": 32,
+      "assister": null,
+      "victim": 45,
+      "weapon": "quake_rl",
+      "tick": 45667
+    },
+    {
+      "killer": 39,
+      "assister": 43,
+      "victim": 51,
+      "weapon": "shotgun_primary",
+      "tick": 45729
+    },
+    {
+      "killer": 39,
+      "assister": 43,
+      "victim": 53,
+      "weapon": "obj_minisentry",
+      "tick": 45865
+    },
+    {
+      "killer": 39,
+      "assister": null,
+      "victim": 46,
+      "weapon": "obj_minisentry",
+      "tick": 46049
+    },
+    {
+      "killer": 54,
+      "assister": 43,
+      "victim": 45,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 47557
+    },
+    {
+      "killer": 53,
+      "assister": null,
+      "victim": 42,
+      "weapon": "blackbox",
+      "tick": 47775
+    },
+    {
+      "killer": 48,
+      "assister": null,
+      "victim": 32,
+      "weapon": "crusaders_crossbow",
+      "tick": 47827
+    },
+    {
+      "killer": 54,
+      "assister": 55,
+      "victim": 47,
+      "weapon": "iron_bomber",
+      "tick": 47953
+    },
+    {
+      "killer": 39,
+      "assister": 56,
+      "victim": 51,
+      "weapon": "shotgun_primary",
+      "tick": 47991
+    },
+    {
+      "killer": 52,
+      "assister": null,
+      "victim": 54,
+      "weapon": "tomislav",
+      "tick": 48053
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 52,
+      "weapon": "sniperrifle",
+      "tick": 48437
+    },
+    {
+      "killer": 43,
+      "assister": null,
+      "victim": 46,
+      "weapon": "scattergun",
+      "tick": 48509
+    },
+    {
+      "killer": 39,
+      "assister": 56,
+      "victim": 50,
+      "weapon": "obj_minisentry",
+      "tick": 48527
+    },
+    {
+      "killer": 44,
+      "assister": 48,
+      "victim": 36,
+      "weapon": "machina",
+      "tick": 48607
+    },
+    {
+      "killer": 39,
+      "assister": 43,
+      "victim": 53,
+      "weapon": "obj_minisentry",
+      "tick": 48773
+    },
+    {
+      "killer": 48,
+      "assister": null,
+      "victim": 43,
+      "weapon": "crusaders_crossbow",
+      "tick": 49049
+    },
+    {
+      "killer": 44,
+      "assister": 48,
+      "victim": 39,
+      "weapon": "machina",
+      "tick": 49121
+    },
+    {
+      "killer": 42,
+      "assister": 55,
+      "victim": 47,
+      "weapon": "kunai",
+      "tick": 49923
+    },
+    {
+      "killer": 32,
+      "assister": 55,
+      "victim": 44,
+      "weapon": "quake_rl",
+      "tick": 50659
+    },
+    {
+      "killer": 51,
+      "assister": null,
+      "victim": 55,
+      "weapon": "kunai",
+      "tick": 50825
+    },
+    {
+      "killer": 42,
+      "assister": null,
+      "victim": 45,
+      "weapon": "kunai",
+      "tick": 50845
+    },
+    {
+      "killer": 46,
+      "assister": 48,
+      "victim": 42,
+      "weapon": "scattergun",
+      "tick": 51071
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 52,
+      "weapon": "sniperrifle",
+      "tick": 51293
+    },
+    {
+      "killer": 56,
+      "assister": null,
+      "victim": 51,
+      "weapon": "degreaser",
+      "tick": 51801
+    },
+    {
+      "killer": 44,
+      "assister": 50,
+      "victim": 54,
+      "weapon": "machina",
+      "tick": 52481
+    },
+    {
+      "killer": 44,
+      "assister": null,
+      "victim": 43,
+      "weapon": "machina",
+      "tick": 52817
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 46,
+      "weapon": "sniperrifle",
+      "tick": 52849
+    },
+    {
+      "killer": 55,
+      "assister": 39,
+      "victim": 47,
+      "weapon": "minigun",
+      "tick": 52921
+    },
+    {
+      "killer": 52,
+      "assister": null,
+      "victim": 42,
+      "weapon": "tomislav",
+      "tick": 53161
+    },
+    {
+      "killer": 44,
+      "assister": null,
+      "victim": 56,
+      "weapon": "machina",
+      "tick": 53266
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 48,
+      "weapon": "sniperrifle",
+      "tick": 53406
+    },
+    {
+      "killer": 55,
+      "assister": 30,
+      "victim": 45,
+      "weapon": "minigun",
+      "tick": 53410
+    },
+    {
+      "killer": 32,
+      "assister": null,
+      "victim": 50,
+      "weapon": "quake_rl",
+      "tick": 53593
+    },
+    {
+      "killer": 32,
+      "assister": null,
+      "victim": 51,
+      "weapon": "quake_rl",
+      "tick": 53717
+    },
+    {
+      "killer": 42,
+      "assister": null,
+      "victim": 44,
+      "weapon": "ambassador",
+      "tick": 53846
+    },
+    {
+      "killer": 52,
+      "assister": null,
+      "victim": 42,
+      "weapon": "tomislav",
+      "tick": 54068
+    },
+    {
+      "killer": 54,
+      "assister": 30,
+      "victim": 53,
+      "weapon": "iron_bomber",
+      "tick": 54109
+    },
+    {
+      "killer": 47,
+      "assister": 46,
+      "victim": 42,
+      "weapon": "degreaser",
+      "tick": 54366
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 52,
+      "weapon": "sniperrifle",
+      "tick": 54711
+    },
+    {
+      "killer": 56,
+      "assister": null,
+      "victim": 51,
+      "weapon": "flaregun",
+      "tick": 55863
+    },
+    {
+      "killer": 44,
+      "assister": null,
+      "victim": 42,
+      "weapon": "machina",
+      "tick": 56325
+    },
+    {
+      "killer": 44,
+      "assister": null,
+      "victim": 32,
+      "weapon": "machina",
+      "tick": 56675
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 44,
+      "weapon": "sniperrifle",
+      "tick": 56805
+    },
+    {
+      "killer": 53,
+      "assister": null,
+      "victim": 36,
+      "weapon": "blackbox",
+      "tick": 57171
+    },
+    {
+      "killer": 56,
+      "assister": null,
+      "victim": 46,
+      "weapon": "world",
+      "tick": 57371
+    },
+    {
+      "killer": 56,
+      "assister": null,
+      "victim": 47,
+      "weapon": "degreaser",
+      "tick": 57595
+    },
+    {
+      "killer": 43,
+      "assister": null,
+      "victim": 51,
+      "weapon": "scattergun",
+      "tick": 57709
+    },
+    {
+      "killer": 43,
+      "assister": 55,
+      "victim": 53,
+      "weapon": "scattergun",
+      "tick": 57913
+    },
+    {
+      "killer": 42,
+      "assister": null,
+      "victim": 50,
+      "weapon": "spy_cicle",
+      "tick": 58611
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 46,
+      "weapon": "sniperrifle",
+      "tick": 59336
+    },
+    {
+      "killer": 55,
+      "assister": 43,
+      "victim": 45,
+      "weapon": "minigun",
+      "tick": 59474
+    },
+    {
+      "killer": 44,
+      "assister": null,
+      "victim": 42,
+      "weapon": "machina",
+      "tick": 59485
+    },
+    {
+      "killer": 55,
+      "assister": 39,
+      "victim": 53,
+      "weapon": "minigun",
+      "tick": 59647
+    },
+    {
+      "killer": 43,
+      "assister": 55,
+      "victim": 47,
+      "weapon": "scattergun",
+      "tick": 59904
+    },
+    {
+      "killer": 54,
+      "assister": null,
+      "victim": 51,
+      "weapon": "iron_bomber",
+      "tick": 59982
+    },
+    {
+      "killer": 44,
+      "assister": null,
+      "victim": 32,
+      "weapon": "machina",
+      "tick": 60275
+    },
+    {
+      "killer": 52,
+      "assister": 44,
+      "victim": 55,
+      "weapon": "tomislav",
+      "tick": 60564
+    },
+    {
+      "killer": 36,
+      "assister": null,
+      "victim": 52,
+      "weapon": "sniperrifle",
+      "tick": 60564
+    },
+    {
+      "killer": 45,
+      "assister": 50,
+      "victim": 56,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 60744
+    },
+    {
+      "killer": 54,
+      "assister": 56,
+      "victim": 50,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 60888
+    },
+    {
+      "killer": 54,
+      "assister": 36,
+      "victim": 44,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 60902
+    },
+    {
+      "killer": 45,
+      "assister": 48,
+      "victim": 54,
+      "weapon": "tf_projectile_pipe_remote",
+      "tick": 61046
+    },
+    {
+      "killer": 43,
+      "assister": null,
+      "victim": 53,
+      "weapon": "scattergun",
+      "tick": 61269
+    },
+    {
+      "killer": 53,
+      "assister": null,
+      "victim": 42,
+      "weapon": "blackbox",
+      "tick": 61295
+    },
+    {
+      "killer": 43,
+      "assister": 36,
+      "victim": 45,
+      "weapon": "atomizer",
+      "tick": 61579
+    },
+    {
+      "killer": 43,
+      "assister": 39,
+      "victim": 47,
+      "weapon": "scattergun",
+      "tick": 61763
+    },
+    {
+      "killer": 36,
+      "assister": 43,
+      "victim": 48,
+      "weapon": "sniperrifle",
+      "tick": 61857
+    },
+    {
+      "killer": 39,
+      "assister": null,
+      "victim": 46,
+      "weapon": "obj_minisentry",
+      "tick": 62221
+    }
+  ]
 }

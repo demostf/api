@@ -3,32 +3,32 @@
   "description": "api implementation for demos.tf",
   "license": "MIT",
   "require": {
-	"mikecao/flight": "^3.6",
-	"vlucas/phpdotenv": "^v5.4.1",
-	"ircmaxell/random-lib": "^v1.2.0",
-	"ehesp/steam-login": "^1.2",
-	"koraktor/steam-condenser": "dev-master#92dde9e3b462e93cc498fe795a712c61eec7051e",
-	"doctrine/dbal": "^3.3.6",
-	"ext-pdo": "*",
-	"ext-json": "*",
-	"ext-apcu": "*"
+    "mikecao/flight": "^3.6",
+    "vlucas/phpdotenv": "^v5.4.1",
+    "ircmaxell/random-lib": "^v1.2.0",
+    "ehesp/steam-login": "^1.2",
+    "koraktor/steam-condenser": "dev-master#92dde9e3b462e93cc498fe795a712c61eec7051e",
+    "doctrine/dbal": "^3.3.6",
+    "ext-pdo": "*",
+    "ext-json": "*",
+    "ext-apcu": "*"
   },
   "repositories": [
-	{
-	  "type": "vcs",
-	  "url": "https://github.com/koraktor/steam-condenser-php"
-	}
+    {
+      "type": "vcs",
+      "url": "https://github.com/koraktor/steam-condenser-php"
+    }
   ],
   "autoload": {
-	"psr-4": {
-	  "Demostf\\API\\": "src/",
-	  "Demostf\\API\\Test\\": "test/"
-	}
+    "psr-4": {
+      "Demostf\\API\\": "src/",
+      "Demostf\\API\\Test\\": "test/"
+    }
   },
   "require-dev": {
-	"phpunit/phpunit": "^9.5.20",
-	"friendsofphp/php-cs-fixer": "^v3.3.0",
-	"phpstan/phpstan": "^1.6.8"
+    "phpunit/phpunit": "^9.5.20",
+    "friendsofphp/php-cs-fixer": "^v3.3.0",
+    "phpstan/phpstan": "^1.6.8"
   },
   "config": {
     "allow-plugins": {

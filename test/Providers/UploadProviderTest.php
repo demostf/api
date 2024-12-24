@@ -273,14 +273,8 @@ class UploadProviderTest extends TestCase {
         $this->userProvider->store($steamId, $name);
     }
 
-    public function testUpload() {
-        copy(__DIR__ . '/../data/product.dem', $this->tmpDir . '/foo.dem');
-        copy(__DIR__ . '/../data/product-raw.json', $this->tmpDir . '/foo-raw.json');
-
-        $steamId = $this->getSteamId('123', 'a');
-        $token = $this->userProvider->store($steamId, 'a');
-
-        // pre-save the names so we dont have to get them from steam
+    private function preloadNames() {
+        // pre-save the names so we don't have to get them from steam
         $this->saveSteamId('[U:1:64229260]', 'Icewind');
         $this->saveSteamId('[U:1:115748435]', 'Foz');
         $this->saveSteamId('[U:1:115754284]', 'Deity');
@@ -299,6 +293,26 @@ class UploadProviderTest extends TestCase {
         $this->saveSteamId('[U:1:92096346]', 'Fish');
         $this->saveSteamId('[U:1:143626373]', 'Pendulum');
         $this->saveSteamId('[U:1:30220936]', 'Jedi');
+        $this->saveSteamId('[U:1:1104797071]', 'Katsu');
+    }
+
+    public function uploadProvider(): array {
+        return [
+            [__DIR__ . '/../data/product.dem', __DIR__ . '/../data/product-raw.json', 'koth_product_rc8', 0, 3],
+        ];
+    }
+
+    /**
+     * @dataProvider uploadProvider
+     */
+    public function testUpload(string $demo, string $parsed, string $map, int $blue, int $red) {
+        copy($demo, $this->tmpDir . '/foo.dem');
+        copy($parsed, $this->tmpDir . '/foo-raw.json');
+
+        $steamId = $this->getSteamId('123', 'a');
+        $token = $this->userProvider->store($steamId, 'a');
+
+        $this->preloadNames();
 
         $result = $this->uploadProvider->upload($token, 'RED', 'BLU', 'foodemo', $this->tmpDir . '/foo.dem');
         $this->assertStringStartsWith('STV available at: http://example.com/', $result);
@@ -309,8 +323,8 @@ class UploadProviderTest extends TestCase {
 
         $this->assertNotNull($demo);
 
-        $this->assertEquals('koth_product_rc8', $demo->getMap());
-        $this->assertEquals(0, $demo->getBlueScore());
-        $this->assertEquals(3, $demo->getRedScore());
+        $this->assertEquals($map, $demo->getMap());
+        $this->assertEquals($blue, $demo->getBlueScore());
+        $this->assertEquals($red, $demo->getRedScore());
     }
 }
