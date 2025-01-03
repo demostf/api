@@ -8,6 +8,7 @@
   };
   outputs = {flakelight, ...}:
     flakelight ./. {
+      pname = "demostf-api";
       withOverlays = [(import ./nix/overlay.nix)];
       packages = {
         api = pkgs: pkgs.demostf-api;
