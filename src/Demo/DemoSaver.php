@@ -38,6 +38,9 @@ class DemoSaver {
 
     public function saveDemo(ParsedDemo $demo, Header $header, StoredDemo $storedDemo, Upload $upload): int {
         $this->connection->beginTransaction();
+        $now = new \DateTimeImmutable();
+        $week = \DateInterval::createFromDateString('7 days');
+        $privateUntil = $upload->isPrivate() ? $now->add($week) : null;
 
         $demoId = $this->demoProvider->storeDemo(new Demo(
             0,
@@ -56,7 +59,8 @@ class DemoSaver {
             $upload->getUploaderId(),
             $upload->getHash(),
             $storedDemo->getBackend(),
-            $storedDemo->getPath()
+            $storedDemo->getPath(),
+            $privateUntil,
         ), $storedDemo->getBackend(), $storedDemo->getPath());
 
         $kills = [];

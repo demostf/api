@@ -96,6 +96,7 @@ class DemoProvider extends BaseProvider {
                 'nick' => $query->createNamedParameter($demo->getNick()),
                 '"playerCount"' => $query->createNamedParameter($demo->getPlayerCount(), PDO::PARAM_INT),
                 'hash' => $query->createNamedParameter($demo->getHash()),
+                'private_until' => $query->createNamedParameter($demo->getPrivateUntil()?->format(DATE_ATOM)),
             ])
             ->executeStatement();
 

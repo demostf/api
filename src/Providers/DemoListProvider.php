@@ -182,6 +182,7 @@ class DemoListProvider extends BaseProvider {
      *     'hash': string,
      *     'backend': string,
      *     'path': string,
+     *     'private_until': ?string,
      * }[] $rows
      *
      * @return Demo[]

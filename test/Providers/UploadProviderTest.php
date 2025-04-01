@@ -214,7 +214,7 @@ class UploadProviderTest extends TestCase {
 
     public function testUploadInvalidKey() {
         $this->expectException(InvalidKeyException::class);
-        $this->uploadProvider->upload('dummy', 'RED', 'BLU', 'dummy', 'dummy');
+        $this->uploadProvider->upload('dummy', 'RED', 'BLU', 'dummy', 'dummy', false);
     }
 
     public function testUploadNonDemo() {
@@ -226,7 +226,7 @@ class UploadProviderTest extends TestCase {
         $steamId = $this->getSteamId('123', 'a');
         $token = $this->userProvider->store($steamId, 'a');
 
-        $this->uploadProvider->upload($token, 'RED', 'BLU', 'dummy', $this->tmpDir . '/foo.dem');
+        $this->uploadProvider->upload($token, 'RED', 'BLU', 'dummy', $this->tmpDir . '/foo.dem', false);
     }
 
     public function testUploadExisting() {
@@ -253,7 +253,8 @@ class UploadProviderTest extends TestCase {
                 1,
                 $hash,
                 'b',
-                'p'
+                'p',
+                null,
             ),
             'test',
             'test'
@@ -264,7 +265,7 @@ class UploadProviderTest extends TestCase {
 
         $this->assertEquals(
             'STV available at: http://example.com/' . $id,
-            $this->uploadProvider->upload($token, 'RED', 'BLU', 'dummy', $this->tmpDir . '/foo.dem')
+            $this->uploadProvider->upload($token, 'RED', 'BLU', 'dummy', $this->tmpDir . '/foo.dem', false)
         );
     }
 
@@ -298,14 +299,15 @@ class UploadProviderTest extends TestCase {
 
     public function uploadProvider(): array {
         return [
-            [__DIR__ . '/../data/product.dem', __DIR__ . '/../data/product-raw.json', 'koth_product_rc8', 0, 3],
+            [__DIR__ . '/../data/product.dem', __DIR__ . '/../data/product-raw.json', 'koth_product_rc8', 0, 3, false],
+            [__DIR__ . '/../data/product.dem', __DIR__ . '/../data/product-raw.json', 'koth_product_rc8', 0, 3, true],
         ];
     }
 
     /**
      * @dataProvider uploadProvider
      */
-    public function testUpload(string $demo, string $parsed, string $map, int $blue, int $red) {
+    public function testUpload(string $demo, string $parsed, string $map, int $blue, int $red, bool $private) {
         copy($demo, $this->tmpDir . '/foo.dem');
         copy($parsed, $this->tmpDir . '/foo-raw.json');
 
@@ -314,7 +316,7 @@ class UploadProviderTest extends TestCase {
 
         $this->preloadNames();
 
-        $result = $this->uploadProvider->upload($token, 'RED', 'BLU', 'foodemo', $this->tmpDir . '/foo.dem');
+        $result = $this->uploadProvider->upload($token, 'RED', 'BLU', 'foodemo', $this->tmpDir . '/foo.dem', $private);
         $this->assertStringStartsWith('STV available at: http://example.com/', $result);
 
         $demoId = (int) substr($result, \strlen('STV available at: http://example.com/'));
@@ -326,5 +328,16 @@ class UploadProviderTest extends TestCase {
         $this->assertEquals($map, $demo->getMap());
         $this->assertEquals($blue, $demo->getBlueScore());
         $this->assertEquals($red, $demo->getRedScore());
+
+        $json = $demo->jsonSerialize();
+        if ($private) {
+            $this->assertEquals('', $json['url']);
+            $this->assertEquals('', $json['backend']);
+            $this->assertEquals('', $json['path']);
+        } else {
+            $this->assertEquals($demo->getUrl(), $json['url']);
+            $this->assertEquals($demo->getBackend(), $json['backend']);
+            $this->assertEquals($demo->getPath(), $json['path']);
+        }
     }
 }

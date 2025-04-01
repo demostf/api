@@ -51,7 +51,8 @@ class DemoListProviderTest extends TestCase {
             $uploaderId,
             'hash',
             'backend',
-            'path'
+            'path',
+            null,
         );
     }
 

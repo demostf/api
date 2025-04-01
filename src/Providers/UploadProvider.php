@@ -46,7 +46,7 @@ class UploadProvider extends BaseProvider {
         $this->uploadKey = $uploadKey;
     }
 
-    public function upload(string $key, string $red, string $blu, string $name, string $demoFile): string {
+    public function upload(string $key, string $red, string $blu, string $name, string $demoFile, bool $private): string {
         $nameParts = explode('/', $name);
         $name = array_pop($nameParts);
         $name = str_replace('%', '_', $name);
@@ -86,7 +86,7 @@ class UploadProvider extends BaseProvider {
 
         try {
             $storedDemo = $this->store->store($demoFile, $hash . '_' . $name);
-            $upload = new Upload($name, $red, $blu, $user->getId(), $hash);
+            $upload = new Upload($name, $red, $blu, $user->getId(), $hash, $private);
 
             $id = $this->demoSaver->saveDemo($parsed, $header, $storedDemo, $upload);
         } catch (\Exception $e) {

@@ -57,7 +57,8 @@ class DemoProviderTest extends TestCase {
             $uploader->getId(),
             'hash',
             'dummy',
-            'path'
+            'path',
+            null,
         );
         $demo->setUploaderUser($uploader);
 
@@ -114,8 +115,7 @@ class DemoProviderTest extends TestCase {
             'hash',
             'backend',
             'path',
-            'dummy',
-            'path'
+            null,
         );
 
         $id = $this->provider->storeDemo($demo, 'dummy', 'path');
@@ -179,7 +179,8 @@ class DemoProviderTest extends TestCase {
             $uploader->getId(),
             'hash',
             'dummy',
-            'path'
+            'path',
+            null,
         );
 
         $id = $this->provider->storeDemo($demo, 'dummy', 'path');
@@ -194,5 +195,62 @@ class DemoProviderTest extends TestCase {
 
         $storedDemo2 = $this->provider->get($id2);
         $this->assertEquals('http://example.com', $storedDemo2->getUrl());
+    }
+
+    public function privateDateProvider() {
+        return [
+            ['2 days', false],
+            ['-2 days', true],
+        ];
+    }
+
+    /**
+     * @dataProvider privateDateProvider
+     */
+    public function testPrivateDemo(string $until, bool $visible) {
+        $now = new \DateTimeImmutable();
+        $until = \DateInterval::createFromDateString($until);
+
+        $uploaderSteamId = $this->getSteamId('12345', 'test');
+        $this->userProvider->store($uploaderSteamId, 'test');
+
+        $uploader = $this->userProvider->get($uploaderSteamId->getSteamId64());
+
+        $demo = new Demo(
+            0,
+            'http://example.com',
+            'name',
+            'server',
+            12,
+            'nick',
+            'map',
+            new \DateTime(),
+            'RED',
+            'BLUE',
+            1,
+            2,
+            18,
+            $uploader->getId(),
+            'hash',
+            'dummy',
+            'path',
+            $now->add($until),
+        );
+
+        $id = $this->provider->storeDemo($demo, 'dummy', 'path');
+
+        $this->provider->setDemoUrl($id, 'foobackend', 'http://foo.example.com', 'bar');
+
+        $storedDemo = $this->provider->get($id);
+        $json = $storedDemo->jsonSerialize();
+        if ($visible) {
+            $this->assertEquals('http://foo.example.com', $json['url']);
+        } else {
+            $this->assertEquals('', $json['url']);
+        }
+
+        $storedDemo->showPrivateData(true);
+        $json = $storedDemo->jsonSerialize();
+        $this->assertEquals('http://foo.example.com', $json['url']);
     }
 }

@@ -10,13 +10,15 @@ class Upload {
     private string $blue;
     private int $uploaderId;
     private string $hash;
+    private bool $private;
 
-    public function __construct(string $name, string $red, string $blue, int $uploaderId, string $hash) {
+    public function __construct(string $name, string $red, string $blue, int $uploaderId, string $hash, bool $private) {
         $this->name = $name;
         $this->red = $red;
         $this->blue = $blue;
         $this->uploaderId = $uploaderId;
         $this->hash = $hash;
+        $this->private = $private;
     }
 
     public function getName(): string {
@@ -37,5 +39,9 @@ class Upload {
 
     public function getHash(): string {
         return $this->hash;
+    }
+
+    public function isPrivate(): bool {
+        return $this->private;
     }
 }

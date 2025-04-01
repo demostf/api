@@ -37,7 +37,8 @@ class DemoSaverTest extends TestCase {
             'DER',
             'ULB',
             $userProvider->getUserId('2345678', 'user2'),
-            'securehash'
+            'securehash',
+            false,
         );
 
         $header = new Header(

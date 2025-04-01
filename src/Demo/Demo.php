@@ -30,6 +30,9 @@ class Demo implements JsonSerializable {
     private string $hash;
     private string $backend;
     private string $path;
+    private bool $showPrivateData = false;
+
+    private ?\DateTimeImmutable $privateUntil;
 
     public function __construct(
         int $id,
@@ -48,7 +51,8 @@ class Demo implements JsonSerializable {
         int $uploader,
         string $hash,
         string $backend,
-        string $path
+        string $path,
+        ?\DateTimeImmutable $privateUntil,
     ) {
         $this->id = $id;
         $this->url = $url;
@@ -69,6 +73,7 @@ class Demo implements JsonSerializable {
         $this->path = $path;
         $this->players = null;
         $this->uploaderUser = null;
+        $this->privateUntil = $privateUntil;
     }
 
     public function getId(): int {
@@ -154,11 +159,13 @@ class Demo implements JsonSerializable {
      *     'hash': string,
      *     'backend': string,
      *     'path': string,
+     *     'private_until': ?string,
      * } $row
      *
      * @return Demo
      */
     public static function fromRow(array $row): self {
+        $private = $row['private_until'];
         return new self(
             (int) $row['id'],
             $row['url'],
@@ -176,7 +183,8 @@ class Demo implements JsonSerializable {
             (int) $row['uploader'],
             $row['hash'],
             $row['backend'],
-            $row['path']
+            $row['path'],
+            $private ? new \DateTimeImmutable($private) : null,
         );
     }
 
@@ -206,6 +214,10 @@ class Demo implements JsonSerializable {
         return $this->path;
     }
 
+    public function getPrivateUntil(): ?\DateTimeImmutable {
+        return $this->privateUntil;
+    }
+
     /**
      * @return array{
      *     'id': int,
@@ -226,12 +238,15 @@ class Demo implements JsonSerializable {
      *     'backend': string,
      *     'path': string,
      *     'players': ?DemoPlayer
+     *     'private_until': ?string,
      * }
      */
     public function jsonSerialize(): array {
+        $now = new \DateTimeImmutable();
+        $isPublic = $this->showPrivateData || ($this->getPrivateUntil() ? $this->getPrivateUntil() <= $now : true);
         $data = [
             'id' => $this->getId(),
-            'url' => $this->getUrl(),
+            'url' => $isPublic ? $this->getUrl() : '',
             'name' => $this->getName(),
             'server' => $this->getServer(),
             'duration' => $this->getDuration(),
@@ -245,13 +260,18 @@ class Demo implements JsonSerializable {
             'playerCount' => $this->getPlayerCount(),
             'uploader' => $this->uploaderUser ? $this->getUploaderUser()->jsonSerialize() : $this->getUploader(),
             'hash' => $this->getHash(),
-            'backend' => $this->getBackend(),
-            'path' => $this->getPath(),
+            'backend' => $isPublic ? $this->getBackend() : '',
+            'path' => $isPublic ? $this->getPath() : '',
+            'private_until' => $this->getPrivateUntil()?->format(\DateTimeImmutable::ATOM),
         ];
         if (\is_array($this->players)) {
             $data['players'] = $this->getPlayers();
         }
 
         return $data;
+    }
+
+    function showPrivateData(bool $show): void {
+        $this->showPrivateData = $show;
     }
 }

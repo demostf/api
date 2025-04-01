@@ -28,7 +28,8 @@ class UploadController extends BaseController {
             return;
         }
         $demoFile = $demo['tmp_name'];
+        $private = $this->post('private', '0') === '1';
 
-        echo $this->uploadProvider->upload($key, $red, $blu, $name, $demoFile);
+        echo $this->uploadProvider->upload($key, $red, $blu, $name, $demoFile, $private);
     }
 }
