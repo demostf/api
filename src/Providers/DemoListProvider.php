@@ -189,7 +189,9 @@ class DemoListProvider extends BaseProvider {
      */
     protected function formatList(array $rows): array {
         return array_map(function ($row) {
-            return Demo::fromRow($row);
+            $demo = Demo::fromRow($row);
+            $demo->showPrivateData($this->showPrivateData);
+            return $demo;
         }, $rows);
     }
 }

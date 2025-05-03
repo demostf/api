@@ -8,6 +8,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 
 class BaseProvider {
+    protected bool $showPrivateData = false;
     protected Connection $connection;
 
     /**
@@ -29,5 +30,9 @@ class BaseProvider {
      */
     protected function getQueryBuilder() {
         return new QueryBuilder($this->connection);
+    }
+
+    function showPrivateData(bool $show): void {
+        $this->showPrivateData = $show;
     }
 }

@@ -43,7 +43,8 @@ class DemoControllerTest extends ControllerTest {
             $this->chatProvider,
             $this->demoListProvider,
             $this->demoStore,
-            'supersecretkey'
+            'supersecretkey',
+            'accesskey'
         );
     }
 

@@ -28,7 +28,8 @@ class DemoController extends BaseController {
         ChatProvider $chatProvider,
         DemoListProvider $demoListProvider,
         DemoStore $store,
-        string $editKey
+        string $editKey,
+        string $accessKey,
     ) {
         parent::__construct($request, $response);
         $this->demoProvider = $demoProvider;
@@ -36,6 +37,11 @@ class DemoController extends BaseController {
         $this->demoListProvider = $demoListProvider;
         $this->store = $store;
         $this->editKey = $editKey;
+
+        if ($this->getAccessKey() === $accessKey) {
+            $this->demoProvider->showPrivateData(true);
+            $this->demoListProvider->showPrivateData(true);
+        }
     }
 
     public function get(string $id): void {

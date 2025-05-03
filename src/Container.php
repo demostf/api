@@ -34,6 +34,7 @@ class Container {
     private Request $request;
     private Response $response;
     private string $uploadKey;
+    private string $accessKey;
 
     public function __construct(
         Request $request,
@@ -46,7 +47,8 @@ class Container {
         string $storeUrl,
         string $apiRoot,
         string $editKey,
-        string $uploadKey
+        string $uploadKey,
+        string $accessKey,
     ) {
         $this->request = $request;
         $this->response = $response;
@@ -59,6 +61,7 @@ class Container {
         $this->apiRoot = $apiRoot;
         $this->editKey = $editKey;
         $this->uploadKey = $uploadKey;
+        $this->accessKey = $accessKey;
     }
 
     public function getAuthProvider(): AuthProvider {
@@ -155,5 +158,9 @@ class Container {
 
     public function getUploadKey(): string {
         return $this->uploadKey;
+    }
+
+    public function getAccessKey(): string {
+        return $this->accessKey;
     }
 }

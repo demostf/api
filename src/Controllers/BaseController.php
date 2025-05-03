@@ -34,8 +34,12 @@ class BaseController {
         return $this->request->data[$name] ?? $default;
     }
 
+    protected function getAccessKey(): string {
+        return Request::getHeader('ACCESS-KEY');
+    }
+
     protected function getEditKey(): string {
-        $key = Request::getHeader('EDIT_KEY');
+        $key = Request::getHeader('EDIT-KEY');
         if ($key) {
             return $key;
         }

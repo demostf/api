@@ -43,6 +43,7 @@ class DemoProvider extends BaseProvider {
         if (null === $demo) {
             return null;
         }
+        $demo->showPrivateData($this->showPrivateData);
 
         if ($fetchDetails) {
             $uploader = $this->userProvider->getById($demo->getUploader());

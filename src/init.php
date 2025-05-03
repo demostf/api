@@ -60,6 +60,7 @@ $parserPath = getEnvVar('PARSER_PATH');
 $appRoot = getEnvVar('APP_ROOT');
 $editKey = getEnvVar('EDIT_SECRET');
 $uploadKey = getEnvVar('UPLOAD_KEY');
+$accessKey = getEnvVar('ACCESS_KEY');
 
 $factory = new \RandomLib\Factory();
 $generator = $factory->getMediumStrengthGenerator();
@@ -75,7 +76,8 @@ $container = new Container(
     $storeHost,
     $appRoot,
     $editKey,
-    $uploadKey
+    $uploadKey,
+    $accessKey,
 );
 
 return $container;

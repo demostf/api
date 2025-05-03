@@ -2,58 +2,14 @@
  * parser server
  */
 var DemoParser = require('tf2-demo');
-var express = require('express');
-var app = express();
-var url = require('url');
-var https = require('https');
-var http = require('http');
-
-app.set('port', (process.env.PORT || 80));
-app.use(express.static(__dirname + '/public'));
-
-app.get('/', function (request, response) {
-	response.send('Hello World!');
-});
-
-function handleDataStream(stream, cb) {
-	var buffers = [];
-	stream.on('data', function (buffer) {
-		buffers.push(buffer);
-	});
-	stream.on('end', function () {
-		try {
-			var buffer = Buffer.concat(buffers);
-			var demo = DemoParser.Demo.fromNodeBuffer(buffer);
-			var parser = demo.getParser(true);
-			var header = parser.readHeader();
-			var match = parser.parseBody();
-			var body = match.getState();
-			body.header = header;
-			cb(body);
-		} catch (e) {
-			cb(e);
-		}
-	});
-}
-
-app.post('/parse', function (req, res) {
-	handleDataStream(req, function (body) {
-		res.set('Content-Type', 'application/json');
-		res.write(JSON.stringify(body));
-		res.end();
-	})
-});
-
-app.listen(9123);
-
 
 const chakram = require('chakram');
 const expect = chakram.expect;
 const root = 'http://localhost:8000/';
 const fs = require('fs');
 
-process.env.PARSER_URL = `http://localhost:9123/parse`;
 process.env.EDIT_SECRET = 'edit_key';
+process.env.ACCESS_KEY = 'access';
 
 chakram.setRequestDefaults({baseUrl: root});
 
