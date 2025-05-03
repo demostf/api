@@ -147,7 +147,7 @@ class DemoController extends BaseController {
         $backend = $this->post('backend', '');
         $path = $this->post('path', '');
         $url = $this->post('url', '');
-        $editKey = $this->post('key', '');
+        $editKey = $this->getEditKey();
         if ($editKey !== $this->editKey || '' === $editKey) {
             throw new InvalidKeyException('Invalid key');
         }

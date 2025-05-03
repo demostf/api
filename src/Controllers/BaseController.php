@@ -34,6 +34,14 @@ class BaseController {
         return $this->request->data[$name] ?? $default;
     }
 
+    protected function getEditKey(): string {
+        $key = Request::getHeader('EDIT_KEY');
+        if ($key) {
+            return $key;
+        }
+        return $this->post('key', '');
+    }
+
     protected function json(
         mixed $data,
         int $code = 200,
