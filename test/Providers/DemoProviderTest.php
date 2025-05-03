@@ -248,6 +248,11 @@ class DemoProviderTest extends TestCase {
         } else {
             $this->assertEquals('', $json['url']);
         }
+        if ($visible) {
+            $this->assertEquals('hash', $json['hash']);
+        } else {
+            $this->assertEquals('', $json['hash']);
+        }
 
         $storedDemo->showPrivateData(true);
         $json = $storedDemo->jsonSerialize();

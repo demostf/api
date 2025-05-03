@@ -259,7 +259,7 @@ class Demo implements JsonSerializable {
             'blueScore' => $this->getBlueScore(),
             'playerCount' => $this->getPlayerCount(),
             'uploader' => $this->uploaderUser ? $this->getUploaderUser()->jsonSerialize() : $this->getUploader(),
-            'hash' => $this->getHash(),
+            'hash' => $isPublic ? $this->getHash() : '',
             'backend' => $isPublic ? $this->getBackend() : '',
             'path' => $isPublic ? $this->getPath() : '',
             'private_until' => $this->getPrivateUntil()?->format(\DateTimeImmutable::ATOM),
