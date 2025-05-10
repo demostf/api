@@ -27,5 +27,19 @@
         pkgs.demostf-api-php
         pkgs.nodejs
       ];
+      nixosModules = {outputs, ...}: {
+        default = {
+          pkgs,
+          config,
+          lib,
+          ...
+        }: {
+          imports = [./nix/module.nix];
+          config = lib.mkIf config.services.demostf.api.enable {
+            nixpkgs.overlays = [outputs.overlays.default];
+            services.demostf.api.package = lib.mkDefault pkgs.demostf-api;
+          };
+        };
+      };
     };
 }
