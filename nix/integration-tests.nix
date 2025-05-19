@@ -85,7 +85,6 @@
           "pm.max_spare_servers" = "15";
           "catch_workers_output" = "yes";
           "listen.owner" = "nginx";
-          "listen.group" = "nginx";
         };
         phpEnv = {
           BASE_HOST = "demos.tf";
@@ -97,11 +96,19 @@
           DB_DATABASE = "demostf";
           DB_USERNAME = "demostf";
           APP_ROOT = "http://localhost";
-          EDIT_SECRET = "edit";
+          EDIT_KEY = "/$CREDENTIALS_DIRECTORY/edit_key";
           PARSER_PATH = lib.getExe pkgs.demostf-parser;
         };
         user = "demostf";
         group = "demostf";
+      };
+      systemd.services.phpfpm-demostf-api.serviceConfig = {
+        User = "demostf";
+        AmbientCapabilities = "CAP_CHOWN";
+        NoNewPrivileges = true;
+        LoadCredential = [
+          "edit_key:${pkgs.writeText "edit-key.conf" "edit"}"
+        ];
       };
     };
   };

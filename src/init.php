@@ -15,6 +15,7 @@ $autoloader = require __DIR__ . '/../vendor/autoload.php';
 
 function getEnvVar(string $name): string {
     $var = getenv($name) ?: '';
+    error_log("$name='$var'");
     if (str_contains($var, '$CREDENTIALS_DIRECTORY')) {
         $credentialsDirectory = getenv('CREDENTIALS_DIRECTORY') ?: '';
         $path = str_replace('$CREDENTIALS_DIRECTORY', $credentialsDirectory, $var);
@@ -58,7 +59,7 @@ $storeRoot = getEnvVar('DEMO_ROOT');
 $storeHost = getEnvVar('DEMO_HOST');
 $parserPath = getEnvVar('PARSER_PATH');
 $appRoot = getEnvVar('APP_ROOT');
-$editKey = getEnvVar('EDIT_SECRET');
+$editKey = getEnvVar('EDIT_KEY');
 $uploadKey = getEnvVar('UPLOAD_KEY');
 $accessKey = getEnvVar('ACCESS_KEY');
 

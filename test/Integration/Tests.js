@@ -15,7 +15,7 @@ chakram.setRequestDefaults({baseUrl: root});
 
 before((done) => {
 	console.log('spawn server');
-	const server = require('child_process').spawn('php', ['-S', '0.0.0.0:8000', 'router.php'], {
+	const server = require('child_process').spawn('php', ['-d', 'post_max_size=100M', '-S', '0.0.0.0:8000', 'router.php'], {
 		cwd: __dirname + '/../',
 		env: process.env
 	});

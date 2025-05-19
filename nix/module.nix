@@ -4,6 +4,7 @@
   lib,
   ...
 }: let
+  inherit (lib) optionals optionalAttrs;
   cfg = config.services.demostf.api;
   fpmCfg = config.services.phpfpm.pools.demostf-api;
   exporterCfg = config.services.prometheus.exporters.php-fpm;
@@ -45,9 +46,20 @@ in {
         type = types.str;
         description = "path the demos are stored";
       };
-      keyFile = mkOption {
-        type = types.str;
-        description = "path containing key environment variables";
+      editKeyFile = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "path containing edit key environment variables";
+      };
+      uploadKeyFile = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "path containing upload key environment variables";
+      };
+      accessKeyFile = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+        description = "path containing access key environment variables";
       };
     };
   };
@@ -99,24 +111,46 @@ in {
         "listen.owner" = "nginx";
         "listen.group" = "nginx";
       };
-      phpEnv = {
-        BASE_HOST = cfg.baseDomain;
-        DEMO_ROOT = cfg.demoRoot;
-        DEMO_HOST = cfg.hostDomain;
-        DB_TYPE = "pgsql";
-        DB_HOST = "/run/postgresql";
-        DB_PORT = "5432";
-        DB_DATABASE = "demostf";
-        DB_USERNAME = "demostf";
-        APP_ROOT = "https://${cfg.apiDomain}";
-        PARSER_PATH = "${pkgs.demostf-parser}/bin/parse_demo";
-      };
+      phpEnv =
+        {
+          BASE_HOST = cfg.baseDomain;
+          DEMO_ROOT = cfg.demoRoot;
+          DEMO_HOST = cfg.hostDomain;
+          DB_TYPE = "pgsql";
+          DB_HOST = "/run/postgresql";
+          DB_PORT = "5432";
+          DB_DATABASE = "demostf";
+          DB_USERNAME = "demostf";
+          APP_ROOT = "https://${cfg.apiDomain}";
+          PARSER_PATH = "${pkgs.demostf-parser}/bin/parse_demo";
+        }
+        // (optionalAttrs (cfg.editKeyFile != null) {
+          EDIT_KEY = "/$CREDENTIALS_DIRECTORY/edit_key";
+        })
+        // (optionalAttrs (cfg.uploadKeyFile != null) {
+          UPLOAD_KEY = "/$CREDENTIALS_DIRECTORY/upload_key";
+        })
+        // (optionalAttrs (cfg.accessKeyFile != null) {
+          ACCESS_KEY = "/$CREDENTIALS_DIRECTORY/access_key";
+        });
       user = "demostf";
       group = "demostf";
     };
 
     systemd.services.phpfpm-demostf-api.serviceConfig = {
-      EnvironmentFile = cfg.keyFile;
+      User = "demostf";
+      AmbientCapabilities = "CAP_CHOWN";
+      NoNewPrivileges = true;
+      LoadCredential =
+        (optionals (cfg.editKeyFile != null) [
+          "edit_key:${cfg.editKeyFile}"
+        ])
+        ++ (optionals (cfg.uploadKeyFile != null) [
+          "upload_key:${cfg.uploadKeyFile}"
+        ])
+        ++ (optionals (cfg.accessKeyFile != null) [
+          "access_key:${cfg.accessKeyFile}"
+        ]);
     };
 
     services.prometheus.exporters.php-fpm = {
